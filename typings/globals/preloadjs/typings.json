@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/bffae6fcb76ce1fe73c8d074973dba50c2e942b1/preloadjs/index.d.ts",
+    "raw": "registry:dt/preloadjs#0.6.2+20161130143025",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/bffae6fcb76ce1fe73c8d074973dba50c2e942b1/preloadjs/index.d.ts"
+  }
+}
