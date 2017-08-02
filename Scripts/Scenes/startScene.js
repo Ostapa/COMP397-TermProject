@@ -18,7 +18,7 @@ var Scenes;
         StartScene.prototype.start = function () {
             this._background = new createjs.Bitmap(assets.getResult("initBackground"));
             this._playBtn = new objects.Button("playBtn", 320, 250);
-            this._instructionsBtn = new objects.Button("playBtn", 320, 325);
+            this._instructionsBtn = new objects.Button("playBtn", 320, 375);
             this.addChild(this._background, this._instructionsBtn, this._playBtn);
             stage.addChild(this);
             // Event listeners
