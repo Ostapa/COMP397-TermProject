@@ -7,25 +7,29 @@
     <!-- CSS Secion -->
     <link href="Content/game.css" rel="stylesheet" />
 </head>
-<body onload="init();">
+<body onload="preload();">
     <div class="game">
         <canvas id="canvas" width="640" height="480"></canvas>
     </div>
 
     <!-- JavaScript Libraries -->
     <script src="Scripts/Config/config.js"></script>
-    <script src="Scripts/lib/easeljs-0.8.2.min.js"></script>
     <script src="Scripts/lib/preloadjs-0.6.2.min.js"></script>
+    <script src="Scripts/lib/easeljs-0.8.2.min.js"></script>
     <script src="Scripts/lib/tweenjs-0.6.2.min.js"></script>
     <script src="Scripts/lib/soundjs-0.6.2.min.js"></script>    
     <!-- JavaScript Section -->
     <script src="Scripts/core/game.js"></script>
 
     <!-- Game Scripts -->
+    <script src="Scripts/objects/asset.js"></script>
     <script src="Scripts/objects/label.js"></script>
     <script src="Scripts/objects/button.js"></script>
+    <script src="Scripts/objects/scene.js"></script>  
 
     <script src="Scripts/Scenes/startScene.js"></script>
+    <script src="Scripts/Scenes/controlsScene.js"></script>
+    <script src="Scripts/Scenes/gameScene.js"></script>
 
     <script src="Scripts/core/game.js"></script>
 </body>

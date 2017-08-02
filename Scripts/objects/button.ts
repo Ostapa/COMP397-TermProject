@@ -7,7 +7,7 @@ module objects {
 
         // constructor
         constructor(path:string, x:number, y:number) {
-            super(path);
+            super(assets.getResult(path));
             this.x = x;
             this.y = y;
 
