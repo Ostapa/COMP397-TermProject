@@ -29,7 +29,7 @@ declare namespace createjs {
         destroy(): void;
         getItem(value?: string): Object;
         getLoadedItems(): Object[];
-        getResult(value?: any, rawResult?: boolean): Object;
+        getResult(value?: any, rawResult?: boolean): Object | string;
         getTag(): Object;
         load(): void;
         setTag(tag: Object): void;

@@ -15,7 +15,7 @@ var objects;
         __extends(Button, _super);
         // constructor
         function Button(path, x, y) {
-            var _this = _super.call(this, path) || this;
+            var _this = _super.call(this, assets.getResult(path)) || this;
             _this.x = x;
             _this.y = y;
             _this.width = 150;

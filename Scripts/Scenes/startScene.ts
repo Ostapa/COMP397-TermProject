@@ -1,11 +1,39 @@
 module Scenes {
-    export function start():void {
-        scene = new createjs.Container;
+    export class StartScene extends objects.Scene {
 
-        var background:any = new createjs.Bitmap("../Assets/Images/gameBackground.png");
-        startButton = new objects.Button("../Assets/Buttons/startBtn.png", 260, 240);
-        scene.addChild(background);
-        scene.addChild(startButton);
-        stage.addChild(scene);
+        // private instance variables
+        private _background:createjs.Bitmap;
+        private _playBtn:objects.Button;
+        private _instructionsBtn:objects.Button;
+
+        constructor() {
+            super();
+        }
+        
+        public start(): void {
+            this._background = new createjs.Bitmap(assets.getResult("initBackground"));
+
+            this._playBtn = new objects.Button("playBtn", 320, 250);
+            this._instructionsBtn = new objects.Button("playBtn", 320, 325);
+            this.addChild(this._background, this._instructionsBtn, this._playBtn);
+            stage.addChild(this);
+
+            // Event listeners
+            this._instructionsBtn.on("click", this._instructionsBtn_Click, this);
+            this._playBtn.on("click", this._playBtn_Click, this);    
+        }
+        
+
+        // Event handlers
+        private _instructionsBtn_Click(event:createjs.MouseEvent) {
+            // change scene to controls scene
+            scene = config.Scene.CONTROLS_SCENE;
+            changeScene();
+        }
+
+        private _playBtn_Click(event:createjs.MouseEvent) {
+            scene = config.Scene.GAME_SCENE;
+            changeScene();
+        }
     }
 }

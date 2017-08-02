@@ -1,8 +1,10 @@
 module config {
     // State Constants
-    export var MENU_STATE: number = 0;
-    export var PLAY_STATE: number = 1;
-    export var OVER_STATE: number = 2;
+    export class Scene {
+        public static START_SCENE: number = 0;
+        public static CONTROLS_SCENE: number = 1;
+        public static GAME_SCENE: number = 2;
+    }
 
     // Screen Constants
     export class Screen {
