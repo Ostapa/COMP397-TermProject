@@ -3,25 +3,26 @@ module Scenes {
         // private instance variables 
         private _gameMap:createjs.Bitmap;
         private _settingsBtn:objects.Button;
-        private _homeBtn:objects.Button;
+        private _mainMenuBtn:objects.Button;
+        private _background:createjs.Bitmap;
 
         constructor() {
             super();
         }
 
         public start():void {
-            this._gameMap = new createjs.Bitmap(assets.getResult("initBackground"));
-            this._homeBtn = new objects.Button("playBtn", config.Screen.WIDTH - 150, config.Screen.HEIGHT - 75);
-
-            this.addChild(this._gameMap, this._homeBtn);
+            this._gameMap = new createjs.Bitmap(assets.getResult("mapOne"));
+            this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
+            this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
+            this.addChild(this._background,this._gameMap, this._mainMenuBtn);
 
             // event listener for home button
-            this._homeBtn.on("click", this._homeBtn_Click, this);
+            this._mainMenuBtn.on("click", this._mainMenuBtn_Click, this);
             stage.addChild(this);
         }
 
         // event handlers for click events 
-        private _homeBtn_Click(event:MouseEvent) {
+        private _mainMenuBtn_Click(event:MouseEvent) {
             scene = config.Scene.START_SCENE;
             changeScene();
         }

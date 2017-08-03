@@ -16,15 +16,15 @@ var Scenes;
             return _super.call(this) || this;
         }
         ControlsScene.prototype.start = function () {
-            this._background = new createjs.Bitmap(assets.getResult("initBackground"));
-            this._closeBtn = new objects.Button("playBtn", 500, 10);
-            this.addChild(this._background, this._closeBtn);
+            this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
+            this._backBtn = new objects.Button("backBtn", 95, 450);
+            this.addChild(this._background, this._backBtn);
             stage.addChild(this);
             // event listeners for close button click
-            this._closeBtn.on("click", this._closeBtn_Click, this);
+            this._backBtn.on("click", this._backBtn_Click, this);
         };
         // Event handlers
-        ControlsScene.prototype._closeBtn_Click = function (event) {
+        ControlsScene.prototype._backBtn_Click = function (event) {
             scene = config.Scene.START_SCENE;
             changeScene();
         };

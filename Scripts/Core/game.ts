@@ -16,8 +16,13 @@ var controlsScene:Scenes.ControlsScene;
 var gameScene:Scenes.GameScene;
 
 var assetData:objects.Asset[] = [
-    {id:"playBtn", src:"../../Assets/Buttons/startBtn.png"},
+    {id:"playBtn", src:"../../Assets/Buttons/playBtn.png"},
+    {id:"instructionsBtn", src:"../../Assets/Buttons/instructionsBtn.png"},
+    {id:"backBtn", src:"../../Assets/Buttons/backBtn.png"},
+    {id:"mainMenuBtn", src:"../../Assets/Buttons/mainMenuBtn.png"},
     {id:"initBackground", src:"../../Assets/Images/gameBackground.png"},
+    {id:"instructionsBackground", src:"../../Assets/Images/instructionsBackground.png"},
+    {id:"mapOne", src:"../../Assets/Maps/2.jpg"}
 ];
 // function to preload assets
 function preload() {
