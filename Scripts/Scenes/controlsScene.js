@@ -18,7 +18,20 @@ var Scenes;
         ControlsScene.prototype.start = function () {
             this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
             this._backBtn = new objects.Button("backBtn", 95, 450);
-            this.addChild(this._background, this._backBtn);
+            this._mouseIconLeft = new createjs.Bitmap(assets.getResult("mouseIconLeft"));
+            this._mouseIconLeft.x = 425;
+            this._mouseIconLeft.y = 325;
+            this._instructTitle = new createjs.Text("Instructions", "60px Arial", "#c6bf9c");
+            this._instructTitle.x = 150;
+            this._instructTitle.y = 75;
+            this._instructMessage = new createjs.Text("1. Click and hold to pick up weapon \n" + "\n" +
+                                                      "2. Drag the weapon to an open and " + "\n" +
+                                                      "    desired location \n" + "\n" +
+                                                      "3. Release to drop weapon in the\n" +
+                                                      "    area", "25px Arial", "#c6bf9c");
+            this._instructMessage.x = 75;
+            this._instructMessage.y = 175;
+            this.addChild(this._background, this._backBtn, this._instructTitle, this._instructMessage, this._mouseIconLeft);
             stage.addChild(this);
             // event listeners for close button click
             this._backBtn.on("click", this._backBtn_Click, this);

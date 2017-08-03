@@ -15,6 +15,8 @@ var gameScene;
 var assetData = [
     { id: "playBtn", src: "../../Assets/Buttons/playBtn.png" },
     { id: "instructionsBtn", src: "../../Assets/Buttons/instructionsBtn.png" },
+    //{id:"mouseIconRight", src:"../../Assets/Images/mouseIconRight.png"},
+    { id: "mouseIconLeft", src: "../../Assets/Images/mouseIconLeft.png" },
     { id: "backBtn", src: "../../Assets/Buttons/backBtn.png" },
     { id: "mainMenuBtn", src: "../../Assets/Buttons/mainMenuBtn.png" },
     { id: "initBackground", src: "../../Assets/Images/gameBackground.png" },
