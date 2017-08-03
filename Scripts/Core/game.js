@@ -7,6 +7,7 @@ var assets;
 // Game Variables
 var currentScene; // alias for our current state
 var scene;
+var preloader;
 // Game Scenes
 var startScene;
 var controlsScene;
@@ -22,14 +23,22 @@ var assetData = [
 ];
 // function to preload assets
 function preload() {
+    canvas = document.getElementById("canvas"); // reference to canvas element
+    stage = new createjs.Stage(canvas); // passing canvas to stage
     assets = new createjs.LoadQueue();
     assets.installPlugin(createjs.Sound);
+    preloader = new objects.Preloader("#4c6051", "#000");
+    preloader.x = (config.Screen.WIDTH / 2) - (preloader.width / 2);
+    preloader.y = (config.Screen.HEIGHT / 2) - (preloader.height / 2);
+    stage.addChild(preloader);
+    assets.on("progress", updatePreload, this);
     assets.on("complete", init, this);
     assets.loadManifest(assetData);
 }
+function updatePreload() {
+    preloader.update(assets.progress);
+}
 function init() {
-    canvas = document.getElementById("canvas"); // reference to canvas element
-    stage = new createjs.Stage(canvas); // passing canvas to stage
     stage.enableMouseOver(20); // enable mouse events
     createjs.Ticker.setFPS(config.Game.FPS); // set frame rate to 60 fps
     createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame

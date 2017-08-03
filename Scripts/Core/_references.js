@@ -4,6 +4,7 @@
 /// <reference path = "../objects/label.ts"/>
 /// <reference path = "../objects/button.ts"/>
 /// <reference path = "../objects/scene.ts"/>
+/// <reference path = "../objects/preloader.ts"/>
 /// <reference path = "../Scenes/startScene.ts"/>
 /// <reference path = "../Scenes/controlsScene.ts"/>
 /// <reference path = "../Scenes/gameScene.ts"/>
