@@ -26,34 +26,30 @@ var assetData:objects.Asset[] = [
     {id:"mapOne", src:"../../Assets/Maps/2.jpg"}
 ];
 // function to preload assets
-function preload() {
-    canvas = document.getElementById("canvas"); // reference to canvas element
-    stage = new createjs.Stage(canvas); // passing canvas to stage
-    assets = new createjs.LoadQueue();
-    assets.installPlugin(createjs.Sound);
-    
-    preloader = new objects.Preloader("#4c6051", "#000");
-    preloader.x = (config.Screen.WIDTH / 2) - (preloader.width / 2);
-    preloader.y = (config.Screen.HEIGHT / 2) - (preloader.height / 2);
-    stage.addChild(preloader);
-    assets.on("progress", updatePreload, this);
-    assets.on("complete", init, this);
-    assets.loadManifest(assetData);
-    
-
-}
-
-function updatePreload():void {
-    preloader.update(assets.progress);
-}
-
 function init():void {
-    
     stage.enableMouseOver(20); // enable mouse events
     createjs.Ticker.setFPS(config.Game.FPS); // set frame rate to 60 fps
     createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame
     scene = config.Scene.START_SCENE;
     changeScene();
+}
+function preload() {
+    canvas = document.getElementById("canvas"); // reference to canvas element
+    stage = new createjs.Stage(canvas); // passing canvas to stage
+    assets = new createjs.LoadQueue();
+    assets.installPlugin(createjs.Sound);
+    preloader = new objects.Preloader("#4c6051", "#000");
+    preloader.x = (config.Screen.WIDTH / 2) - (preloader.width / 2);
+    preloader.y = (config.Screen.HEIGHT / 2) - (preloader.height / 2);
+    assets.on("progress", updatePreload, this);
+    assets.on("complete", init, this);
+    assets.loadManifest(assetData);
+    stage.addChild(preloader);
+}
+
+function updatePreload():void {
+    preloader.update(assets.progress);
+    stage.update();
 }
 
 // Main Game Loop

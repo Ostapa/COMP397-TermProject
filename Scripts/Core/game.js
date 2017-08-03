@@ -22,6 +22,13 @@ var assetData = [
     { id: "mapOne", src: "../../Assets/Maps/2.jpg" }
 ];
 // function to preload assets
+function init() {
+    stage.enableMouseOver(20); // enable mouse events
+    createjs.Ticker.setFPS(config.Game.FPS); // set frame rate to 60 fps
+    createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame
+    scene = config.Scene.START_SCENE;
+    changeScene();
+}
 function preload() {
     canvas = document.getElementById("canvas"); // reference to canvas element
     stage = new createjs.Stage(canvas); // passing canvas to stage
@@ -30,20 +37,14 @@ function preload() {
     preloader = new objects.Preloader("#4c6051", "#000");
     preloader.x = (config.Screen.WIDTH / 2) - (preloader.width / 2);
     preloader.y = (config.Screen.HEIGHT / 2) - (preloader.height / 2);
-    stage.addChild(preloader);
     assets.on("progress", updatePreload, this);
     assets.on("complete", init, this);
     assets.loadManifest(assetData);
+    stage.addChild(preloader);
 }
 function updatePreload() {
     preloader.update(assets.progress);
-}
-function init() {
-    stage.enableMouseOver(20); // enable mouse events
-    createjs.Ticker.setFPS(config.Game.FPS); // set frame rate to 60 fps
-    createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame
-    scene = config.Scene.START_SCENE;
-    changeScene();
+    stage.update();
 }
 // Main Game Loop
 function gameLoop(event) {
