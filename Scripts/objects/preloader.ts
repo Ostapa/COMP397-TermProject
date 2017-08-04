@@ -5,6 +5,8 @@ module objects {
         private _strokeColor:string;
         private _bar:createjs.Shape;
         private _outline:createjs.Shape;
+        private _logo:createjs.Bitmap;
+
         public width:number = 400;
         public height:number = 40;
 
@@ -24,7 +26,10 @@ module objects {
             this._bar.graphics.beginFill(this._fillColor);
             this._bar.graphics.drawRect(0,0, this.width, this.height);
             this._bar.scaleX = 0;
-            this.addChild(this._outline, this._bar);
+            this._logo = new createjs.Bitmap("../../Assets/Images/logo.png");
+            this._logo.x =  150;
+            this._logo.y = -175;
+            this.addChild(this._outline, this._bar, this._logo);
         }
         public update(percents:number):void {
             percents = percents > 1 ? 1 : percents;

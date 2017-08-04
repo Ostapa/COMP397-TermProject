@@ -19,7 +19,10 @@ var Scenes;
             this._background = new createjs.Bitmap(assets.getResult("initBackground"));
             this._playBtn = new objects.Button("playBtn", 95, 300);
             this._instructionsBtn = new objects.Button("instructionsBtn", 95, 365);
-            this.addChild(this._background, this._instructionsBtn, this._playBtn);
+            this._gameTitle = new createjs.Bitmap(assets.getResult("gameTitle"));
+            this._gameTitle.x = 280;
+            this._gameTitle.y = 30;
+            this.addChild(this._background, this._instructionsBtn, this._playBtn, this._gameTitle);
             stage.addChild(this);
             // Event listeners
             this._instructionsBtn.on("click", this._instructionsBtn_Click, this);

@@ -5,6 +5,7 @@ module Scenes {
         private _background:createjs.Bitmap;
         private _playBtn:objects.Button;
         private _instructionsBtn:objects.Button;
+        private _gameTitle:createjs.Bitmap;
 
         constructor() {
             super();
@@ -14,8 +15,11 @@ module Scenes {
             this._background = new createjs.Bitmap(assets.getResult("initBackground"));
             this._playBtn = new objects.Button("playBtn", 95, 300);
             this._instructionsBtn = new objects.Button("instructionsBtn", 95, 365);
+            this._gameTitle = new createjs.Bitmap(assets.getResult("gameTitle"));
+            this._gameTitle.x = 280;
+            this._gameTitle.y = 30;
 
-            this.addChild(this._background, this._instructionsBtn, this._playBtn);
+            this.addChild(this._background, this._instructionsBtn, this._playBtn, this._gameTitle);
             stage.addChild(this);
 
             // Event listeners

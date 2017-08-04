@@ -10,11 +10,11 @@ var assets: createjs.LoadQueue;
 var currentScene: objects.Scene; // alias for our current state
 var scene:number;
 var preloader:objects.Preloader;
-
 // Game Scenes
 var startScene:Scenes.StartScene;
 var controlsScene:Scenes.ControlsScene;
 var gameScene:Scenes.GameScene;
+
 
 var assetData:objects.Asset[] = [
     {id:"playBtn", src:"../../Assets/Buttons/playBtn.png"},
@@ -23,6 +23,8 @@ var assetData:objects.Asset[] = [
     {id:"mouseIconLeft", src:"../../Assets/Images/mouseIconLeft.png"},
     {id:"backBtn", src:"../../Assets/Buttons/backBtn.png"},
     {id:"mainMenuBtn", src:"../../Assets/Buttons/mainMenuBtn.png"},
+    {id:"gameTitle", src:"../../Assets/Images/Title.png"},
+    {id:"logo", src:"../../Assets/Images/logo.png"},
     {id:"initBackground", src:"../../Assets/Images/gameBackground.png"},
     {id:"instructionsBackground", src:"../../Assets/Images/instructionsBackground.png"},
     {id:"mapOne", src:"../../Assets/Maps/2.jpg"}

@@ -19,6 +19,8 @@ var assetData = [
     { id: "mouseIconLeft", src: "../../Assets/Images/mouseIconLeft.png" },
     { id: "backBtn", src: "../../Assets/Buttons/backBtn.png" },
     { id: "mainMenuBtn", src: "../../Assets/Buttons/mainMenuBtn.png" },
+    { id: "gameTitle", src: "../../Assets/Images/Title.png" },
+    { id: "logo", src: "../../Assets/Images/logo.png" },
     { id: "initBackground", src: "../../Assets/Images/gameBackground.png" },
     { id: "instructionsBackground", src: "../../Assets/Images/instructionsBackground.png" },
     { id: "mapOne", src: "../../Assets/Maps/2.jpg" }
