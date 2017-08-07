@@ -9,6 +9,7 @@ module Scenes {
 
         constructor() {
             super();
+            
         }
 
         public start(): void {
@@ -22,6 +23,8 @@ module Scenes {
             this.addChild(this._background, this._instructionsBtn, this._playBtn, this._gameTitle);
             stage.addChild(this);
 
+
+
             // Event listeners
             this._instructionsBtn.on("click", this._instructionsBtn_Click, this);
             this._playBtn.on("click", this._playBtn_Click, this);
@@ -32,6 +35,7 @@ module Scenes {
         private _instructionsBtn_Click(event:createjs.MouseEvent) {
             // change scene to controls scene
             scene = config.Scene.CONTROLS_SCENE;
+            
             changeScene();
         }
 

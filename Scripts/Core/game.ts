@@ -10,6 +10,8 @@ var assets: createjs.LoadQueue;
 var currentScene: objects.Scene; // alias for our current state
 var scene:number;
 var preloader:objects.Preloader;
+var backgroundSound:createjs.AbstractSoundInstance;
+
 // Game Scenes
 var startScene:Scenes.StartScene;
 var controlsScene:Scenes.ControlsScene;
@@ -19,7 +21,6 @@ var gameScene:Scenes.GameScene;
 var assetData:objects.Asset[] = [
     {id:"playBtn", src:"../../Assets/Buttons/playBtn.png"},
     {id:"instructionsBtn", src:"../../Assets/Buttons/instructionsBtn.png"},
-    //{id:"mouseIconRight", src:"../../Assets/Images/mouseIconRight.png"},
     {id:"mouseIconLeft", src:"../../Assets/Images/mouseIconLeft.png"},
     {id:"backBtn", src:"../../Assets/Buttons/backBtn.png"},
     {id:"mainMenuBtn", src:"../../Assets/Buttons/mainMenuBtn.png"},
@@ -27,7 +28,8 @@ var assetData:objects.Asset[] = [
     {id:"logo", src:"../../Assets/Images/logo.png"},
     {id:"initBackground", src:"../../Assets/Images/gameBackground.png"},
     {id:"instructionsBackground", src:"../../Assets/Images/instructionsBackground.png"},
-    {id:"mapOne", src:"../../Assets/Maps/2.jpg"}
+    {id:"mapOne", src:"../../Assets/Maps/map_level_1.jpeg"},
+    {id:"backSound", src:"../../Assets/Sounds/background.ogg"}
 ];
 // function to preload assets
 function init():void {
@@ -36,6 +38,8 @@ function init():void {
     createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame
     scene = config.Scene.START_SCENE;
     changeScene();
+    this.backgroundSound = createjs.Sound.play("backSound");
+    this.backgroundSound.loop = -1;
 }
 function preload() {
     canvas = document.getElementById("canvas"); // reference to canvas element
@@ -54,6 +58,7 @@ function preload() {
 function updatePreload():void {
     preloader.update(assets.progress);
     stage.update();
+    
 }
 
 // Main Game Loop

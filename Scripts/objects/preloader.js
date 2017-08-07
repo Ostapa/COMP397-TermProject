@@ -32,11 +32,15 @@ var objects;
             this._logo = new createjs.Bitmap("../../Assets/Images/logo.png");
             this._logo.x = 150;
             this._logo.y = -175;
-            this.addChild(this._outline, this._bar, this._logo);
+            this._percentage = new createjs.Text("0 %", "25px Arial", "#c6bf9c");
+            this._percentage.y = 5;
+            this._percentage.x = 175;
+            this.addChild(this._outline, this._bar, this._logo, this._percentage);
         };
         Preloader.prototype.update = function (percents) {
             percents = percents > 1 ? 1 : percents;
             this._bar.scaleX = percents;
+            this._percentage.text = (percents * 100).toFixed(0).toString() + " %";
         };
         return Preloader;
     }(createjs.Container));
