@@ -11,12 +11,64 @@ var currentScene: objects.Scene; // alias for our current state
 var scene:number;
 var preloader:objects.Preloader;
 var backgroundSound:createjs.AbstractSoundInstance;
+var textureSprite:createjs.SpriteSheet;
 
 // Game Scenes
 var startScene:Scenes.StartScene;
 var controlsScene:Scenes.ControlsScene;
 var gameScene:Scenes.GameScene;
 
+var zombieSprite = {
+    "images": [
+        "../../Assets/Images/zombies.png"
+    ],
+    "frames": [
+        [1, 1, 23, 31, 0, 0, 0],
+        [26, 1, 23, 31, 0, 0, 0],
+        [51, 1, 23, 31, 0, 0, 0],
+        [76, 1, 20, 31, 0, 0, 0],
+        [98, 1, 20, 31, 0, 0, 0],
+        [120, 1, 20, 31, 0, 0, 0],
+        [142, 1, 23, 31, 0, 0, 0],
+        [167, 1, 23, 31, 0, 0, 0],
+        [1, 34, 23, 31, 0, 0, 0],
+        [26, 34, 23, 31, 0, 0, 0],
+        [51, 34, 21, 31, 0, 0, 0],
+        [74, 34, 22, 31, 0, 0, 0],
+        [98, 34, 22, 31, 0, 0, 0],
+        [122, 34, 21, 31, 0, 0, 0],
+        [145, 34, 23, 31, 0, 0, 0],
+        [170, 34, 20, 32, 0, 0, 0],
+        [1, 67, 23, 31, 0, 0, 0],
+        [26, 67, 20, 32, 0, 0, 0],
+        [48, 67, 20, 32, 0, 0, 0],
+        [70, 67, 23, 32, 0, 0, 0],
+        [95, 67, 21, 32, 0, 0, 0],
+        [118, 67, 21, 32, 0, 0, 0],
+        [141, 67, 23, 32, 0, 0, 0],
+        [166, 68, 23, 33, 0, 0, 0]
+    ],
+    "animations": {
+        "mumblerDown": { 
+            "frames": [0, 1, 2],
+            "speed": 0.07,
+        },
+        "mumblerLeft": { "frames": [3, 15, 4],
+            "speed": 0.07 },
+        "mumblerRight": { "frames": [5, 17, 18],
+            "speed": 0.07 },
+        "mumblerUp": { "frames": [6, 23, 7],
+            "speed": 0.07 },
+        "walkerDown": { "frames": [8, 19, 9],
+            "speed": 0.07 },
+        "walkerLeft": { "frames": [10, 20, 11],
+            "speed": 0.07 },
+        "walkerRight": { "frames": [12, 21, 13],
+            "speed": 0.07 },
+        "walkerUp": { "frames": [14, 22, 16],
+            "speed": 0.07 }
+    }
+};
 
 var assetData:objects.Asset[] = [
     {id:"playBtn", src:"../../Assets/Buttons/playBtn.png"},
@@ -33,6 +85,7 @@ var assetData:objects.Asset[] = [
 ];
 // function to preload assets
 function init():void {
+    textureSprite = new createjs.SpriteSheet(zombieSprite);
     stage.enableMouseOver(20); // enable mouse events
     createjs.Ticker.setFPS(config.Game.FPS); // set frame rate to 60 fps
     createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame

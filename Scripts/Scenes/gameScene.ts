@@ -5,6 +5,9 @@ module Scenes {
         private _settingsBtn:objects.Button;
         private _mainMenuBtn:objects.Button;
         private _background:createjs.Bitmap;
+        private _zombie1:objects.Zombie;
+        private _zombie2:objects.Zombie;
+        private _walkers:objects.Zombie[];
 
         constructor() {
             super();
@@ -14,7 +17,18 @@ module Scenes {
             this._gameMap = new createjs.Bitmap(assets.getResult("mapOne"));
             this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
             this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
-            this.addChild(this._background,this._gameMap, this._mainMenuBtn);
+            this.addChild(this._background, this._gameMap);
+            
+            this._zombie1 = new objects.Zombie("walkerUp", 100, 300);
+            this._zombie2 = new objects.Zombie("mumblerTop", 100, 330);
+            var count = 0;
+            this._walkers = [];
+            for(var i = 0; i < 3; i++) {
+                this._walkers[i] = new objects.Zombie("walkerRight", 0, 80);
+                count += 30;
+            }
+            
+            this.addChild(this._mainMenuBtn);
 
             // event listener for home button
             this._mainMenuBtn.on("click", this._mainMenuBtn_Click, this);
@@ -25,6 +39,15 @@ module Scenes {
         private _mainMenuBtn_Click(event:MouseEvent) {
             scene = config.Scene.START_SCENE;
             changeScene();
+        }
+
+        public update():void {
+            this._walkers.forEach(zombie => {
+                createjs.Ticker.interval = 1000;
+                this.addChild(zombie);
+                zombie.move(config.Direction.RIGHT, 500);
+            })
+            createjs.Ticker.interval = 0;
         }
     }
 }

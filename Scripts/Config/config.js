@@ -29,5 +29,16 @@ var config;
         return Game;
     }());
     config.Game = Game;
+    // Zombie Direction
+    var Direction = (function () {
+        function Direction() {
+        }
+        Direction.UP = 0;
+        Direction.RIGHT = 1;
+        Direction.DOWN = 2;
+        Direction.LEFT = 3;
+        return Direction;
+    }());
+    config.Direction = Direction;
 })(config || (config = {}));
 //# sourceMappingURL=config.js.map
