@@ -13,20 +13,22 @@ var Scenes;
     var GameScene = (function (_super) {
         __extends(GameScene, _super);
         function GameScene() {
-            return _super.call(this) || this;
+            var _this = _super.call(this) || this;
+            _this._currentTime = createjs.Ticker.getTime();
+            _this._zombiesAdded = 0;
+            return _this;
         }
         GameScene.prototype.start = function () {
             this._gameMap = new createjs.Bitmap(assets.getResult("mapOne"));
             this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
             this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
             this.addChild(this._background, this._gameMap);
-            this._zombie1 = new objects.Zombie("walkerUp", 100, 300);
-            this._zombie2 = new objects.Zombie("mumblerTop", 100, 330);
-            var count = 0;
+            // this._zombie1 = new objects.Zombie("walkerUp", 100, 300);
+            // this._zombie2 = new objects.Zombie("mumblerTop", 100, 330);
             this._walkers = [];
             for (var i = 0; i < 3; i++) {
-                this._walkers[i] = new objects.Zombie("walkerRight", 0, 80);
-                count += 30;
+                this._walkers.push(new objects.Zombie("walkerRight", 0, 80, i));
+                console.log(this._walkers[i].name);
             }
             this.addChild(this._mainMenuBtn);
             // event listener for home button
@@ -41,11 +43,18 @@ var Scenes;
         GameScene.prototype.update = function () {
             var _this = this;
             this._walkers.forEach(function (zombie) {
-                createjs.Ticker.interval = 1000;
-                _this.addChild(zombie);
-                zombie.move(config.Direction.RIGHT, 500);
+                if (_this._zombiesAdded != _this._walkers.length && !zombie.added) {
+                    if (createjs.Ticker.getTime() > _this._currentTime + 1000) {
+                        _this.addChild(zombie);
+                        _this._currentTime = createjs.Ticker.getTime();
+                        _this._zombiesAdded++;
+                        console.log(zombie.aName + " zombie added");
+                        zombie.added = true;
+                    }
+                }
+                if (zombie.added)
+                    zombie.update();
             });
-            createjs.Ticker.interval = 0;
         };
         return GameScene;
     }(objects.Scene));

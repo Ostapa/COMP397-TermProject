@@ -8,6 +8,9 @@ module Scenes {
         private _zombie1:objects.Zombie;
         private _zombie2:objects.Zombie;
         private _walkers:objects.Zombie[];
+        private _currentTime:number = createjs.Ticker.getTime();
+        private _zombiesAdded:number = 0;
+
 
         constructor() {
             super();
@@ -19,15 +22,15 @@ module Scenes {
             this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
             this.addChild(this._background, this._gameMap);
             
-            this._zombie1 = new objects.Zombie("walkerUp", 100, 300);
-            this._zombie2 = new objects.Zombie("mumblerTop", 100, 330);
-            var count = 0;
+            // this._zombie1 = new objects.Zombie("walkerUp", 100, 300);
+            // this._zombie2 = new objects.Zombie("mumblerTop", 100, 330);
             this._walkers = [];
-            for(var i = 0; i < 3; i++) {
-                this._walkers[i] = new objects.Zombie("walkerRight", 0, 80);
-                count += 30;
+            for(var i:number = 0; i < 3; i++) {
+                this._walkers.push(new objects.Zombie("walkerRight", 0, 80, i));
+                console.log(this._walkers[i].name)
             }
             
+
             this.addChild(this._mainMenuBtn);
 
             // event listener for home button
@@ -43,11 +46,18 @@ module Scenes {
 
         public update():void {
             this._walkers.forEach(zombie => {
-                createjs.Ticker.interval = 1000;
-                this.addChild(zombie);
-                zombie.move(config.Direction.RIGHT, 500);
-            })
-            createjs.Ticker.interval = 0;
+                if(this._zombiesAdded != this._walkers.length && !zombie.added) {
+                    if(createjs.Ticker.getTime() > this._currentTime + 1000) {
+                        this.addChild(zombie)
+                        this._currentTime = createjs.Ticker.getTime();
+                        this._zombiesAdded++
+                        console.log(zombie.aName + " zombie added");
+                        zombie.added=true
+                    }
+                }
+                if(zombie.added)
+                zombie.update()
+            });
         }
     }
 }
