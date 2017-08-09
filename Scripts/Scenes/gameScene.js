@@ -12,39 +12,20 @@ var Scenes;
 (function (Scenes) {
     var GameScene = (function (_super) {
         __extends(GameScene, _super);
-        function GameScene() {
+        function GameScene(backImg, backSound) {
             var _this = _super.call(this) || this;
-            _this._currentTime = createjs.Ticker.getTime();
-            _this._zombiesAdded = 0;
-            // create an array of map points
-            _this._mapPoints = [
-                //[x, y]
-                [0, 260, config.Direction.RIGHT],
-                [160, 260, config.Direction.UP],
-                [160, 60, config.Direction.RIGHT],
-                [540, 60, config.Direction.DOWN],
-                [540, 90, config.Direction.RIGHT],
-                [640, 90, config.Direction.RIGHT]
-            ];
+            _this._backImg = backImg;
+            _this._backSound = backSound;
+            _this._mapImg = new createjs.Bitmap(assets.getResult(_this._backImg));
+            _this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
+            _this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
+            // event listener for home button
+            _this._mainMenuBtn.on("click", _this._mainMenuBtn_Click, _this);
+            _this.addChild(_this._background, _this._mainMenuBtn, _this._mapImg);
+            stage.addChild(_this);
             return _this;
         }
         GameScene.prototype.start = function () {
-            this._gameMap = new createjs.Bitmap(assets.getResult("mapOne"));
-            this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
-            this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
-            this.addChild(this._background, this._gameMap);
-            this._walkers = new Array();
-            for (var i = 0; i < 10; i++) {
-                this._walkers.push(new objects.Zombie("walkerRight", "walker", 0, 260));
-            }
-            this._mumblers = new Array();
-            for (var i = 0; i < 10; i++) {
-                this._mumblers.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
-            }
-            this.addChild(this._mainMenuBtn);
-            // event listener for home button
-            this._mainMenuBtn.on("click", this._mainMenuBtn_Click, this);
-            stage.addChild(this);
         };
         // event handlers for click events 
         GameScene.prototype._mainMenuBtn_Click = function (event) {
@@ -52,23 +33,6 @@ var Scenes;
             changeScene();
         };
         GameScene.prototype.update = function () {
-            this.addZombies(this._walkers);
-            this.addZombies(this._mumblers);
-        };
-        GameScene.prototype.addZombies = function (arr) {
-            var _this = this;
-            arr.forEach(function (zombie) {
-                if (_this._zombiesAdded != arr.length && !zombie.added) {
-                    if (createjs.Ticker.getTime() > _this._currentTime + 1000) {
-                        _this.addChild(zombie);
-                        _this._currentTime = createjs.Ticker.getTime();
-                        zombie.added = true;
-                    }
-                }
-                if (zombie.added) {
-                    zombie.update();
-                }
-            });
         };
         return GameScene;
     }(objects.Scene));

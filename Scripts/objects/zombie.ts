@@ -24,19 +24,21 @@ module objects {
             this._zombieType = zombieType;
         }
 
+        // TODO: start method
+
         public move(direction:number, destX:number, destY:number):void {
             switch(direction) {
                 case 0:
-                    createjs.Tween.get(this).to({y:destY}, Math.abs((this.y - destY) * 10));
+                    createjs.Tween.get(this).to({y:destY}, Math.abs((this.y - destY) * 40));
                     break;
                 case 2:
-                    createjs.Tween.get(this).to({y:destY}, Math.abs((this.y - destY) * 10));
+                    createjs.Tween.get(this).to({y:destY}, Math.abs((this.y - destY) * 40));
                     break;
                 case 1:
-                    createjs.Tween.get(this).to({x: destX}, Math.abs((this.x - destX) * 10));
+                    createjs.Tween.get(this).to({x: destX}, Math.abs((this.x - destX) * 40));
                     break;
                 case 3:
-                    createjs.Tween.get(this).to({x: destX}, Math.abs((this.x - destX) * 10));
+                    createjs.Tween.get(this).to({x: destX}, Math.abs((this.x - destX) * 40));
                     break;
             }
         }

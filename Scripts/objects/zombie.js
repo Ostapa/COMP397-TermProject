@@ -26,19 +26,20 @@ var objects;
             _this._zombieType = zombieType;
             return _this;
         }
+        // TODO: start method
         Zombie.prototype.move = function (direction, destX, destY) {
             switch (direction) {
                 case 0:
-                    createjs.Tween.get(this).to({ y: destY }, Math.abs((this.y - destY) * 10));
+                    createjs.Tween.get(this).to({ y: destY }, Math.abs((this.y - destY) * 40));
                     break;
                 case 2:
-                    createjs.Tween.get(this).to({ y: destY }, Math.abs((this.y - destY) * 10));
+                    createjs.Tween.get(this).to({ y: destY }, Math.abs((this.y - destY) * 40));
                     break;
                 case 1:
-                    createjs.Tween.get(this).to({ x: destX }, Math.abs((this.x - destX) * 10));
+                    createjs.Tween.get(this).to({ x: destX }, Math.abs((this.x - destX) * 40));
                     break;
                 case 3:
-                    createjs.Tween.get(this).to({ x: destX }, Math.abs((this.x - destX) * 10));
+                    createjs.Tween.get(this).to({ x: destX }, Math.abs((this.x - destX) * 40));
                     break;
             }
         };

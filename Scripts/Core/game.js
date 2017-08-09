@@ -127,7 +127,7 @@ function changeScene() {
             break;
         case config.Scene.GAME_SCENE:
             stage.removeAllChildren();
-            gameScene = new Scenes.GameScene();
+            gameScene = new Scenes.Level1();
             currentScene = gameScene;
             break;
     }
