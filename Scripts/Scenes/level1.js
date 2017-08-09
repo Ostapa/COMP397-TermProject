@@ -40,6 +40,17 @@ var Scenes;
         Level1.prototype.start = function () {
             this._walkers = new Array();
             this._mumblers = new Array();
+            // testing turrets with simple shapes [images to be added later]
+            this._turret = new createjs.Shape();
+            this._turret.graphics.beginFill("#000");
+            this._turret.graphics.drawCircle(70, 210, 30);
+            // this._turret.regX = 70 - 30;
+            // this._turret.regY = 210 + 30;
+            // testing turrets' guns with simple shapes [images to be added later]
+            this._gun = new createjs.Shape();
+            this._gun.graphics.beginFill("#fff");
+            this._gun.graphics.drawRect(65, 210, 5, 30);
+            this.addChild(this._turret, this._gun);
             for (var i = 0; i < 10; i++) {
                 this._walkers.push(new objects.Zombie("walkerRight", "walker", 0, 260));
             }

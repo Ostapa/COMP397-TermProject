@@ -13,6 +13,10 @@ module Scenes {
         private _mumblers:objects.Zombie[];
         private _currentTime:number = createjs.Ticker.getTime();
         private _zombiesAdded:number = 0;
+        //private _turret:objects.Turret;
+        private _turret:createjs.Shape;
+        private _gun:createjs.Shape;
+
         // create an array of map points
         private _mapPoints:number[][] = [ 
             //[x, y]
@@ -34,6 +38,18 @@ module Scenes {
             this._walkers = new Array<objects.Zombie>();
             this._mumblers = new Array<objects.Zombie>();
 
+            // testing turrets with simple shapes [images to be added later]
+            this._turret = new createjs.Shape();
+            this._turret.graphics.beginFill("#000");
+            this._turret.graphics.drawCircle(70, 210, 30);
+            // this._turret.regX = 70 - 30;
+            // this._turret.regY = 210 + 30;
+            // testing turrets' guns with simple shapes [images to be added later]
+            this._gun = new createjs.Shape();
+            this._gun.graphics.beginFill("#fff");
+            this._gun.graphics.drawRect(65, 210, 5, 30);
+
+            this.addChild(this._turret, this._gun)
             for(var i:number = 0; i < 10; i++) {
                 this._walkers.push(new objects.Zombie("walkerRight","walker", 0, 260));
             }

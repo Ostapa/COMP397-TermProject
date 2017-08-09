@@ -8,17 +8,24 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * @file turret.ts
+ * @author Ostap Hamarnyk
+ * @date August 9 2017
+ * @version 0.1
+ * @description The class that has generic properties of the turret
+ */
 var objects;
 (function (objects) {
     var Turret = (function (_super) {
         __extends(Turret, _super);
         // Constructor
         function Turret(turretName, regX, regY) {
-            //super(textureSprite, turretName);
-            var _this = _super.call(this) || this;
+            var _this = _super.call(this, textureSprite, turretName) || this;
             _this._turretName = turretName;
             _this.regX = regX;
             _this.regY = regY;
+            _this.start();
             return _this;
         }
         Turret.prototype.start = function () {
@@ -26,7 +33,7 @@ var objects;
         Turret.prototype.update = function () {
         };
         return Turret;
-    }(createjs.Shape));
+    }(createjs.Sprite));
     objects.Turret = Turret;
 })(objects || (objects = {}));
 //# sourceMappingURL=turret.js.map

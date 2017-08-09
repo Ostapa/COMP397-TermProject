@@ -6,9 +6,11 @@
  * @description The class that has generic properties of the turret
  */
 module objects {
-    export class Turret extends createjs.Shape {
-        // private instance variables
+    export class Turret extends createjs.Sprite {
+        //private instance variables
         private _turretName:string;
+        protected fireRange:number;
+        
 
         // public instance variables
         public width:number;
@@ -16,9 +18,8 @@ module objects {
         
         // Constructor
         constructor(turretName:string, regX:number, regY:number) {
-            //super(textureSprite, turretName);
+            super(textureSprite, turretName);
             
-            super();
             this._turretName = turretName;
             this.regX = regX;
             this.regY = regY;
@@ -26,7 +27,7 @@ module objects {
         }
 
         public start():void {
-            
+
         }
 
         public update():void {
