@@ -16,6 +16,16 @@ var Scenes;
             var _this = _super.call(this) || this;
             _this._currentTime = createjs.Ticker.getTime();
             _this._zombiesAdded = 0;
+            // create an array of map points
+            _this._mapPoints = [
+                //[x, y]
+                [0, 260, config.Direction.RIGHT],
+                [160, 260, config.Direction.UP],
+                [160, 60, config.Direction.RIGHT],
+                [540, 60, config.Direction.DOWN],
+                [540, 90, config.Direction.RIGHT],
+                [640, 90, config.Direction.RIGHT]
+            ];
             return _this;
         }
         GameScene.prototype.start = function () {
@@ -23,12 +33,13 @@ var Scenes;
             this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
             this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
             this.addChild(this._background, this._gameMap);
-            // this._zombie1 = new objects.Zombie("walkerUp", 100, 300);
-            // this._zombie2 = new objects.Zombie("mumblerTop", 100, 330);
-            this._walkers = [];
-            for (var i = 0; i < 3; i++) {
-                this._walkers.push(new objects.Zombie("walkerRight", 0, 80, i));
-                console.log(this._walkers[i].name);
+            this._walkers = new Array();
+            for (var i = 0; i < 10; i++) {
+                this._walkers.push(new objects.Zombie("walkerRight", "walker", 0, 260));
+            }
+            this._mumblers = new Array();
+            for (var i = 0; i < 10; i++) {
+                this._mumblers.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
             }
             this.addChild(this._mainMenuBtn);
             // event listener for home button
@@ -41,19 +52,22 @@ var Scenes;
             changeScene();
         };
         GameScene.prototype.update = function () {
+            this.addZombies(this._walkers);
+            this.addZombies(this._mumblers);
+        };
+        GameScene.prototype.addZombies = function (arr) {
             var _this = this;
-            this._walkers.forEach(function (zombie) {
-                if (_this._zombiesAdded != _this._walkers.length && !zombie.added) {
+            arr.forEach(function (zombie) {
+                if (_this._zombiesAdded != arr.length && !zombie.added) {
                     if (createjs.Ticker.getTime() > _this._currentTime + 1000) {
                         _this.addChild(zombie);
                         _this._currentTime = createjs.Ticker.getTime();
-                        _this._zombiesAdded++;
-                        console.log(zombie.aName + " zombie added");
                         zombie.added = true;
                     }
                 }
-                if (zombie.added)
+                if (zombie.added) {
                     zombie.update();
+                }
             });
         };
         return GameScene;
