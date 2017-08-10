@@ -33,5 +33,9 @@ module objects {
         public update():void {
             
         }
+
+        public inRange(zombie:objects.Zombie):boolean {
+            return true;
+        }
     }
 }

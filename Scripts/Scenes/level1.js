@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
  * @file level1.ts
  * @author Ostap Hamarnyk
  * @date August 9 2017
- * @version 0.1
+ * @version 0.3
  * @description The first level of the game. Difficulty: easy.
  */
 var Scenes;
@@ -41,16 +41,25 @@ var Scenes;
             this._walkers = new Array();
             this._mumblers = new Array();
             // testing turrets with simple shapes [images to be added later]
-            this._turret = new createjs.Shape();
-            this._turret.graphics.beginFill("#000");
-            this._turret.graphics.drawCircle(70, 210, 30);
-            // this._turret.regX = 70 - 30;
-            // this._turret.regY = 210 + 30;
+            this._turret = new createjs.Bitmap(assets.getResult("turret"));
+            this._turret.x = 70;
+            this._turret.y = 230;
+            this._turret.regX = this._turret.getBounds().width / 2;
+            this._turret.regY = this._turret.getBounds().height / 2;
+            this._range = new createjs.Shape();
+            this._range.graphics.beginFill("#98FB98");
+            this._range.alpha = .4;
+            this._range.graphics.beginStroke("#1db81d");
+            this._range.graphics.drawCircle(70, 230, 60);
+            this._range.visible = false;
             // testing turrets' guns with simple shapes [images to be added later]
-            this._gun = new createjs.Shape();
-            this._gun.graphics.beginFill("#fff");
-            this._gun.graphics.drawRect(65, 210, 5, 30);
-            this.addChild(this._turret, this._gun);
+            this._gun = new createjs.Bitmap(assets.getResult("gunOne"));
+            this._gun.x = 70;
+            this._gun.y = 230;
+            this._gun.regX = this._gun.getBounds().width / 2; // width / 2
+            this._gun.regY = this._gun.getBounds().height / 2; // height / 2
+            this._closestZombie = new objects.Zombie("walkerTop", "walker", 0, 0);
+            this.addChild(this._range, this._turret, this._gun);
             for (var i = 0; i < 10; i++) {
                 this._walkers.push(new objects.Zombie("walkerRight", "walker", 0, 260));
             }
@@ -58,8 +67,22 @@ var Scenes;
                 this._mumblers.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
             }
             stage.addChild(this);
+            // event listeners
+            this._gun.on("click", this._gun_Click, this);
+            this.on("click", this._stage_Click, this);
         };
         Level1.prototype.update = function () {
+            // calculate the angle for the gun to follow the zombie
+            //if(this._gun.inRange(this._closestZombie)) {
+            if (10 > 3) {
+                this._angle = Math.atan2(this._closestZombie.y - this._gun.y, this._closestZombie.x - this._gun.x);
+                this._angle = this._angle * (180 / Math.PI);
+                if (this._angle < 0) {
+                    this._angle = 360 - (-this._angle);
+                }
+                this._gun.rotation = this._angle + 90;
+            }
+            // this if statement is to set angle to (0 - 360) instead of (-180 - 180)
             this.addZombies(this._walkers);
             this.addZombies(this._mumblers);
         };
@@ -76,8 +99,20 @@ var Scenes;
                 }
                 if (zombie.added) {
                     zombie.update();
+                    if (zombie.x > _this._closestZombie.x && zombie.y > _this._closestZombie.y) {
+                        _this._closestZombie = zombie;
+                    }
                 }
             });
+        };
+        // Event handlers
+        Level1.prototype._gun_Click = function (event) {
+            this._range.visible = true;
+        };
+        Level1.prototype._stage_Click = function (event) {
+            if (event.target != this._gun) {
+                this._range.visible = false;
+            }
         };
         return Level1;
     }(Scenes.GameScene));

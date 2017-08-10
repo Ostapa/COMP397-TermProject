@@ -32,6 +32,9 @@ var objects;
         };
         Turret.prototype.update = function () {
         };
+        Turret.prototype.inRange = function (zombie) {
+            return true;
+        };
         return Turret;
     }(createjs.Sprite));
     objects.Turret = Turret;
