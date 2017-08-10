@@ -19,11 +19,7 @@ module Scenes {
         private _range:createjs.Shape;
         private _angle:number;
         private _closestZombie:objects.Zombie;
-        private _heartLives:createjs.Bitmap;
-        private _cashAvail:createjs.Bitmap;
-        private _settingBtn:createjs.Bitmap;
-        private _lvlOneGrass:createjs.Bitmap;
-        private _markerForHole:createjs.Bitmap;
+
 
         // create an array of map points
         private _mapPoints:number[][] = [ 
