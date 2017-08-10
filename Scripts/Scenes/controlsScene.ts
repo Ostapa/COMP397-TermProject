@@ -26,11 +26,11 @@ module Scenes {
             this._instructTitle.x = 150;
             this._instructTitle.y = 75;
 
-            this._instructMessage = new createjs.Text("1. Click and hold to pick up weapon \n" + "\n" +
-                                                      "2. Drag the weapon to an open and " + "\n" + 
-                                                      "    desired location \n" + "\n" +
-                                                      "3. Release to drop weapon in the\n" + 
-                                                      "    area", "25px Arial", "#c6bf9c" )
+            this._instructMessage = new createjs.Text("1. Click on a hole on the map to enable the weapon menu \n" + "\n" +
+                                                      "2. Select the weapon of your" + "\n" + 
+                                                      "   choosing at the desired location \n" + "\n" +
+                                                      "3. click to confirm the weapon in the\n" + 
+                                                      "    area", "20px Arial", "#c6bf9c" )
             this._instructMessage.x = 75;
             this._instructMessage.y = 175;
             
