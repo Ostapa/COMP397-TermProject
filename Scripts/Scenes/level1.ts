@@ -20,6 +20,7 @@ module Scenes {
         private _closestZombie:objects.Zombie;
         private _turretArea:objects.TurretArea;
 
+
         // create an array of map points
         private _mapPoints:number[][] = [ 
             //[x, y]
