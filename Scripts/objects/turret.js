@@ -20,20 +20,61 @@ var objects;
     var Turret = (function (_super) {
         __extends(Turret, _super);
         // Constructor
-        function Turret(turretName, regX, regY) {
-            var _this = _super.call(this, textureSprite, turretName) || this;
+        function Turret(turretName, x, y) {
+            var _this = _super.call(this, turretTexture, turretName) || this;
             _this._turretName = turretName;
-            _this.regX = regX;
-            _this.regY = regY;
+            _this.x = x;
+            _this.y = y;
+            _this.regX = _this.getBounds().width / 2;
+            _this.regY = _this.getBounds().height / 2;
             _this.start();
+            _this._range.graphics.drawCircle(_this.x, _this.y, _this.getBounds().width);
             return _this;
         }
         Turret.prototype.start = function () {
+            this._gun = new objects.Gun("gun", this.x, this.y);
+            this._range = new createjs.Shape();
+            this._range.graphics.beginFill("#98FB98");
+            this._range.alpha = .4;
+            this._range.graphics.beginStroke("#1db81d");
+            this._range.visible = false;
+            // event listeners
+            stage.on("click", this._stage_Click, this);
+            this._gun.on("click", this._gun_Click, this);
         };
         Turret.prototype.update = function () {
+            gameScene.addChild(this._gun, this._range);
         };
+        Turret.prototype.calculateAngle = function (closestZombie) {
+            //if(this.inRange(closestZombie)) {
+            this._angle = Math.atan2(closestZombie.y - this._gun.y, closestZombie.x - this._gun.x);
+            this._angle = this._angle * (180 / Math.PI);
+            // this if statement is to set angle to (0 - 360) instead of (-180 - 180)
+            if (this._angle < 0) {
+                this._angle = 360 - (-this._angle);
+            }
+            this._gun.rotation = this._angle + 90;
+            //} 
+        };
+        // method tp calculate if the zombie is in the shooting range of the turret
         Turret.prototype.inRange = function (zombie) {
-            return true;
+            var distance = Math.pow(zombie.x - this._range.x, 2) + Math.pow(zombie.y - this._range.y, 2);
+            if (Math.pow(this.getBounds().width / 2, 2) >= distance) {
+                return true;
+            }
+            else
+                return false;
+        };
+        Turret.prototype._reset = function () {
+        };
+        // Event handlers
+        Turret.prototype._gun_Click = function (event) {
+            this._range.visible = true;
+        };
+        Turret.prototype._stage_Click = function (event) {
+            if (event.target != this._gun) {
+                this._range.visible = false;
+            }
         };
         return Turret;
     }(createjs.Sprite));

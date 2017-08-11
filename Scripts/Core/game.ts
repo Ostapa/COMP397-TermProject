@@ -12,6 +12,7 @@ var scene:number;
 var preloader:objects.Preloader;
 var backgroundSound:createjs.AbstractSoundInstance;
 var textureSprite:createjs.SpriteSheet;
+var turretTexture:createjs.SpriteSheet;
 
 //Game Bullets
 
@@ -22,6 +23,32 @@ var textureSprite:createjs.SpriteSheet;
 var startScene:Scenes.StartScene;
 var controlsScene:Scenes.ControlsScene;
 var gameScene:Scenes.GameScene;
+
+var turretSprite = {
+    "images": [
+        "../../Assets/Images/turretsSprite.png"
+    ],
+
+    "frames": [
+        [1, 1, 80, 80, 0, 0, 0],
+        [83, 1, 24, 50, 0, 0, 0],
+        [1, 83, 80, 80, 0, 0, 0],
+        [1, 165, 50, 50, 0, 0, 0],
+        [53, 165, 50, 50, 0, 0, 0],
+        [1, 217, 50, 50, 0, 0, 0],
+        [53, 217, 50, 50, 0, 0, 0]
+    ],
+
+    "animations": {
+        "turretArea": { "frames": [0] },
+        "gun": { "frames": [1] },
+        "turretBase": { "frames": [2] },
+        "electro": { "frames": [3] },
+        "fire": { "frames": [4] },
+        "gunIcon": { "frames": [5] },
+        "rocket": { "frames": [6] }
+    }
+}
 
 var zombieSprite = {
     "images": [
@@ -81,8 +108,13 @@ var assetData:objects.Asset[] = [
     {id:"mouseIconLeft", src:"../../Assets/Images/mouseIconLeft.png"},
     {id:"backBtn", src:"../../Assets/Buttons/backBtn.png"},
     {id:"mainMenuBtn", src:"../../Assets/Buttons/mainMenuBtn.png"},
+    {id:"runWave", src:"../../Assets/Buttons/runWave.png"},
     {id:"gameTitle", src:"../../Assets/Images/Title.png"},
     {id:"logo", src:"../../Assets/Images/logo.png"},
+    {id:"cash", src:"../../Assets/Images/cash.png"},
+    {id:"heart", src:"../../Assets/Images/heart.png"},
+    {id:"marker", src:"../../Assets/Images/marker.png"},
+    {id:"settings", src:"../../Assets/Images/settings.png"},
     {id:"initBackground", src:"../../Assets/Images/gameBackground.png"},
     {id:"instructionsBackground", src:"../../Assets/Images/instructionsBackground.png"},
     {id:"gunOne", src:"../../Assets/Images/gun.png"},
@@ -94,6 +126,7 @@ var assetData:objects.Asset[] = [
 // function to preload assets
 function init():void {
     textureSprite = new createjs.SpriteSheet(zombieSprite);
+    turretTexture = new createjs.SpriteSheet(turretSprite);
     stage.enableMouseOver(20); // enable mouse events
     createjs.Ticker.setFPS(config.Game.FPS); // set frame rate to 60 fps
     createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame

@@ -7,6 +7,7 @@ var config;
         Scene.START_SCENE = 0;
         Scene.CONTROLS_SCENE = 1;
         Scene.GAME_SCENE = 2;
+        Scene.OVER_SCENE = 3;
         return Scene;
     }());
     config.Scene = Scene;

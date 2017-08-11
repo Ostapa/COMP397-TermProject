@@ -7,6 +7,9 @@
 /// <reference path = "../objects/preloader.ts"/>
 /// <reference path = "../objects/zombie.ts" />
 /// <reference path = "../objects/turret.ts" />
+/// <reference path = "../objects/turretArea.ts" />
+/// <reference path = "../objects/turretIcon.ts" />
+/// <reference path = "../objects/gun.ts" />
 /// <reference path = "../Scenes/startScene.ts"/>
 /// <reference path = "../Scenes/controlsScene.ts"/>
 /// <reference path = "../Scenes/gameScene.ts"/>

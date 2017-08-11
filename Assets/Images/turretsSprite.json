@@ -1,0 +1,27 @@
+{
+
+"images": [
+    "turretsSprite.png"
+],
+
+"frames": [
+    [1, 1, 80, 80, 0, 0, 0],
+    [83, 1, 24, 50, 0, 0, 0],
+    [1, 83, 80, 80, 0, 0, 0],
+    [1, 165, 50, 50, 0, 0, 0],
+    [53, 165, 50, 50, 0, 0, 0],
+    [1, 217, 50, 50, 0, 0, 0],
+    [53, 217, 50, 50, 0, 0, 0]
+],
+
+"animations": {
+    "turretArea": { "frames": [0] },
+    "gun": { "frames": [1] },
+    "turretBase": { "frames": [2] },
+    "electro": { "frames": [3] },
+    "fire": { "frames": [4] },
+    "gunIcon": { "frames": [5] },
+    "rocket": { "frames": [6] }
+}
+
+}

@@ -7,12 +7,13 @@
  */
 module Scenes {
     export class Level1 extends Scenes.GameScene {
-        
+        // public instance variables
+        public closestZombie:objects.Zombie;
         // private instance variables
-        private _walkers:objects.Zombie[];
-        private _mumblers:objects.Zombie[];
+        private _zombies:objects.Zombie[];
         private _currentTime:number = createjs.Ticker.getTime();
         private _zombiesAdded:number = 0;
+<<<<<<< HEAD
         //private _turret:objects.Turret;
         private _turret:createjs.Bitmap;
         private _gun:createjs.Bitmap;
@@ -36,6 +37,11 @@ module Scenes {
             [540, 90, config.Direction.RIGHT],
             [640, 90, config.Direction.RIGHT]
         ];
+=======
+        public _turret:objects.Turret;
+        private _turretArea:objects.TurretArea;
+        private _turretArea2:objects.TurretArea;
+>>>>>>> 5362c72049678926fa0982b7ee21ff23f3d0bbbb
 
         // Constructor
         constructor() {
@@ -44,27 +50,7 @@ module Scenes {
         }
 
         public start():void {
-            this._walkers = new Array<objects.Zombie>();
-            this._mumblers = new Array<objects.Zombie>();
-
-            // testing turrets with simple shapes [images to be added later]
-            this._turret = new createjs.Bitmap(assets.getResult("turret"));
-            this._turret.x = 70;
-            this._turret.y = 230;
-            this._turret.regX = this._turret.getBounds().width / 2;
-            this._turret.regY = this._turret.getBounds().height /2 ;
-            this._range = new createjs.Shape();
-            this._range.graphics.beginFill("#98FB98");
-            this._range.alpha = .4;
-            this._range.graphics.beginStroke("#1db81d");
-            this._range.graphics.drawCircle(70, 230, 60);
-            this._range.visible = false;
-            // testing turrets' guns with simple shapes [images to be added later]
-            this._gun = new createjs.Bitmap(assets.getResult("gunOne"));
-            this._gun.x = 70;
-            this._gun.y = 230;
-            this._gun.regX = this._gun.getBounds().width / 2; // width / 2
-            this._gun.regY = this._gun.getBounds().height / 2; // height / 2
+            this._zombies = new Array<objects.Zombie>();
 
             // testing gunsshot
             this._bullet = new createjs.Bitmap(assets.getResult("bullet"));
@@ -79,15 +65,24 @@ module Scenes {
             this.addChild(this._range, this._turret, this._gun, this._bullet);
             for(var i:number = 0; i < 10; i++) {
                 this._walkers.push(new objects.Zombie("walkerRight","walker", 0, 260));
-            }
+            // testing turet area
+            this._turretArea = new objects.TurretArea("turretArea", 195, 150);
+            this._turretArea2 = new objects.TurretArea("turretArea", 455, 150)
 
-            for(var i:number = 0; i < 10; i++) {
-                this._mumblers.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
+            for(var i:number = 0; i < 6; i++) {
+                if(i < 3) {
+                    this._zombies.push(new objects.Zombie("walkerRight","walker", 0, 260));
+                } else {
+                    this._zombies.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
+                }
+                this._zombies[i].on("click", this._zombie_Click, this);
             }
+            this.closestZombie = this._zombies[0];
+
+            this.addChild(this._turretArea, this._turretArea2);
+            
             stage.addChild(this);
 
-            // event listeners
-            this._gun.on("click", this._gun_Click, this);
 
             this.on("click", this._stage_Click, this);
 
@@ -114,12 +109,35 @@ module Scenes {
                 }
                 this._gun.rotation = this._angle + 90;
                 this._bullet.rotation = this._angle + 90;
-            }
 
-            // this if statement is to set angle to (0 - 360) instead of (-180 - 180)
+            if(this._turretArea.notNull) {
+                this._turretArea.update().calculateAngle(this.closestZombie);
+            }
+            if(this._turretArea2.notNull) {
+                this._turretArea2.update().calculateAngle(this.closestZombie);
+            }
+            if(this.startGame) {
+                this.addZombies(this._zombies);
+
+                this._zombies.forEach(zombie => {
+                    if(zombie.x > this.closestZombie.x && zombie.y > this.closestZombie.y) {
+                        this.closestZombie = zombie;
+                    }
+                });
+
+                if(this.closestZombie.x >= 640) {
+                    if(this._zombies.length != 0) {
+                        this.lifeCounterAmt--;
+                        this._zombies.shift();
+                    } else  {
+                        scene = config.Scene.OVER_SCENE;
+                        changeScene();
+                    }
+                    
+                    gameScene.updateScore();
+                }
+            }
             
-            this.addZombies(this._walkers);
-            this.addZombies(this._mumblers);
         }
 
         // method to add zombies of any type to the stage and make them move in the desired direction
@@ -130,13 +148,10 @@ module Scenes {
                         this.addChild(zombie);
                         this._currentTime = createjs.Ticker.getTime();
                         zombie.added = true;
-                    }
+                    } 
                 }
                 if(zombie.added) {
                     zombie.update();
-                    if(zombie.x > this._closestZombie.x && zombie.y > this._closestZombie.y) {
-                        this._closestZombie = zombie;
-                    }
                 }
             });
         }
@@ -152,6 +167,16 @@ module Scenes {
         private _stage_Click(event:createjs.MouseEvent) {
             if(event.target != this._gun) {
                 this._range.visible = false;
+            }
+        private _zombie_Click(event:createjs.MouseEvent) {
+            this._zombies.shift()
+            this.removeChild(this.closestZombie);
+            // this.removeChild(event.target);
+            if(this._zombies.length !== 0) {
+                this.closestZombie = this._zombies[0];
+            } else {
+                this.closestZombie.x = 0;
+                this.closestZombie.y = 0;
             }
         }
     }
