@@ -1,9 +1,9 @@
 /**
- * @file turretIcon.ts
+ * @file gun.ts
  * @author Ostap Hamarnyk
  * @date August 10 2017
  * @version 0.1
- * @description The class defines a four circles with the four types of the turrets.
+ * @description The class defines a gun which is placed on top of the turret base.
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -17,18 +17,18 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var TurretIcon = (function (_super) {
-        __extends(TurretIcon, _super);
-        function TurretIcon(imageUrl, x, y, regX, regY) {
+    var Gun = (function (_super) {
+        __extends(Gun, _super);
+        function Gun(imageUrl, x, y) {
             var _this = _super.call(this, turretTexture, imageUrl) || this;
             _this.x = x;
             _this.y = y;
-            _this.regX = (regX - (_this.getBounds().width / 2)) / 2;
-            _this.regY = regY;
+            _this.regX = _this.getBounds().width / 2;
+            _this.regY = _this.getBounds().height / 2;
             return _this;
         }
-        return TurretIcon;
+        return Gun;
     }(createjs.Sprite));
-    objects.TurretIcon = TurretIcon;
+    objects.Gun = Gun;
 })(objects || (objects = {}));
-//# sourceMappingURL=turretIcon.js.map
+//# sourceMappingURL=gun.js.map

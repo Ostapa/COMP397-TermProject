@@ -21,7 +21,9 @@ var objects;
     var TurretArea = (function (_super) {
         __extends(TurretArea, _super);
         function TurretArea(imageUrl, x, y) {
-            var _this = _super.call(this, assets.getResult(imageUrl)) || this;
+            var _this = _super.call(this, turretTexture, imageUrl) || this;
+            // public instance variables
+            _this.notNull = false;
             _this.x = x;
             _this.y = y;
             _this.regX = _this.getBounds().width / 2;
@@ -30,24 +32,68 @@ var objects;
             return _this;
         }
         TurretArea.prototype.start = function () {
-            this._gunTurret = new objects.TurretIcon("gunOne", this.x, this.y, this.regX, this.regY);
-            this._fireTurret = new objects.TurretIcon("gunOne", this.x, this.y, this.regX, this.regY);
-            this._electroTurret = new objects.TurretIcon("gunOne", this.x, this.y, this.regX, this.regY);
-            this._bombTurret = new objects.TurretIcon("gunOne", this.x, this.y, this.regX, this.regY);
+            this._gunTurret = new objects.TurretIcon("gunIcon", this.x, this.y, this.regX, this.regY);
+            this._fireTurret = new objects.TurretIcon("fire", this.x, this.y, this.regX, this.regY);
+            this._electroTurret = new objects.TurretIcon("electro", this.x, this.y, this.regX, this.regY);
+            this._rocketTurret = new objects.TurretIcon("rocket", this.x, this.y, this.regX, this.regY);
+            // Event listeners
             this.on("click", this._turretArea_Click, this);
+            this._electroTurret.on("click", this._electroTurret_Click, this);
+            this._fireTurret.on("click", this._fireTurret_Click, this);
+            this._gunTurret.on("click", this._gunTurret_Click, this);
+            this._rocketTurret.on("click", this._rocketTurret_Click, this);
+        };
+        TurretArea.prototype.update = function () {
+            return this._turret;
         };
         TurretArea.prototype.showOptions = function () {
-            gameScene.addChild(this._bombTurret, this._electroTurret, this._fireTurret, this._gunTurret);
+            gameScene.addChild(this._rocketTurret, this._electroTurret, this._fireTurret, this._gunTurret);
             createjs.Tween.get(this._gunTurret).to({ x: this.x + 30, y: this.y + 30 }, 500, createjs.Ease.linear);
             createjs.Tween.get(this._fireTurret).to({ x: this.x + 30, y: this.y - 30 }, 500, createjs.Ease.linear);
             createjs.Tween.get(this._electroTurret).to({ x: this.x - 30, y: this.y - 30 }, 500, createjs.Ease.linear);
-            createjs.Tween.get(this._bombTurret).to({ x: this.x - 30, y: this.y + 30 }, 500, createjs.Ease.linear);
+            createjs.Tween.get(this._rocketTurret).to({ x: this.x - 30, y: this.y + 30 }, 500, createjs.Ease.linear);
         };
         TurretArea.prototype._turretArea_Click = function (event) {
             this.showOptions();
         };
+        TurretArea.prototype._electroTurret_Click = function (event) {
+            this._turret = new objects.Turret("turretBase", this.x, this.y);
+            gameScene.addChild(this._turret);
+            this._turret.update();
+            this._reset();
+            this.notNull = true;
+        };
+        TurretArea.prototype._fireTurret_Click = function (event) {
+            this._turret = new objects.Turret("turretBase", this.x, this.y);
+            gameScene.addChild(this._turret);
+            this._turret.update();
+            this._reset();
+            this.notNull = true;
+        };
+        TurretArea.prototype._gunTurret_Click = function (event) {
+            this._turret = new objects.Turret("turretBase", this.x, this.y);
+            gameScene.addChild(this._turret);
+            this._turret.update();
+            this._reset();
+            this.notNull = true;
+        };
+        TurretArea.prototype._rocketTurret_Click = function (event) {
+            this._turret = new objects.Turret("turretBase", this.x, this.y);
+            gameScene.addChild(this._turret);
+            this._turret.update();
+            this._reset();
+            this.notNull = true;
+        };
+        TurretArea.prototype._reset = function () {
+            gameScene.removeChild(this);
+            // createjs.Tween.get(this._gunTurret).to({x:this.x + 30, y:this.y + 30}, 500, createjs.Ease.linear);
+            // createjs.Tween.get(this._fireTurret).to({x:this.x + 30, y:this.y - 30}, 500, createjs.Ease.linear);
+            // createjs.Tween.get(this._electroTurret).to({x:this.x - 30, y:this.y - 30}, 500, createjs.Ease.linear);
+            // createjs.Tween.get(this._rocketTurret).to({x:this.x - 30, y:this.y + 30}, 500, createjs.Ease.linear);
+            gameScene.removeChild(this._electroTurret, this._fireTurret, this._gunTurret, this._rocketTurret);
+        };
         return TurretArea;
-    }(createjs.Bitmap));
+    }(createjs.Sprite));
     objects.TurretArea = TurretArea;
 })(objects || (objects = {}));
 //# sourceMappingURL=turretArea.js.map

@@ -5,6 +5,7 @@ module Scenes {
         private _backSound:string;
         private _settingsBtn:objects.Button;
         private _mainMenuBtn:objects.Button;
+        private _startBtn:objects.Button;
         private _background:createjs.Bitmap;
         private _mapImg:createjs.Bitmap;
         private _heartLives:createjs.Bitmap;
@@ -14,6 +15,7 @@ module Scenes {
         private _cashCounter:createjs.Text;
         public lifeCounterAmt:number = 10;
         public cashCounterAmt:number = 30;
+        public startGame:boolean = false;
         
 
         constructor(backImg:string, backSound:string) {
@@ -22,10 +24,12 @@ module Scenes {
             this._backSound = backSound;
             this._mapImg = new createjs.Bitmap(assets.getResult(this._backImg));
             this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
+            this._startBtn = new objects.Button("runWave", config.Screen.WIDTH - 545, config.Screen.HEIGHT - 30);
             this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
             
-            // event listener for home button
+            // event listeners
             this._mainMenuBtn.on("click", this._mainMenuBtn_Click, this);
+            this._startBtn.on("click", this._startBtn_Click, this);
             
             //Counter for lives 
             this._lifeCounter = new createjs.Text(this.lifeCounterAmt.toString(), "25px Arial", "#c6bf9c" )
@@ -55,7 +59,8 @@ module Scenes {
 
             
            
-            this.addChild(this._background,this._mainMenuBtn, this._mapImg, this._heartLives, this._cashAvail, this._settingBtn, this._lifeCounter, this._cashCounter);
+            this.addChild(this._background,this._mainMenuBtn, this._mapImg, this._heartLives, 
+                this._cashAvail, this._settingBtn, this._lifeCounter, this._cashCounter, this._startBtn);
             stage.addChild(this);
             this._settingBtn.on("click", this._settingBtn_Click, this)
         }
@@ -65,7 +70,7 @@ module Scenes {
         }
 
         private _settingBtn_Click(event:createjs.MouseEvent) {
-            
+            createjs.Ticker.setPaused(true)
         }
 
         // event handlers for click events 
@@ -73,7 +78,17 @@ module Scenes {
             scene = config.Scene.START_SCENE;
             changeScene();
         }
-        public update():void {
+
+        private _startBtn_Click(event:MouseEvent) {
+            this.startGame = true;
         }
+        public update():void {
+
+        }
+        public updateScore():void {
+            this._lifeCounter.text = this.lifeCounterAmt.toString();
+            this._cashCounter.text = this.cashCounterAmt.toString();
+        }
+
     }
 }
