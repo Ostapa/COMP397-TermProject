@@ -148,8 +148,10 @@ function updatePreload() {
 }
 // Main Game Loop
 function gameLoop(event) {
-    currentScene.update();
-    stage.update(); // redraw/refresh stage every frame
+    if (!this.onPause) {
+        currentScene.update();
+        stage.update(); // redraw/refresh stage every frame
+    }
 }
 // state machine prep
 function changeScene() {
@@ -165,11 +167,15 @@ function changeScene() {
             controlsScene = new Scenes.ControlsScene();
             currentScene = controlsScene;
             break;
-        case config.Scene.GAME_SCENE:
+        case config.Scene.LEVEL_1:
             stage.removeAllChildren();
             gameScene = new Scenes.Level1();
             currentScene = gameScene;
             break;
+        case config.Scene.LEVEL_2:
+            stage.removeAllChildren();
+            gameScene = new Scenes.Level2();
+            currentScene = gameScene;
     }
 }
 //# sourceMappingURL=game.js.map

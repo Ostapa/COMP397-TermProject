@@ -8,20 +8,20 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var objects;
-(function (objects) {
-    // button class
-    var Bullet = (function (_super) {
-        __extends(Bullet, _super);
-        // constructor
-        function Bullet(path, x, y) {
-            var _this = _super.call(this, textureSprite, path) || this;
-            _this.x = x;
-            _this.y = y;
+var Scenes;
+(function (Scenes) {
+    var Level2 = (function (_super) {
+        __extends(Level2, _super);
+        // Constructor
+        function Level2() {
+            var _this = _super.call(this, "mapOne", "levelOne_s") || this;
+            if (!_this.onPause) {
+                _this.start();
+            }
             return _this;
         }
-        return Bullet;
-    }(createjs.Sprite));
-    objects.Bullet = Bullet;
-})(objects || (objects = {}));
-//# sourceMappingURL=bullet.js.map
+        return Level2;
+    }(Scenes.GameScene));
+    Scenes.Level2 = Level2;
+})(Scenes || (Scenes = {}));
+//# sourceMappingURL=level2.js.map

@@ -6,9 +6,10 @@ module objects {
         public damage: number;
 
         // constructor
-        constructor(path: string, x:number, type : string) {
+        constructor(path: string, x:number, y: number) {
             super(textureSprite, path);
-
+            this.x = x;
+            this.y = y;
         }
 
 

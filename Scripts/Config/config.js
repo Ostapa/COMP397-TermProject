@@ -6,9 +6,10 @@ var config;
         }
         Scene.START_SCENE = 0;
         Scene.CONTROLS_SCENE = 1;
-        Scene.GAME_SCENE = 2;
-        Scene.OVER_SCENE = 3;
-        Scene.PAUSE_SCENE = 4;
+        Scene.LEVEL_1 = 2;
+        Scene.LEVEL_2 = 3;
+        Scene.OVER_SCENE = 4;
+        Scene.PAUSE_SCENE = 5;
         return Scene;
     }());
     config.Scene = Scene;

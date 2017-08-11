@@ -17,6 +17,7 @@ var Scenes;
             _this.lifeCounterAmt = 10;
             _this.cashCounterAmt = 30;
             _this.startGame = false;
+            _this.onPause = false;
             _this._backImg = backImg;
             _this._backSound = backSound;
             _this._mapImg = new createjs.Bitmap(assets.getResult(_this._backImg));
@@ -63,6 +64,7 @@ var Scenes;
         GameScene.prototype._settingBtn_Click = function (event) {
             createjs.Ticker.setPaused(true);
             this.addChild(new Scenes.SettingsScene());
+            this.onPause = true;
         };
         // event handlers for click events 
         GameScene.prototype._mainMenuBtn_Click = function (event) {

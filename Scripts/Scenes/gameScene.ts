@@ -20,6 +20,7 @@ module Scenes {
         public lifeCounterAmt:number = 10;
         public cashCounterAmt:number = 30;
         public startGame:boolean = false;
+        public onPause:boolean = false;
         
 
         constructor(backImg:string, backSound:string) {
@@ -83,6 +84,7 @@ module Scenes {
         private _settingBtn_Click(event:createjs.MouseEvent) {
             createjs.Ticker.setPaused(true)
             this.addChild(new Scenes.SettingsScene());
+            this.onPause = true;
         }
 
         // event handlers for click events 

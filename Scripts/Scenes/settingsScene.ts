@@ -10,20 +10,17 @@ module Scenes {
 
         constructor() {
             super();
-            this.x = config.Screen.CENTER_X;
-            this.y = config.Screen.CENTER_Y;
-            this.regX = config.Screen.CENTER_X;
-            this.regY = config.Screen.CENTER_Y;
+            this.x = 0;
+            this.y = 0;
             this.start();
         }
 
         public start():void {
             this._continueBtn = new objects.Button("continueBtn", config.Screen.CENTER_X, config.Screen.CENTER_Y - 100)
-            this._muteBtn = new objects.Button("muteBtn", config.Screen.CENTER_X, config.Screen.CENTER_Y - 50)
-            this._restartBtn = new objects.Button("restartBtn", config.Screen.CENTER_X, config.Screen.CENTER_Y + 50)
-            this._exitBtn = new objects.Button("exitBtn", config.Screen.CENTER_X, config.Screen.CENTER_Y + 100)
-            this._background = new createjs.Bitmap(assets.getResult("settingsBackground"));
-            this._background.alpha = .4;
+            this._muteBtn = new objects.Button("muteBtn", config.Screen.CENTER_X, config.Screen.CENTER_Y - 35)
+            this._restartBtn = new objects.Button("restartBtn", config.Screen.CENTER_X, config.Screen.CENTER_Y + 30)
+            this._exitBtn = new objects.Button("exitBtn", config.Screen.CENTER_X, config.Screen.CENTER_Y + 95)
+            this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
 
             this._continueBtn.on("click", this._continueBtn_Click, this)
             this._muteBtn.on("click", this._muteBtn_Click, this)
@@ -38,7 +35,8 @@ module Scenes {
         // Event handlers
         private _continueBtn_Click(event:createjs.MouseEvent) {
             createjs.Ticker.setPaused(false);
-            stage.removeChild(this);
+            this.removeAllChildren();
+            gameScene.onPause = false;
         }
 
         private _muteBtn_Click(event:createjs.MouseEvent) {
@@ -46,12 +44,15 @@ module Scenes {
         }
 
         private _restartBtn_Click(event:createjs.MouseEvent) {
-            scene = config.Scene.GAME_SCENE;
+            scene = config.Scene.LEVEL_1;
+            changeScene();
+            gameScene.onPause = false;
         }
 
         private _exitBtn_Click(event:createjs.MouseEvent) {
             scene = config.Scene.START_SCENE;
             changeScene();
+            gameScene.onPause = false;
         }
 
 

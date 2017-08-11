@@ -16,19 +16,24 @@ module Scenes {
         public _turret:objects.Turret;
         private _turretArea:objects.TurretArea;
         private _turretArea2:objects.TurretArea;
+        private _bullet:objects.Bullet;
 
         // Constructor
         constructor() {
             super("mapOne", "levelOne_s");
-            this.start();
+            if(!this.onPause) {
+                this.start();
+            }
         }
 
         public start():void {
             this._zombies = new Array<objects.Zombie>();
 
+
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 195, 150);
             this._turretArea2 = new objects.TurretArea("turretArea", 455, 150)
+            this._bullet = new objects.Bullet("walkerRight", 320, 240)
 
             for(var i:number = 0; i < 6; i++) {
                 if(i < 3) {
@@ -40,7 +45,7 @@ module Scenes {
             }
             this.closestZombie = this._zombies[0];
 
-            this.addChild(this._turretArea, this._turretArea2);
+            this.addChild(this._turretArea, this._turretArea2, this._bullet);
             
             stage.addChild(this);
 
@@ -76,6 +81,10 @@ module Scenes {
                     
                     gameScene.updateScore();
                 }
+            }
+
+            if(this._zombies.length <= 0) {
+                // scene = config.
             }
             
         }

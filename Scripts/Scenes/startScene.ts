@@ -23,8 +23,6 @@ module Scenes {
             this.addChild(this._background, this._instructionsBtn, this._playBtn, this._gameTitle);
             stage.addChild(this);
 
-
-
             // Event listeners
             this._instructionsBtn.on("click", this._instructionsBtn_Click, this);
             this._playBtn.on("click", this._playBtn_Click, this);
@@ -40,7 +38,7 @@ module Scenes {
         }
 
         private _playBtn_Click(event:createjs.MouseEvent) {
-            scene = config.Scene.GAME_SCENE;
+            scene = config.Scene.LEVEL_1;
 
             changeScene();
         }

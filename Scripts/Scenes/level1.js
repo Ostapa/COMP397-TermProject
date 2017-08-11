@@ -24,7 +24,9 @@ var Scenes;
             var _this = _super.call(this, "mapOne", "levelOne_s") || this;
             _this._currentTime = createjs.Ticker.getTime();
             _this._zombiesAdded = 0;
-            _this.start();
+            if (!_this.onPause) {
+                _this.start();
+            }
             return _this;
         }
         Level1.prototype.start = function () {
@@ -32,6 +34,7 @@ var Scenes;
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 195, 150);
             this._turretArea2 = new objects.TurretArea("turretArea", 455, 150);
+            this._bullet = new objects.Bullet("walkerRight", 320, 240);
             for (var i = 0; i < 6; i++) {
                 if (i < 3) {
                     this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
@@ -42,7 +45,7 @@ var Scenes;
                 this._zombies[i].on("click", this._zombie_Click, this);
             }
             this.closestZombie = this._zombies[0];
-            this.addChild(this._turretArea, this._turretArea2);
+            this.addChild(this._turretArea, this._turretArea2, this._bullet);
             stage.addChild(this);
         };
         Level1.prototype.update = function () {
@@ -72,6 +75,9 @@ var Scenes;
                     }
                     gameScene.updateScore();
                 }
+            }
+            if (this._zombies.length <= 0) {
+                // scene = config.
             }
         };
         // method to add zombies of any type to the stage and make them move in the desired direction

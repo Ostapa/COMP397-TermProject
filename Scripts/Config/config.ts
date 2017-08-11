@@ -3,9 +3,10 @@ module config {
     export class Scene {
         public static START_SCENE: number = 0;
         public static CONTROLS_SCENE: number = 1;
-        public static GAME_SCENE: number = 2;
-        public static OVER_SCENE: number = 3;
-        public static PAUSE_SCENE: number = 4;
+        public static LEVEL_1: number = 2;
+        public static LEVEL_2: number = 3;
+        public static OVER_SCENE: number = 4;
+        public static PAUSE_SCENE: number = 5;
     }
 
     // Screen Constants
