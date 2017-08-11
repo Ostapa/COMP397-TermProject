@@ -41,6 +41,7 @@ module Scenes {
 
         private _playBtn_Click(event:createjs.MouseEvent) {
             scene = config.Scene.GAME_SCENE;
+
             changeScene();
         }
     }

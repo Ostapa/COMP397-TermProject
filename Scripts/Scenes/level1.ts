@@ -100,6 +100,7 @@ module Scenes {
         private _zombie_Click(event:createjs.MouseEvent) {
             this._zombies.shift()
             this.removeChild(this.closestZombie);
+            // this.removeChild(event.target);
             if(this._zombies.length !== 0) {
                 this.closestZombie = this._zombies[0];
             } else {

@@ -14,6 +14,11 @@ var backgroundSound:createjs.AbstractSoundInstance;
 var textureSprite:createjs.SpriteSheet;
 var turretTexture:createjs.SpriteSheet;
 
+//Game Bullets
+
+// var bullet:createjs.Bitmap;
+
+
 // Game Scenes
 var startScene:Scenes.StartScene;
 var controlsScene:Scenes.ControlsScene;
@@ -117,6 +122,9 @@ var assetData:objects.Asset[] = [
     {id:"initBackground", src:"../../Assets/Images/gameBackground.png"},
     {id:"instructionsBackground", src:"../../Assets/Images/instructionsBackground.png"},
     {id:"settingsBackground", src:"../../Assets/Images/settingsBackground.png"},
+    {id:"gunOne", src:"../../Assets/Images/gun.png"},
+    {id:"bullet", src:"../../Assets/Images/oneBullet.png"},
+    {id:"turret", src:"../../Assets/Images/turret.png"},
     {id:"mapOne", src:"../../Assets/Maps/map_level_1.jpeg"},
     {id:"backSound", src:"../../Assets/Sounds/background.ogg"}
 ];
@@ -131,6 +139,7 @@ function init():void {
     changeScene();
     this.backgroundSound = createjs.Sound.play("backSound");
     this.backgroundSound.loop = -1;
+
 }
 function preload() {
     canvas = document.getElementById("canvas"); // reference to canvas element

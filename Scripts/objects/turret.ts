@@ -33,6 +33,8 @@ module objects {
             
         }
 
+
+
         public start():void {
             this._gun = new objects.Gun("gun", this.x, this.y)
             this._range = new createjs.Shape();
