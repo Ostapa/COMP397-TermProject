@@ -46,7 +46,14 @@ var Scenes;
             _this._settingBtn = new createjs.Bitmap(assets.getResult("settings"));
             _this._settingBtn.x = 600;
             _this._settingBtn.y = 2;
-            _this.addChild(_this._background, _this._mainMenuBtn, _this._mapImg, _this._heartLives, _this._cashAvail, _this._settingBtn, _this._lifeCounter, _this._cashCounter, _this._startBtn);
+            // labels to show general info about the object that is clicked(zombie, turret)
+            _this.objectType = new objects.Label("Type: Walker", "20px Arial", "#c6bf9c", 120, config.Screen.HEIGHT - 90);
+            _this.objectHP = new objects.Label("HP: 20/20", "20px Arial", "#c6bf9c", 320, config.Screen.HEIGHT - 90);
+            _this.objectDamage = new objects.Label("Damage: 1 Life", "20px Arial", "#c6bf9c", 520, config.Screen.HEIGHT - 90);
+            _this.objectType.visible = false;
+            _this.objectHP.visible = false;
+            _this.objectDamage.visible = false;
+            _this.addChild(_this._background, _this._mainMenuBtn, _this._mapImg, _this._heartLives, _this._cashAvail, _this._settingBtn, _this._lifeCounter, _this._cashCounter, _this._startBtn, _this.objectDamage, _this.objectHP, _this.objectType);
             stage.addChild(_this);
             _this._settingBtn.on("click", _this._settingBtn_Click, _this);
             return _this;
@@ -55,6 +62,7 @@ var Scenes;
         };
         GameScene.prototype._settingBtn_Click = function (event) {
             createjs.Ticker.setPaused(true);
+            this.addChild(new Scenes.SettingsScene());
         };
         // event handlers for click events 
         GameScene.prototype._mainMenuBtn_Click = function (event) {
@@ -69,6 +77,15 @@ var Scenes;
         GameScene.prototype.updateScore = function () {
             this._lifeCounter.text = this.lifeCounterAmt.toString();
             this._cashCounter.text = this.cashCounterAmt.toString();
+        };
+        GameScene.prototype.updateInfo = function (type, hp, damage) {
+            this.objectType.text = "Type: " + type;
+            ;
+            this.objectHP.text = "HP: " + hp.toString();
+            this.objectDamage.text = "Damage: " + damage.toString();
+            this.objectType.visible = true;
+            this.objectHP.visible = true;
+            this.objectDamage.visible = true;
         };
         return GameScene;
     }(objects.Scene));

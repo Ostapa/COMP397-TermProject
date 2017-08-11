@@ -102,6 +102,10 @@ var assetData:objects.Asset[] = [
     {id:"instructionsBtn", src:"../../Assets/Buttons/instructionsBtn.png"},
     {id:"mouseIconLeft", src:"../../Assets/Images/mouseIconLeft.png"},
     {id:"backBtn", src:"../../Assets/Buttons/backBtn.png"},
+    {id:"continueBtn", src:"../../Assets/Buttons/continueBtn.png"},
+    {id:"muteBtn", src:"../../Assets/Buttons/muteBtn.png"},
+    {id:"restartBtn", src:"../../Assets/Buttons/restartBtn.png"},
+    {id:"exitBtn", src:"../../Assets/Buttons/exitBtn.png"},
     {id:"mainMenuBtn", src:"../../Assets/Buttons/mainMenuBtn.png"},
     {id:"runWave", src:"../../Assets/Buttons/runWave.png"},
     {id:"gameTitle", src:"../../Assets/Images/Title.png"},
@@ -112,6 +116,7 @@ var assetData:objects.Asset[] = [
     {id:"settings", src:"../../Assets/Images/settings.png"},
     {id:"initBackground", src:"../../Assets/Images/gameBackground.png"},
     {id:"instructionsBackground", src:"../../Assets/Images/instructionsBackground.png"},
+    {id:"settingsBackground", src:"../../Assets/Images/settingsBackground.png"},
     {id:"mapOne", src:"../../Assets/Maps/map_level_1.jpeg"},
     {id:"backSound", src:"../../Assets/Sounds/background.ogg"}
 ];

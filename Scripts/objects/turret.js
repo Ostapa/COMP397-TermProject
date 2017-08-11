@@ -29,6 +29,7 @@ var objects;
             _this.regY = _this.getBounds().height / 2;
             _this.start();
             _this._range.graphics.drawCircle(_this.x, _this.y, _this.getBounds().width);
+            _this.damage = 10;
             return _this;
         }
         Turret.prototype.start = function () {
@@ -70,6 +71,7 @@ var objects;
         // Event handlers
         Turret.prototype._gun_Click = function (event) {
             this._range.visible = true;
+            gameScene.updateInfo("Fire" + " Turret", 9999, this.damage);
         };
         Turret.prototype._stage_Click = function (event) {
             if (event.target != this._gun) {

@@ -100,10 +100,6 @@
 
         private _reset():void {
             gameScene.removeChild(this)
-            // createjs.Tween.get(this._gunTurret).to({x:this.x + 30, y:this.y + 30}, 500, createjs.Ease.linear);
-            // createjs.Tween.get(this._fireTurret).to({x:this.x + 30, y:this.y - 30}, 500, createjs.Ease.linear);
-            // createjs.Tween.get(this._electroTurret).to({x:this.x - 30, y:this.y - 30}, 500, createjs.Ease.linear);
-            // createjs.Tween.get(this._rocketTurret).to({x:this.x - 30, y:this.y + 30}, 500, createjs.Ease.linear);
             gameScene.removeChild(this._electroTurret, this._fireTurret, this._gunTurret, this._rocketTurret)
         }
 

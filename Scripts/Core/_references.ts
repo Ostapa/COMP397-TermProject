@@ -16,4 +16,5 @@
 /// <reference path = "../Scenes/controlsScene.ts"/>
 /// <reference path = "../Scenes/gameScene.ts"/>
 /// <reference path = "../Scenes/level1.ts"/>
+/// <reference path = "../Scenes/settingsScene.ts"/>
 

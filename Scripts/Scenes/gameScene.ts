@@ -13,6 +13,10 @@ module Scenes {
         private _settingBtn:createjs.Bitmap;
         private _lifeCounter:createjs.Text;
         private _cashCounter:createjs.Text;
+       
+        public objectType:objects.Label;
+        public objectHP:objects.Label;
+        public objectDamage:objects.Label;
         public lifeCounterAmt:number = 10;
         public cashCounterAmt:number = 30;
         public startGame:boolean = false;
@@ -57,10 +61,17 @@ module Scenes {
             this._settingBtn.x = 600;
             this._settingBtn.y = 2;
 
-            
-           
+            // labels to show general info about the object that is clicked(zombie, turret)
+            this.objectType = new objects.Label("Type: Walker", "20px Arial", "#c6bf9c", 120, config.Screen.HEIGHT - 90);
+            this.objectHP = new objects.Label("HP: 20/20", "20px Arial", "#c6bf9c", 320, config.Screen.HEIGHT - 90);
+            this.objectDamage = new objects.Label("Damage: 1 Life", "20px Arial", "#c6bf9c", 520, config.Screen.HEIGHT - 90);
+            this.objectType.visible = false;
+            this.objectHP.visible = false;
+            this.objectDamage.visible = false;
+
             this.addChild(this._background,this._mainMenuBtn, this._mapImg, this._heartLives, 
-                this._cashAvail, this._settingBtn, this._lifeCounter, this._cashCounter, this._startBtn);
+                this._cashAvail, this._settingBtn, this._lifeCounter, this._cashCounter, this._startBtn,
+                this.objectDamage, this.objectHP, this.objectType);
             stage.addChild(this);
             this._settingBtn.on("click", this._settingBtn_Click, this)
         }
@@ -71,6 +82,7 @@ module Scenes {
 
         private _settingBtn_Click(event:createjs.MouseEvent) {
             createjs.Ticker.setPaused(true)
+            this.addChild(new Scenes.SettingsScene());
         }
 
         // event handlers for click events 
@@ -88,6 +100,17 @@ module Scenes {
         public updateScore():void {
             this._lifeCounter.text = this.lifeCounterAmt.toString();
             this._cashCounter.text = this.cashCounterAmt.toString();
+        }
+
+        public updateInfo(type:string, hp:number, damage:number):void {
+            this.objectType.text = "Type: " + type;;
+            this.objectHP.text = "HP: " + hp.toString();
+            this.objectDamage.text = "Damage: " + damage.toString();
+            this.objectType.visible = true;
+            this.objectHP.visible = true;
+            this.objectDamage.visible = true;
+            
+
         }
 
     }

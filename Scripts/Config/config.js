@@ -8,6 +8,7 @@ var config;
         Scene.CONTROLS_SCENE = 1;
         Scene.GAME_SCENE = 2;
         Scene.OVER_SCENE = 3;
+        Scene.PAUSE_SCENE = 4;
         return Scene;
     }());
     config.Scene = Scene;

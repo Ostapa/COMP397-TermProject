@@ -17,6 +17,7 @@ module objects {
         // public instance variables
         public width:number;
         public height:number;
+        public damage:number;
         
         // Constructor
         constructor(turretName:string, x:number, y:number) {
@@ -28,6 +29,7 @@ module objects {
             this.regY = this.getBounds().height / 2;
             this.start();
             this._range.graphics.drawCircle(this.x, this.y, this.getBounds().width);
+            this.damage = 10;
             
         }
 
@@ -78,6 +80,8 @@ module objects {
         // Event handlers
         private _gun_Click(event:createjs.MouseEvent) {
             this._range.visible = true;
+            gameScene.updateInfo("Fire" + " Turret", 9999, this.damage);
+
         }
 
         private _stage_Click(event:createjs.MouseEvent) {

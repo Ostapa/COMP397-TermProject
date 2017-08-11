@@ -5,6 +5,7 @@ module config {
         public static CONTROLS_SCENE: number = 1;
         public static GAME_SCENE: number = 2;
         public static OVER_SCENE: number = 3;
+        public static PAUSE_SCENE: number = 4;
     }
 
     // Screen Constants
