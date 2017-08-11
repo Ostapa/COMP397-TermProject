@@ -16,6 +16,7 @@ module Scenes {
         //private _turret:objects.Turret;
         private _turret:createjs.Bitmap;
         private _gun:createjs.Bitmap;
+        private _bullet:createjs.Bitmap;
         private _range:createjs.Shape;
         private _angle:number;
         private _closestZombie:objects.Zombie;
@@ -65,9 +66,17 @@ module Scenes {
             this._gun.regX = this._gun.getBounds().width / 2; // width / 2
             this._gun.regY = this._gun.getBounds().height / 2; // height / 2
 
+            // testing gunsshot
+            this._bullet = new createjs.Bitmap(assets.getResult("bullet"));
+            this._bullet.x = 60;
+            this._bullet.y = 175;
+            this._bullet.visible = false;
+
+
+
             this._closestZombie = new objects.Zombie("walkerTop", "walker", 0, 0);
 
-            this.addChild(this._range, this._turret, this._gun);
+            this.addChild(this._range, this._turret, this._gun, this._bullet);
             for(var i:number = 0; i < 10; i++) {
                 this._walkers.push(new objects.Zombie("walkerRight","walker", 0, 260));
             }
@@ -81,12 +90,21 @@ module Scenes {
             this._gun.on("click", this._gun_Click, this);
 
             this.on("click", this._stage_Click, this);
-            
+
+
         }
 
         public update():void {
+
+            //if there is a bullet, if so move upward
+            if(this._bullet.isVisible() == true){
+
+                this._bullet.y -= 4;
+            }
+
+
             // calculate the angle for the gun to follow the zombie
-             
+
             //if(this._gun.inRange(this._closestZombie)) {
             if(10>3) {
                 this._angle = Math.atan2(this._closestZombie.y - this._gun.y, this._closestZombie.x - this._gun.x)
@@ -95,6 +113,7 @@ module Scenes {
                     this._angle = 360 - ( - this._angle);
                 }
                 this._gun.rotation = this._angle + 90;
+                this._bullet.rotation = this._angle + 90;
             }
 
             // this if statement is to set angle to (0 - 360) instead of (-180 - 180)
@@ -124,6 +143,9 @@ module Scenes {
 
         // Event handlers
         private _gun_Click(event:createjs.MouseEvent) {
+
+            this._bullet.visible = true;
+
             this._range.visible = true;
         }
 

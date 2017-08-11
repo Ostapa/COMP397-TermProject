@@ -10,6 +10,8 @@ var scene;
 var preloader;
 var backgroundSound;
 var textureSprite;
+//Game Bullets
+// var bullet:createjs.Bitmap;
 // Game Scenes
 var startScene;
 var controlsScene;
@@ -76,6 +78,7 @@ var assetData = [
     { id: "initBackground", src: "../../Assets/Images/gameBackground.png" },
     { id: "instructionsBackground", src: "../../Assets/Images/instructionsBackground.png" },
     { id: "gunOne", src: "../../Assets/Images/gun.png" },
+    { id: "bullet", src: "../../Assets/Images/oneBullet.png" },
     { id: "turret", src: "../../Assets/Images/turret.png" },
     { id: "mapOne", src: "../../Assets/Maps/map_level_1.jpeg" },
     { id: "backSound", src: "../../Assets/Sounds/background.ogg" }

@@ -26,6 +26,8 @@ module objects {
             this.start();
         }
 
+
+
         public start():void {
 
         }
