@@ -51,6 +51,7 @@ module Scenes {
 
         private _settingBtn_Click(event:createjs.MouseEvent) {
             //this._range.visible = true;
+            alert("YO")
         }
 
         // event handlers for click events 

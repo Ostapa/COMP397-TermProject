@@ -42,6 +42,7 @@ var Scenes;
         };
         GameScene.prototype._settingBtn_Click = function (event) {
             //this._range.visible = true;
+            alert("YO");
         };
         // event handlers for click events 
         GameScene.prototype._mainMenuBtn_Click = function (event) {
