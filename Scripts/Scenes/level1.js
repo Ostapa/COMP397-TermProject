@@ -38,14 +38,11 @@ var Scenes;
             return _this;
         }
         Level1.prototype.start = function () {
-            this._walkers = new Array();
-            this._mumblers = new Array();
+            this._zombies = new Array();
+            // testing turet area
+            this._turretArea = new objects.TurretArea("turretArea", 240, 230);
             // testing turrets with simple shapes [images to be added later]
-            this._turret = new createjs.Bitmap(assets.getResult("turret"));
-            this._turret.x = 70;
-            this._turret.y = 230;
-            this._turret.regX = this._turret.getBounds().width / 2;
-            this._turret.regY = this._turret.getBounds().height / 2;
+            this._turret = new objects.Turret("turret", 70, 230);
             this._range = new createjs.Shape();
             this._range.graphics.beginFill("#98FB98");
             this._range.alpha = .4;
@@ -58,33 +55,40 @@ var Scenes;
             this._gun.y = 230;
             this._gun.regX = this._gun.getBounds().width / 2; // width / 2
             this._gun.regY = this._gun.getBounds().height / 2; // height / 2
-            this._closestZombie = new objects.Zombie("walkerTop", "walker", 0, 0);
-            this.addChild(this._range, this._turret, this._gun);
-            for (var i = 0; i < 10; i++) {
-                this._walkers.push(new objects.Zombie("walkerRight", "walker", 0, 260));
+            for (var i = 0; i < 6; i++) {
+                if (i < 3) {
+                    this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
+                }
+                else {
+                    this._zombies.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
+                }
+                this._zombies[i].on("click", this._zombie_Click, this);
             }
-            for (var i = 0; i < 10; i++) {
-                this._mumblers.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
-            }
+            this._closestZombie = this._zombies[0];
+            this.addChild(this._range, this._turret, this._gun, this._turretArea);
             stage.addChild(this);
             // event listeners
             this._gun.on("click", this._gun_Click, this);
             this.on("click", this._stage_Click, this);
         };
         Level1.prototype.update = function () {
+            var _this = this;
             // calculate the angle for the gun to follow the zombie
-            //if(this._gun.inRange(this._closestZombie)) {
-            if (10 > 3) {
+            if (this._turret.inRange(this._closestZombie)) {
                 this._angle = Math.atan2(this._closestZombie.y - this._gun.y, this._closestZombie.x - this._gun.x);
                 this._angle = this._angle * (180 / Math.PI);
+                // this if statement is to set angle to (0 - 360) instead of (-180 - 180)
                 if (this._angle < 0) {
                     this._angle = 360 - (-this._angle);
                 }
                 this._gun.rotation = this._angle + 90;
             }
-            // this if statement is to set angle to (0 - 360) instead of (-180 - 180)
-            this.addZombies(this._walkers);
-            this.addZombies(this._mumblers);
+            this.addZombies(this._zombies);
+            this._zombies.forEach(function (zombie) {
+                if (zombie.x > _this._closestZombie.x && zombie.y > _this._closestZombie.y) {
+                    _this._closestZombie = zombie;
+                }
+            });
         };
         // method to add zombies of any type to the stage and make them move in the desired direction
         Level1.prototype.addZombies = function (arr) {
@@ -99,9 +103,6 @@ var Scenes;
                 }
                 if (zombie.added) {
                     zombie.update();
-                    if (zombie.x > _this._closestZombie.x && zombie.y > _this._closestZombie.y) {
-                        _this._closestZombie = zombie;
-                    }
                 }
             });
         };
@@ -109,9 +110,23 @@ var Scenes;
         Level1.prototype._gun_Click = function (event) {
             this._range.visible = true;
         };
+        Level1.prototype._zombie_Click = function (event) {
+            console.log("clicked on zombie" + event.target.x);
+            this._zombies.shift();
+            this.removeChild(this._closestZombie);
+            // this.removeChild(event.target);
+            if (this._zombies.length !== 0) {
+                this._closestZombie = this._zombies[0];
+            }
+            else {
+                this._closestZombie.x = 0;
+                this._closestZombie.y = 0;
+            }
+        };
         Level1.prototype._stage_Click = function (event) {
             if (event.target != this._gun) {
                 this._range.visible = false;
+                console.log("stage event");
             }
         };
         return Level1;

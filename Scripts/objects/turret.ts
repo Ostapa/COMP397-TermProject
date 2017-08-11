@@ -9,7 +9,7 @@ module objects {
     export class Turret extends createjs.Sprite {
         //private instance variables
         private _turretName:string;
-        protected fireRange:number;
+        protected fireRange:number = 60;
         
 
         // public instance variables
@@ -17,12 +17,14 @@ module objects {
         public height:number;
         
         // Constructor
-        constructor(turretName:string, regX:number, regY:number) {
+        constructor(turretName:string, x:number, y:number) {
             super(textureSprite, turretName);
             
             this._turretName = turretName;
-            this.regX = regX;
-            this.regY = regY;
+            this.x = x;
+            this.y = y;
+            this.regX = this.getBounds().width / 2;
+            this.regY = this.getBounds().height / 2;
             this.start();
         }
 
@@ -34,8 +36,16 @@ module objects {
             
         }
 
+        // method tp calculate if the zombie is in the shooting range of the turret
         public inRange(zombie:objects.Zombie):boolean {
-            return true;
+            var distance = Math.pow(zombie.x - this.x, 2) + Math.pow(zombie.y - this.y, 2);
+            if(Math.pow(this.fireRange, 2) >= distance) {
+                return true;
+            } else return false;
+        }
+
+        private _reset():void {
+            
         }
     }
 }

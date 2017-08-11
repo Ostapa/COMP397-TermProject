@@ -20,11 +20,14 @@ var objects;
     var Turret = (function (_super) {
         __extends(Turret, _super);
         // Constructor
-        function Turret(turretName, regX, regY) {
+        function Turret(turretName, x, y) {
             var _this = _super.call(this, textureSprite, turretName) || this;
+            _this.fireRange = 60;
             _this._turretName = turretName;
-            _this.regX = regX;
-            _this.regY = regY;
+            _this.x = x;
+            _this.y = y;
+            _this.regX = _this.getBounds().width / 2;
+            _this.regY = _this.getBounds().height / 2;
             _this.start();
             return _this;
         }
@@ -32,8 +35,16 @@ var objects;
         };
         Turret.prototype.update = function () {
         };
+        // method tp calculate if the zombie is in the shooting range of the turret
         Turret.prototype.inRange = function (zombie) {
-            return true;
+            var distance = Math.pow(zombie.x - this.x, 2) + Math.pow(zombie.y - this.y, 2);
+            if (Math.pow(this.fireRange, 2) >= distance) {
+                return true;
+            }
+            else
+                return false;
+        };
+        Turret.prototype._reset = function () {
         };
         return Turret;
     }(createjs.Sprite));

@@ -77,6 +77,7 @@ var assetData = [
     { id: "instructionsBackground", src: "../../Assets/Images/instructionsBackground.png" },
     { id: "gunOne", src: "../../Assets/Images/gun.png" },
     { id: "turret", src: "../../Assets/Images/turret.png" },
+    { id: "turretArea", src: "../../Assets/Images/turretArea.png" },
     { id: "mapOne", src: "../../Assets/Maps/map_level_1.jpeg" },
     { id: "backSound", src: "../../Assets/Sounds/background.ogg" }
 ];
