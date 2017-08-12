@@ -1,7 +1,7 @@
 Scripts/lib
 Scripts/typings
 Assets/Images/Zombies
-
+.npm-packages/
 
 .idea/**/workspace.xml
 .idea/**/tasks.xml

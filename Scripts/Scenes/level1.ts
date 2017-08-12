@@ -18,6 +18,7 @@ module Scenes {
         private _turretArea2:objects.TurretArea;
         private _bullet:objects.Bullet;
         private _collision:Managers.Collision;
+        private _bTime:number;
 
         // Constructor
         constructor() {
@@ -29,12 +30,14 @@ module Scenes {
 
         public start():void {
             this._zombies = new Array<objects.Zombie>();
-
             this._collision = new Managers.Collision();
+
+            this._bTime = createjs.Ticker.getTime();
+            
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 195, 150);
             this._turretArea2 = new objects.TurretArea("turretArea", 455, 150)
-            this._bullet = new objects.Bullet("walkerRight", 120, 100);
+            this._bullet = new objects.Bullet("bullet", 195, 150)
 
             for(var i:number = 0; i < 6; i++) {
                 if(i < 3) {
@@ -55,6 +58,25 @@ module Scenes {
         }
 
         public update():void {
+            if(this._bullet.isVisible() == true)
+                {
+                    if(this.closestZombie.x != 0) {
+                        
+                        if(this._bullet.y <= this.closestZombie.y || this._bullet.x <= this.closestZombie.x) {
+                            this.removeChild(this._bullet);
+                            
+                            if(createjs.Ticker.getTime() > this._bTime + 1000) {
+                                this._bullet = new objects.Bullet("bullet", this._turretArea.x, this._turretArea.y )
+                                this.addChild(this._bullet);
+                                this._bTime = createjs.Ticker.getTime();
+                            }
+                        } else {
+                            createjs.Tween.get(this._bullet).to({y:this.closestZombie.y, x:this.closestZombie.x}, 700, createjs.Ease.linear);
+                        }
+                    }
+                }
+                
+    
             // calculate the angle for the gun to follow the zombie
             if(this._turretArea.notNull) {
                 this._turretArea.update().calculateAngle(this.closestZombie);
@@ -130,6 +152,10 @@ module Scenes {
             //     this.closestZombie.x = 0;
             //     this.closestZombie.y = 0;
             // } 
+        }
+        
+        private _gun_Click(event:createjs.MouseEvent) {
+            this._bullet.visible = true;
         }
     }
 }
