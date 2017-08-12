@@ -16,11 +16,14 @@
 
         }
 
-        public check(object1:objects.Bullet, object2:objects.Zombie):boolean {
-            if(objects.Vector.calcDistance(object1.position, object2.position) < object1.height + object2.height) {
-                console.log("inside")
+        public checkRange(object1:objects.Bullet, object2:objects.Zombie, range:number):boolean {
+            if(objects.Vector.calcDistance(object1.position, object2.position) < range) {
                 return true;
             }
+        }
+
+        public check(object1:objects.Bullet, object2:objects.Zombie):boolean {
+            return object1.hitTest(object2.x, object2.y);
         }
 
      }

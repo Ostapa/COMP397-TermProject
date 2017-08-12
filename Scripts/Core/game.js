@@ -17,6 +17,7 @@ var turretTexture;
 var startScene;
 var controlsScene;
 var gameScene;
+var overScene;
 var turretSprite = {
     "images": [
         "../../Assets/Images/turretsSprite.png"
@@ -107,7 +108,7 @@ var assetData = [
     { id: "cash", src: "../../Assets/Images/cash.png" },
     { id: "heart", src: "../../Assets/Images/heart.png" },
     { id: "marker", src: "../../Assets/Images/marker.png" },
-    { id: "settings", src: "../../Assets/Images/settings.png" },
+    { id: "settings", src: "../../Assets/Images/Settings.png" },
     { id: "initBackground", src: "../../Assets/Images/gameBackground.png" },
     { id: "instructionsBackground", src: "../../Assets/Images/instructionsBackground.png" },
     { id: "settingsBackground", src: "../../Assets/Images/settingsBackground.png" },
@@ -115,7 +116,7 @@ var assetData = [
     { id: "bullet", src: "../../Assets/Images/oneBullet.png" },
     { id: "turret", src: "../../Assets/Images/turret.png" },
     { id: "mapOne", src: "../../Assets/Maps/map_level_1.jpeg" },
-    { id: "mapOne", src: "../../Assets/Maps/map_level_1.jpeg" },
+    { id: "mapTwo", src: "../../Assets/Maps/2.jpg" },
     { id: "backSound", src: "../../Assets/Sounds/background.ogg" }
 ];
 // function to preload assets
@@ -177,6 +178,12 @@ function changeScene() {
             stage.removeAllChildren();
             gameScene = new Scenes.Level2();
             currentScene = gameScene;
+            break;
+        case config.Scene.OVER_SCENE:
+            stage.removeAllChildren();
+            overScene = new Scenes.OverScene();
+            currentScene = overScene;
+            break;
     }
 }
 //# sourceMappingURL=game.js.map

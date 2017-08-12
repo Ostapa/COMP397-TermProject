@@ -28,7 +28,7 @@ var objects;
             _this.regX = _this.getBounds().width / 2;
             _this.regY = _this.getBounds().height / 2;
             _this.start();
-            _this._range.graphics.drawCircle(_this.x, _this.y, _this.getBounds().width);
+            _this._range.graphics.drawCircle(_this.x, _this.y, _this.getBounds().width + 30);
             _this.damage = 10;
             return _this;
         }

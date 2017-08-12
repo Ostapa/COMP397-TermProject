@@ -19,6 +19,7 @@
 /// <reference path = "../Scenes/startScene.ts"/>
 /// <reference path = "../Scenes/controlsScene.ts"/>
 /// <reference path = "../Scenes/gameScene.ts"/>
+/// <reference path = "../Scenes/overScene.ts"/>
 /// <reference path = "../Scenes/level1.ts"/>
 /// <reference path = "../Scenes/level2.ts"/>
 /// <reference path = "../Scenes/settingsScene.ts"/>

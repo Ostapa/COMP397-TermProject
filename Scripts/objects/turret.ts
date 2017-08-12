@@ -12,6 +12,7 @@ module objects {
         protected turretType:string;
         private _gun:objects.Gun;
         private _range:createjs.Shape;
+        public _shootingRange:number;
         private _angle:number;
 
         // public instance variables
@@ -28,12 +29,9 @@ module objects {
             this.regX = this.getBounds().width / 2;
             this.regY = this.getBounds().height / 2;
             this.start();
-            this._range.graphics.drawCircle(this.x, this.y, this.getBounds().width);
+            this._range.graphics.drawCircle(this.x, this.y, this.getBounds().width + 30);
             this.damage = 10;
-            
         }
-
-
 
         public start():void {
             this._gun = new objects.Gun("gun", this.x, this.y)

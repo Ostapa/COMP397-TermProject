@@ -75,6 +75,10 @@ var Scenes;
             this.startGame = true;
         };
         GameScene.prototype.update = function () {
+            if (this.lifeCounterAmt <= 0) {
+                scene = config.Scene.OVER_SCENE;
+                changeScene();
+            }
         };
         GameScene.prototype.updateScore = function () {
             this._lifeCounter.text = this.lifeCounterAmt.toString();

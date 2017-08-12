@@ -97,6 +97,10 @@ module Scenes {
             this.startGame = true;
         }
         public update():void {
+            if(this.lifeCounterAmt <= 0) {
+                scene = config.Scene.OVER_SCENE;
+                changeScene();
+            }
 
         }
         public updateScore():void {

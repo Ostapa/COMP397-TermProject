@@ -18,6 +18,8 @@ var objects;
             var _this = _super.call(this, assets.getResult(path)) || this;
             _this.x = x;
             _this.y = y;
+            _this.regX = _this.getBounds().width / 2;
+            _this.regY = _this.getBounds().height / 2;
             _this.width = _this.getBounds().width;
             _this.height = _this.getBounds().height;
             _this.position = new objects.Vector(x, y);
