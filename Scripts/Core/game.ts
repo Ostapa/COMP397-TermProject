@@ -123,9 +123,7 @@ var assetData:objects.Asset[] = [
     {id:"initBackground", src:"../../Assets/Images/gameBackground.png"},
     {id:"instructionsBackground", src:"../../Assets/Images/instructionsBackground.png"},
     {id:"settingsBackground", src:"../../Assets/Images/settingsBackground.png"},
-    {id:"gunOne", src:"../../Assets/Images/gun.png"},
     {id:"bullet", src:"../../Assets/Images/oneBullet.png"},
-    {id:"turret", src:"../../Assets/Images/turret.png"},
     {id:"mapOne", src:"../../Assets/Maps/map_level_1.jpeg"},
     {id:"mapTwo", src:"../../Assets/Maps/2.jpg"},
     {id:"backSound", src:"../../Assets/Sounds/background.ogg"}
