@@ -16,14 +16,13 @@
 
         }
 
-        public checkRange(object1:objects.Bullet, object2:objects.Zombie, range:number):boolean {
-            if(objects.Vector.calcDistance(object1.position, object2.position) < range) {
+        public check(object1:objects.Zombie, object2:objects.Bullet):boolean {
+            //console.log("object 1: " + object1.position);
+            //console.log("object 2: " + object2.position);
+            
+            if(objects.Vector.calcDistance(object1.position, object2.position) < object2.height) {
                 return true;
             }
-        }
-
-        public check(object1:objects.Bullet, object2:objects.Zombie):boolean {
-            return object1.hitTest(object2.x, object2.y);
         }
 
      }

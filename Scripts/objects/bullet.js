@@ -26,6 +26,7 @@ var objects;
             return _this;
         }
         Bullet.prototype.update = function () {
+            this.position = new objects.Vector(this.x, this.y);
         };
         return Bullet;
     }(createjs.Bitmap));

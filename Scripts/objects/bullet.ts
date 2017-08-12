@@ -17,8 +17,7 @@ module objects {
             this.position = new Vector(x, y);
         }
        public update():void{
-        
-
+            this.position = new Vector(this.x, this.y);
        }
 
     }

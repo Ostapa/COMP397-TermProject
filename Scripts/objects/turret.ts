@@ -10,15 +10,19 @@ module objects {
         //private instance variables
         private _turretName:string;
         protected turretType:string;
-        private _gun:objects.Gun;
+        protected _gun:objects.Gun;
         private _range:createjs.Shape;
-        public _shootingRange:number;
+        public shootingRange:number;
         private _angle:number;
+        private _currentTime:number;
+        public _bullet:objects.Bullet;
+        private _collision:Managers.Collision;
 
         // public instance variables
         public width:number;
         public height:number;
         public damage:number;
+        public position:objects.Vector;
         
         // Constructor
         constructor(turretName:string, x:number, y:number) {
@@ -31,19 +35,24 @@ module objects {
             this.start();
             this._range.graphics.drawCircle(this.x, this.y, this.getBounds().width + 30);
             this.damage = 10;
+            this.position = new objects.Vector(this.x, this.y);
         }
 
         public start():void {
             this._gun = new objects.Gun("gun", this.x, this.y)
+            
             this._range = new createjs.Shape();
             this._range.graphics.beginFill("#98FB98");
             this._range.alpha = .4;
             this._range.graphics.beginStroke("#1db81d");
             this._range.visible = false;
-
-             // event listeners
+            this._currentTime = createjs.Ticker.getTime();
+            
+            // event listeners
             stage.on("click", this._stage_Click, this);
             this._gun.on("click", this._gun_Click, this);
+
+            this.shootingRange = 100;
             
         }
 
@@ -64,13 +73,19 @@ module objects {
             //} 
         }
         // method tp calculate if the zombie is in the shooting range of the turret
-        public inRange(zombie:objects.Zombie):boolean {
+        // public inRange(zombie:objects.Zombie):boolean {
                        
-            var distance = Math.pow(zombie.x - this._range.x, 2) + Math.pow(zombie.y - this._range.y, 2);
+        //     var distance = Math.pow(zombie.x - this._range.x, 2) + Math.pow(zombie.y - this._range.y, 2);
             
-            if(Math.pow(this.getBounds().width/2, 2) >= distance) {
+        //     if(Math.pow(this.getBounds().width/2, 2) >= distance) {
+        //         return true;
+        //     } else return false;
+        // }
+
+        public inRange(object1:objects.Turret, object2:objects.Zombie, range:number):boolean {
+            if(objects.Vector.calcDistance(object1.position, object2.position) < range) {
                 return true;
-            } else return false;
+            }
         }
 
         private _reset():void {
@@ -89,5 +104,17 @@ module objects {
                 this._range.visible = false;
             } 
         }
+
+        public shoot(bullet:objects.Bullet, targetX:number, targetY:number):void {
+            if(createjs.Ticker.getTime() > this._currentTime + 1500) {
+                this._bullet = new objects.Bullet("settings", this.x, this.y )
+                gameScene.addChild(this._bullet);
+                this._currentTime = createjs.Ticker.getTime();
+                createjs.Tween.get(bullet).to({x:targetX, y:targetY}, 1000, createjs.Ease.linear);
+                bullet.update();
+
+                
+            }
+         }
     }
 }

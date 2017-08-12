@@ -58,28 +58,24 @@ var objects;
         };
         TurretArea.prototype._electroTurret_Click = function (event) {
             this._turret = new objects.Turret("turretBase", this.x, this.y);
-            gameScene.addChild(this._turret);
             this._turret.update();
             this._reset();
             this.notNull = true;
         };
         TurretArea.prototype._fireTurret_Click = function (event) {
             this._turret = new objects.Turret("turretBase", this.x, this.y);
-            gameScene.addChild(this._turret);
             this._turret.update();
             this._reset();
             this.notNull = true;
         };
         TurretArea.prototype._gunTurret_Click = function (event) {
             this._turret = new objects.Turret("turretBase", this.x, this.y);
-            gameScene.addChild(this._turret);
             this._turret.update();
             this._reset();
             this.notNull = true;
         };
         TurretArea.prototype._rocketTurret_Click = function (event) {
             this._turret = new objects.Turret("turretBase", this.x, this.y);
-            gameScene.addChild(this._turret);
             this._turret.update();
             this._reset();
             this.notNull = true;

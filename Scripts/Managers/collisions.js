@@ -13,13 +13,12 @@ var Managers;
         }
         Collision.prototype.start = function () {
         };
-        Collision.prototype.checkRange = function (object1, object2, range) {
-            if (objects.Vector.calcDistance(object1.position, object2.position) < range) {
+        Collision.prototype.check = function (object1, object2) {
+            //console.log("object 1: " + object1.position);
+            //console.log("object 2: " + object2.position);
+            if (objects.Vector.calcDistance(object1.position, object2.position) < object2.height) {
                 return true;
             }
-        };
-        Collision.prototype.check = function (object1, object2) {
-            return object1.hitTest(object2.x, object2.y);
         };
         return Collision;
     }());

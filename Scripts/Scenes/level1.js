@@ -25,6 +25,8 @@ var Scenes;
             _this._currentTime = createjs.Ticker.getTime();
             _this._zombiesAdded = 0;
             _this._shootingRange = 100;
+            _this._deadZombies = 0;
+            _this.turretIsBuild = false;
             if (!_this.onPause) {
                 _this.start();
             }
@@ -33,11 +35,10 @@ var Scenes;
         Level1.prototype.start = function () {
             this._zombies = new Array();
             this._collision = new Managers.Collision();
-            this._bTime = createjs.Ticker.getTime();
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 195, 150);
             this._turretArea2 = new objects.TurretArea("turretArea", 455, 150);
-            this._bullet = new objects.Bullet("settings", 195, 150);
+            this._bullet = new objects.Bullet("settings", this._turretArea.x, this._turretArea.y);
             for (var i = 0; i < 10; i++) {
                 if (i < 5) {
                     this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
@@ -47,45 +48,42 @@ var Scenes;
                 }
             }
             this.closestZombie = this._zombies[0];
-            this.addChild(this._turretArea, this._turretArea2, this._bullet);
+            this.addChild(this._turretArea, this._turretArea2, this._turret, this._bullet);
             stage.addChild(this);
         };
         Level1.prototype.update = function () {
             var _this = this;
-            if (this._turretArea.notNull) {
-                if (this.closestZombie.x != 0) {
-                    if (this._bullet.y <= this.closestZombie.y && this._bullet.x <= this.closestZombie.x) {
-                        this.removeChild(this._bullet);
-                        this._deadZombies += 5;
-                        if (createjs.Ticker.getTime() > this._bTime + 300) {
-                            this._bullet = new objects.Bullet("settings", this._turretArea.x, this._turretArea.y);
-                            this.addChild(this._bullet);
-                            this._bTime = createjs.Ticker.getTime();
+            if (this._deadZombies >= 10) {
+                scene = config.Scene.LEVEL_2;
+                changeScene();
+            }
+            if (this.turretIsBuild && this._zombies.length != 0) {
+                if (this._turret.inRange(this._turret, this.closestZombie, this._turret.shootingRange)) {
+                    this._turret.shoot(this._bullet, this.closestZombie.x, this.closestZombie.y);
+                    this._bullet.update();
+                    if (this._collision.check(this.closestZombie, this._bullet)) {
+                        this.removeChild(this.closestZombie);
+                        if (this._zombies.length !== 0) {
+                            this._zombies.shift();
+                            this.closestZombie = this._zombies[0];
+                            this._deadZombies++;
                         }
-                    }
-                    else {
-                        if (this._collision.checkRange(this._bullet, this.closestZombie, this._shootingRange)) {
-                            createjs.Tween.get(this._bullet).to({ y: this.closestZombie.y, x: this.closestZombie.x }, 300, createjs.Ease.linear);
-                            if (this._collision.check(this._bullet, this.closestZombie)) {
-                                this._zombies.shift();
-                                this._deadZombies++;
-                                this.removeChild(this.closestZombie);
-                                if (this._zombies.length !== 0) {
-                                    this.closestZombie = this._zombies[0];
-                                }
-                                else {
-                                    this.closestZombie.x = 0;
-                                    this.closestZombie.y = 0;
-                                }
-                            }
+                        else {
+                            this.closestZombie.x = 0;
+                            this.closestZombie.y = 0;
                         }
                     }
                 }
+                console.log(this._deadZombies);
             }
             // check if the zombie is hitted with zombie
             // calculate the angle for the gun to follow the zombie
             if (this._turretArea.notNull) {
-                this._turretArea.update().calculateAngle(this.closestZombie);
+                this._turret = this._turretArea.update();
+                this._turret.calculateAngle(this.closestZombie);
+                this.addChild(this._turret);
+                this._turret.update();
+                this.turretIsBuild = true;
             }
             if (this._turretArea2.notNull) {
                 this._turretArea2.update().calculateAngle(this.closestZombie);
@@ -109,10 +107,6 @@ var Scenes;
                     gameScene.updateScore();
                 }
             }
-            if (this._deadZombies >= 10) {
-                scene = config.Scene.LEVEL_2;
-                changeScene();
-            }
         };
         // method to add zombies of any type to the stage and make them move in the desired direction
         Level1.prototype.addZombies = function (arr) {
@@ -129,9 +123,6 @@ var Scenes;
                     zombie.update();
                 }
             });
-        };
-        Level1.prototype._gun_Click = function (event) {
-            this._bullet.visible = true;
         };
         return Level1;
     }(Scenes.GameScene));

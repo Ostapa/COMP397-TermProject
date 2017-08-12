@@ -66,7 +66,6 @@
 
         private _electroTurret_Click(event:createjs.MouseEvent) {
             this._turret = new Turret("turretBase", this.x, this.y)
-            gameScene.addChild(this._turret);
             this._turret.update()
             this._reset();
             this.notNull = true;
@@ -74,7 +73,6 @@
         }
         private _fireTurret_Click(event:createjs.MouseEvent) {
             this._turret = new Turret("turretBase", this.x, this.y)
-            gameScene.addChild(this._turret);
             this._turret.update()
             this._reset();
             this.notNull = true;
@@ -82,7 +80,6 @@
         }
         private _gunTurret_Click(event:createjs.MouseEvent) {
             this._turret = new Turret("turretBase", this.x, this.y)
-            gameScene.addChild(this._turret);
             this._turret.update()
             this._reset();
             this.notNull = true;
@@ -90,7 +87,6 @@
         }
         private _rocketTurret_Click(event:createjs.MouseEvent) {
             this._turret = new Turret("turretBase", this.x, this.y)
-            gameScene.addChild(this._turret);
             this._turret.update()
             this._reset();
             this.notNull = true;

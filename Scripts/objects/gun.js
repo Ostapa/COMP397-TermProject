@@ -25,8 +25,15 @@ var objects;
             _this.y = y;
             _this.regX = _this.getBounds().width / 2;
             _this.regY = _this.getBounds().height / 2;
+            // depending on the type of gun, the bullets will differentiate
+            _this.start();
             return _this;
         }
+        Gun.prototype.start = function () {
+            this._currentTime = createjs.Ticker.getTime();
+        };
+        Gun.prototype.update = function () {
+        };
         return Gun;
     }(createjs.Sprite));
     objects.Gun = Gun;

@@ -30,6 +30,7 @@ var objects;
             _this.start();
             _this._range.graphics.drawCircle(_this.x, _this.y, _this.getBounds().width + 30);
             _this.damage = 10;
+            _this.position = new objects.Vector(_this.x, _this.y);
             return _this;
         }
         Turret.prototype.start = function () {
@@ -39,9 +40,11 @@ var objects;
             this._range.alpha = .4;
             this._range.graphics.beginStroke("#1db81d");
             this._range.visible = false;
+            this._currentTime = createjs.Ticker.getTime();
             // event listeners
             stage.on("click", this._stage_Click, this);
             this._gun.on("click", this._gun_Click, this);
+            this.shootingRange = 100;
         };
         Turret.prototype.update = function () {
             gameScene.addChild(this._gun, this._range);
@@ -58,13 +61,16 @@ var objects;
             //} 
         };
         // method tp calculate if the zombie is in the shooting range of the turret
-        Turret.prototype.inRange = function (zombie) {
-            var distance = Math.pow(zombie.x - this._range.x, 2) + Math.pow(zombie.y - this._range.y, 2);
-            if (Math.pow(this.getBounds().width / 2, 2) >= distance) {
+        // public inRange(zombie:objects.Zombie):boolean {
+        //     var distance = Math.pow(zombie.x - this._range.x, 2) + Math.pow(zombie.y - this._range.y, 2);
+        //     if(Math.pow(this.getBounds().width/2, 2) >= distance) {
+        //         return true;
+        //     } else return false;
+        // }
+        Turret.prototype.inRange = function (object1, object2, range) {
+            if (objects.Vector.calcDistance(object1.position, object2.position) < range) {
                 return true;
             }
-            else
-                return false;
         };
         Turret.prototype._reset = function () {
         };
@@ -76,6 +82,15 @@ var objects;
         Turret.prototype._stage_Click = function (event) {
             if (event.target != this._gun) {
                 this._range.visible = false;
+            }
+        };
+        Turret.prototype.shoot = function (bullet, targetX, targetY) {
+            if (createjs.Ticker.getTime() > this._currentTime + 1500) {
+                this._bullet = new objects.Bullet("settings", this.x, this.y);
+                gameScene.addChild(this._bullet);
+                this._currentTime = createjs.Ticker.getTime();
+                createjs.Tween.get(bullet).to({ x: targetX, y: targetY }, 1000, createjs.Ease.linear);
+                bullet.update();
             }
         };
         return Turret;
