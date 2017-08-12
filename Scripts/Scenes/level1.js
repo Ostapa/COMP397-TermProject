@@ -31,10 +31,11 @@ var Scenes;
         }
         Level1.prototype.start = function () {
             this._zombies = new Array();
+            this._bTime = createjs.Ticker.getTime();
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 195, 150);
             this._turretArea2 = new objects.TurretArea("turretArea", 455, 150);
-            this._bullet = new objects.Bullet("walkerRight", 320, 240);
+            this._bullet = new objects.Bullet("bullet", 195, 150);
             for (var i = 0; i < 6; i++) {
                 if (i < 3) {
                     this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
@@ -50,6 +51,21 @@ var Scenes;
         };
         Level1.prototype.update = function () {
             var _this = this;
+            if (this._bullet.isVisible() == true) {
+                if (this.closestZombie.x != 0) {
+                    if (this._bullet.y <= this.closestZombie.y || this._bullet.x <= this.closestZombie.x) {
+                        this.removeChild(this._bullet);
+                        if (createjs.Ticker.getTime() > this._bTime + 1000) {
+                            this._bullet = new objects.Bullet("bullet", this._turretArea.x, this._turretArea.y);
+                            this.addChild(this._bullet);
+                            this._bTime = createjs.Ticker.getTime();
+                        }
+                    }
+                    else {
+                        createjs.Tween.get(this._bullet).to({ y: this.closestZombie.y, x: this.closestZombie.x }, 700, createjs.Ease.linear);
+                    }
+                }
+            }
             // calculate the angle for the gun to follow the zombie
             if (this._turretArea.notNull) {
                 this._turretArea.update().calculateAngle(this.closestZombie);
@@ -108,6 +124,9 @@ var Scenes;
                 this.closestZombie.x = 0;
                 this.closestZombie.y = 0;
             }
+        };
+        Level1.prototype._gun_Click = function (event) {
+            this._bullet.visible = true;
         };
         return Level1;
     }(Scenes.GameScene));

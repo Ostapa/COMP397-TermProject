@@ -15,13 +15,15 @@ var objects;
         __extends(Bullet, _super);
         // constructor
         function Bullet(path, x, y) {
-            var _this = _super.call(this, textureSprite, path) || this;
+            var _this = _super.call(this, assets.getResult(path)) || this;
             _this.x = x;
             _this.y = y;
             return _this;
         }
+        Bullet.prototype.update = function () {
+        };
         return Bullet;
-    }(createjs.Sprite));
+    }(createjs.Bitmap));
     objects.Bullet = Bullet;
 })(objects || (objects = {}));
 //# sourceMappingURL=bullet.js.map
