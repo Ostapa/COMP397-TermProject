@@ -31,10 +31,11 @@ var Scenes;
         }
         Level1.prototype.start = function () {
             this._zombies = new Array();
+            this._collision = new Managers.Collision();
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 195, 150);
             this._turretArea2 = new objects.TurretArea("turretArea", 455, 150);
-            this._bullet = new objects.Bullet("walkerRight", 320, 240);
+            this._bullet = new objects.Bullet("walkerRight", 120, 100);
             for (var i = 0; i < 6; i++) {
                 if (i < 3) {
                     this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
@@ -64,6 +65,20 @@ var Scenes;
                         _this.closestZombie = zombie;
                     }
                 });
+                // check if the zombie is hitted with zombie
+                if (this._collision.check(this._bullet, this.closestZombie)) {
+                    this._zombies.shift();
+                    this.removeChild(this.closestZombie);
+                    // this.removeChild(event.target);
+                    if (this._zombies.length !== 0) {
+                        this.closestZombie = this._zombies[0];
+                    }
+                    else {
+                        this.closestZombie.x = 0;
+                        this.closestZombie.y = 0;
+                    }
+                }
+                ;
                 if (this.closestZombie.x >= 640) {
                     if (this._zombies.length != 0) {
                         this.lifeCounterAmt--;
@@ -77,7 +92,8 @@ var Scenes;
                 }
             }
             if (this._zombies.length <= 0) {
-                // scene = config.
+                scene = config.Scene.LEVEL_2;
+                changeScene();
             }
         };
         // method to add zombies of any type to the stage and make them move in the desired direction
@@ -98,16 +114,15 @@ var Scenes;
         };
         // Event handlers
         Level1.prototype._zombie_Click = function (event) {
-            this._zombies.shift();
-            this.removeChild(this.closestZombie);
-            // this.removeChild(event.target);
-            if (this._zombies.length !== 0) {
-                this.closestZombie = this._zombies[0];
-            }
-            else {
-                this.closestZombie.x = 0;
-                this.closestZombie.y = 0;
-            }
+            // this._zombies.shift()
+            // this.removeChild(this.closestZombie);
+            // // this.removeChild(event.target);
+            // if(this._zombies.length !== 0) {
+            //     this.closestZombie = this._zombies[0];
+            // } else {
+            //     this.closestZombie.x = 0;
+            //     this.closestZombie.y = 0;
+            // } 
         };
         return Level1;
     }(Scenes.GameScene));

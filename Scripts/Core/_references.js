@@ -11,9 +11,13 @@
 /// <reference path = "../objects/turretIcon.ts" />
 /// <reference path = "../objects/gun.ts" />
 /// <reference path = "../objects/bullet.ts" />
+/// <reference path = "../objects/gameObject.ts" />
+/// <reference path = "../objects/vector.ts" />
 /// <reference path = "../Scenes/startScene.ts"/>
 /// <reference path = "../Scenes/controlsScene.ts"/>
 /// <reference path = "../Scenes/gameScene.ts"/>
 /// <reference path = "../Scenes/level1.ts"/>
+/// <reference path = "../Scenes/level2.ts"/>
 /// <reference path = "../Scenes/settingsScene.ts"/>
+/// <reference path = "../Managers/collisions.ts"/>
 //# sourceMappingURL=_references.js.map

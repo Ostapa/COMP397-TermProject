@@ -13,8 +13,11 @@ var Managers;
         }
         Collision.prototype.start = function () {
         };
-        Collision.prototype.check = function (bullet, zombie) {
-            return true;
+        Collision.prototype.check = function (object1, object2) {
+            if (objects.Vector.calcDistance(object1.position, object2.position) < object1.height + object2.height) {
+                console.log("inside");
+                return true;
+            }
         };
         return Collision;
     }());

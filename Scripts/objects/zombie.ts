@@ -6,6 +6,7 @@ module objects {
         private _zombieType:string;
         private health:number;
         private rewardPoints:number;
+        public position:Vector;
 
         // public instance variables
         public width:number;
@@ -18,6 +19,8 @@ module objects {
 
             this.x = x;
             this.y = y;
+            this.position = new Vector(x, y);
+            
             // this is to randomize the path of each zombie
             //this.y = y * (Math.round((Math.random() * (0.4-0.3) + 0.3)*100)/100);
             this._zombieName = zombieName;
@@ -44,6 +47,7 @@ module objects {
         }
 
         public update():void {
+            this.position = new Vector(this.x, this.y)
             if(this.x < 120 && this.y == 260) {
                 this.move(config.Direction.RIGHT, 120, 260);
                 if(this.x == 0) {
@@ -74,8 +78,6 @@ module objects {
                 }
                 this.move(config.Direction.RIGHT, 640, 130);
             }
-            
-        
         }
 
         public changeDirection(zombieName:string, dir:number) {

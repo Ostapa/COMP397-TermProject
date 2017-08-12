@@ -18,6 +18,9 @@ var objects;
             var _this = _super.call(this, textureSprite, path) || this;
             _this.x = x;
             _this.y = y;
+            _this.width = _this.getBounds().width;
+            _this.height = _this.getBounds().height;
+            _this.position = new objects.Vector(x, y);
             return _this;
         }
         return Bullet;

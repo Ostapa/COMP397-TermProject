@@ -14,7 +14,7 @@ var Scenes;
         __extends(Level2, _super);
         // Constructor
         function Level2() {
-            var _this = _super.call(this, "mapOne", "levelOne_s") || this;
+            var _this = _super.call(this, "mapTwo", "levelOne_s") || this;
             if (!_this.onPause) {
                 _this.start();
             }

@@ -73,7 +73,7 @@ var zombieSprite = {
     "animations": {
         "mumblerDown": {
             "frames": [0, 1, 2],
-            "speed": 0.07
+            "speed": 0.07,
         },
         "mumblerLeft": { "frames": [3, 15, 4],
             "speed": 0.07 },
@@ -114,6 +114,7 @@ var assetData = [
     { id: "gunOne", src: "../../Assets/Images/gun.png" },
     { id: "bullet", src: "../../Assets/Images/oneBullet.png" },
     { id: "turret", src: "../../Assets/Images/turret.png" },
+    { id: "mapOne", src: "../../Assets/Maps/map_level_1.jpeg" },
     { id: "mapOne", src: "../../Assets/Maps/map_level_1.jpeg" },
     { id: "backSound", src: "../../Assets/Sounds/background.ogg" }
 ];

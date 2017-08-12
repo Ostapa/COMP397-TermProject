@@ -20,6 +20,7 @@ var objects;
             _this.height = _this.getBounds().height;
             _this.x = x;
             _this.y = y;
+            _this.position = new objects.Vector(x, y);
             // this is to randomize the path of each zombie
             //this.y = y * (Math.round((Math.random() * (0.4-0.3) + 0.3)*100)/100);
             _this._zombieName = zombieName;
@@ -44,6 +45,7 @@ var objects;
             }
         };
         Zombie.prototype.update = function () {
+            this.position = new objects.Vector(this.x, this.y);
             if (this.x < 120 && this.y == 260) {
                 this.move(config.Direction.RIGHT, 120, 260);
                 if (this.x == 0) {

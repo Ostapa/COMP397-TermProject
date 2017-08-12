@@ -12,7 +12,7 @@
              super(x,y);
          }
 
-         public static calcDistance(vect1:Vector, vect2:Vector) {
+         public static calcDistance(vect1:Vector, vect2:Vector):number {
              return Math.floor(Math.sqrt(Math.pow(vect2.x - vect1.x, 2) + Math.pow(vect2.y - vect1.y, 2)));
          }
      }

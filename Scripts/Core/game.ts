@@ -126,6 +126,7 @@ var assetData:objects.Asset[] = [
     {id:"bullet", src:"../../Assets/Images/oneBullet.png"},
     {id:"turret", src:"../../Assets/Images/turret.png"},
     {id:"mapOne", src:"../../Assets/Maps/map_level_1.jpeg"},
+    {id:"mapOne", src:"../../Assets/Maps/map_level_1.jpeg"},
     {id:"backSound", src:"../../Assets/Sounds/background.ogg"}
 ];
 // function to preload assets

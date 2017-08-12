@@ -17,6 +17,7 @@ module Scenes {
         private _turretArea:objects.TurretArea;
         private _turretArea2:objects.TurretArea;
         private _bullet:objects.Bullet;
+        private _collision:Managers.Collision;
 
         // Constructor
         constructor() {
@@ -29,11 +30,11 @@ module Scenes {
         public start():void {
             this._zombies = new Array<objects.Zombie>();
 
-
+            this._collision = new Managers.Collision();
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 195, 150);
             this._turretArea2 = new objects.TurretArea("turretArea", 455, 150)
-            this._bullet = new objects.Bullet("walkerRight", 320, 240)
+            this._bullet = new objects.Bullet("walkerRight", 120, 100);
 
             for(var i:number = 0; i < 6; i++) {
                 if(i < 3) {
@@ -70,6 +71,18 @@ module Scenes {
                     }
                 });
 
+                // check if the zombie is hitted with zombie
+                if(this._collision.check(this._bullet, this.closestZombie)) { 
+                    this._zombies.shift()
+                    this.removeChild(this.closestZombie);
+                    // this.removeChild(event.target);
+                    if(this._zombies.length !== 0) {
+                        this.closestZombie = this._zombies[0];
+                    } else {
+                        this.closestZombie.x = 0;
+                        this.closestZombie.y = 0;
+                    } 
+                };
                 if(this.closestZombie.x >= 640) {
                     if(this._zombies.length != 0) {
                         this.lifeCounterAmt--;
@@ -84,7 +97,8 @@ module Scenes {
             }
 
             if(this._zombies.length <= 0) {
-                // scene = config.
+                scene = config.Scene.LEVEL_2;
+                changeScene()
             }
             
         }
@@ -107,15 +121,15 @@ module Scenes {
 
         // Event handlers
         private _zombie_Click(event:createjs.MouseEvent) {
-            this._zombies.shift()
-            this.removeChild(this.closestZombie);
-            // this.removeChild(event.target);
-            if(this._zombies.length !== 0) {
-                this.closestZombie = this._zombies[0];
-            } else {
-                this.closestZombie.x = 0;
-                this.closestZombie.y = 0;
-            } 
+            // this._zombies.shift()
+            // this.removeChild(this.closestZombie);
+            // // this.removeChild(event.target);
+            // if(this._zombies.length !== 0) {
+            //     this.closestZombie = this._zombies[0];
+            // } else {
+            //     this.closestZombie.x = 0;
+            //     this.closestZombie.y = 0;
+            // } 
         }
     }
 }
