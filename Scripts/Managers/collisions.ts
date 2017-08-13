@@ -17,13 +17,11 @@
         }
 
         public check(object1:objects.Zombie, object2:objects.Bullet):boolean {
-            //console.log("object 1: " + object1.position);
-            //console.log("object 2: " + object2.position);
-            
-            if(objects.Vector.calcDistance(object1.position, object2.position) < object2.height) {
+            if(objects.Vector.calcDistance(object1.position, object2.position) <= 10) {
                 return true;
             }
         }
+        
 
      }
 

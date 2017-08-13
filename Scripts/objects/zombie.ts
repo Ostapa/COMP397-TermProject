@@ -4,7 +4,7 @@ module objects {
         // private instance variables 
         private _zombieName:string;
         private _zombieType:string;
-        private health:number;
+        public health:number;
         private rewardPoints:number;
         public position:Vector;
 
@@ -25,9 +25,20 @@ module objects {
             //this.y = y * (Math.round((Math.random() * (0.4-0.3) + 0.3)*100)/100);
             this._zombieName = zombieName;
             this._zombieType = zombieType;
+            this.start();
+            
         }
 
-        // TODO: start method
+        public start():void {
+            switch(this._zombieType) {
+                case "walker": 
+                    this.health = 30;
+                    break;
+                case "mumbler":
+                    this.health = 50;
+                    break;
+            }
+        }
 
         public move(direction:number, destX:number, destY:number):void {
             switch(direction) {

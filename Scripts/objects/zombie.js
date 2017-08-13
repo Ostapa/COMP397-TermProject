@@ -25,9 +25,19 @@ var objects;
             //this.y = y * (Math.round((Math.random() * (0.4-0.3) + 0.3)*100)/100);
             _this._zombieName = zombieName;
             _this._zombieType = zombieType;
+            _this.start();
             return _this;
         }
-        // TODO: start method
+        Zombie.prototype.start = function () {
+            switch (this._zombieType) {
+                case "walker":
+                    this.health = 30;
+                    break;
+                case "mumbler":
+                    this.health = 50;
+                    break;
+            }
+        };
         Zombie.prototype.move = function (direction, destX, destY) {
             switch (direction) {
                 case 0:

@@ -84,15 +84,6 @@ var objects;
                 this._range.visible = false;
             }
         };
-        Turret.prototype.shoot = function (bullet, targetX, targetY) {
-            if (createjs.Ticker.getTime() > this._currentTime + 1500) {
-                this._bullet = new objects.Bullet("settings", this.x, this.y);
-                gameScene.addChild(this._bullet);
-                this._currentTime = createjs.Ticker.getTime();
-                createjs.Tween.get(bullet).to({ x: targetX, y: targetY }, 1000, createjs.Ease.linear);
-                bullet.update();
-            }
-        };
         return Turret;
     }(createjs.Sprite));
     objects.Turret = Turret;
