@@ -73,10 +73,10 @@ module Scenes {
                 if(this._turret.inRange(this._turret, this.closestZombie, this._turret.shootingRange)) {
                     this._bullet.update();
                     this.shoot1(this.closestZombie.x + this.closestZombie.width/2, this.closestZombie.y);
+                    console.log(this._bullet.x)
                     if(this._collision.check(this.closestZombie, this._bullet)) {
                         this.removeChild(this._bullet)
                         this.reduceHealth();
-                        
                         if(this.closestZombie.health <= 0) {
                             this.removeChild(this.closestZombie);
                             if(this._zombies.length !== 0) {
@@ -94,7 +94,8 @@ module Scenes {
             if(this.turretIsBuild2 && this._zombies.length != 0) {
                 if(this._turret2.inRange(this._turret2, this.closestZombie, this._turret2.shootingRange)) {
                     this._bullet2.update();
-                    this.shoot2(this.closestZombie.x + this.closestZombie.width/2, this.closestZombie.y);
+                    this.shoot2(this.closestZombie.x + this.closestZombie.width/2, this.closestZombie.y + this.closestZombie.height / 2);
+                    console.log(this._bullet2.x)
                     if(this._collision.check(this.closestZombie, this._bullet2)) {
                         this.removeChild(this._bullet2)
                         this.reduceHealth();
@@ -133,7 +134,7 @@ module Scenes {
                 this.turretIsBuild2 = true;
                 if(this._turret2.isBuild && this.counter2 < 1) {
                     this._bullet2 = new objects.Bullet(this.chooseBullet(this._turret2), this._turret2.x, this._turret2.y);
-                    this.counter++;
+                    this.counter2++;
                 }
             }
             if(this.startGame) {
@@ -208,8 +209,6 @@ module Scenes {
         public chooseBullet(turret:objects.Turret):string {
             switch(turret.turretType) {
                 case "Electro":
-                    console.log("inside switch");
-                    
                     return "electroBullet1"
                 case "Fire":
                     return "electroBullet3"
