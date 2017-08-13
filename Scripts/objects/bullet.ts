@@ -1,13 +1,13 @@
 module objects {
     // button class
-    export class Bullet extends createjs.Bitmap {
+    export class Bullet extends createjs.Sprite {
         // private instance variables
         public position:Vector;
         public height:number;
         public width:number;
         // constructor
         constructor(path: string, x:number, y: number) {
-            super(assets.getResult(path));
+            super(turretTexture, path);
             this.x = x;
             this.y = y;
             this.regX = this.getBounds().width / 2;

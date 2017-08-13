@@ -14,14 +14,20 @@ module Scenes {
         private _currentTime:number = createjs.Ticker.getTime();
         private _zombiesAdded:number = 0;
         public _turret:objects.Turret;
+        public _turret2:objects.Turret;
         private _turretArea:objects.TurretArea;
         private _turretArea2:objects.TurretArea;
         public _bullet:objects.Bullet;
+        public _bullet2:objects.Bullet;
         private _collision:Managers.Collision;
         private _bTime:number = createjs.Ticker.getTime();
         private _shootingRange:number = 100;
         private _deadZombies:number = 0;
-        private turretIsBuild:boolean = false;
+        private turretIsBuild1:boolean = false;
+        private turretIsBuild2:boolean = false;
+
+        public counter:number = 0;
+        public counter2:number = 0;
 
         // Constructor
         constructor() {
@@ -39,7 +45,7 @@ module Scenes {
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 195, 150);
             this._turretArea2 = new objects.TurretArea("turretArea", 455, 150)
-            this._bullet = new objects.Bullet("settings", this._turretArea.x, this._turretArea.y)
+            
 
             for(var i:number = 0; i < 10; i++) {
                 if(i < 5) {
@@ -50,7 +56,7 @@ module Scenes {
             }
             this.closestZombie = this._zombies[0];
 
-            this.addChild(this._turretArea, this._turretArea2, this._turret, this._bullet);
+            this.addChild(this._turretArea, this._turretArea2, this._turret, this._turret2);
             
             stage.addChild(this);
            
@@ -63,16 +69,16 @@ module Scenes {
                 changeScene()
             }
 
-            this._bullet.update();
-            if(this.turretIsBuild && this._zombies.length != 0) {
+            if(this.turretIsBuild1 && this._zombies.length != 0) {
                 if(this._turret.inRange(this._turret, this.closestZombie, this._turret.shootingRange)) {
-                    this.shoot(this.closestZombie.x, this.closestZombie.y);
+                    this._bullet.update();
+                    this.shoot1(this.closestZombie.x + this.closestZombie.width/2, this.closestZombie.y);
                     if(this._collision.check(this.closestZombie, this._bullet)) {
                         this.removeChild(this._bullet)
                         this.reduceHealth();
+                        
                         if(this.closestZombie.health <= 0) {
                             this.removeChild(this.closestZombie);
-                            
                             if(this._zombies.length !== 0) {
                                 this._zombies.shift()
                                 this.closestZombie = this._zombies[0];
@@ -82,11 +88,30 @@ module Scenes {
                                 this.closestZombie.y = 0;
                             } 
                         }
-                        }
-                   }
+                    }
                 }
-            // check if the zombie is hitted with zombie
-            
+            }
+            if(this.turretIsBuild2 && this._zombies.length != 0) {
+                if(this._turret2.inRange(this._turret2, this.closestZombie, this._turret2.shootingRange)) {
+                    this._bullet2.update();
+                    this.shoot2(this.closestZombie.x + this.closestZombie.width/2, this.closestZombie.y);
+                    if(this._collision.check(this.closestZombie, this._bullet2)) {
+                        this.removeChild(this._bullet2)
+                        this.reduceHealth();
+                        if(this.closestZombie.health <= 0) {
+                            this.removeChild(this.closestZombie);
+                            if(this._zombies.length !== 0) {
+                                this._zombies.shift()
+                                this.closestZombie = this._zombies[0];
+                                this._deadZombies++;
+                            } else {
+                                this.closestZombie.x = 0;
+                                this.closestZombie.y = 0;
+                            } 
+                        }
+                    }
+                }
+            }      
     
             // calculate the angle for the gun to follow the zombie
             if(this._turretArea.notNull) {
@@ -94,15 +119,22 @@ module Scenes {
                 this._turret.calculateAngle(this.closestZombie);
                 this.addChild(this._turret)
                 this._turret.update();
-                this.turretIsBuild = true;
-                
+                this.turretIsBuild1 = true;
+                if(this._turret.isBuild && this.counter < 1) {
+                    this._bullet = new objects.Bullet(this.chooseBullet(this._turret), this._turret.x, this._turret.y);
+                    this.counter++
+                }
             }
             if(this._turretArea2.notNull) {
-                this._turretArea2.update().calculateAngle(this.closestZombie);
-                this._turret.calculateAngle(this.closestZombie);
-                this.addChild(this._turret)
-                this._turret.update();
-                this.turretIsBuild = true;
+                this._turret2 = this._turretArea2.update()
+                this._turret2.calculateAngle(this.closestZombie);
+                this.addChild(this._turret2)
+                this._turret2.update();
+                this.turretIsBuild2 = true;
+                if(this._turret2.isBuild && this.counter2 < 1) {
+                    this._bullet2 = new objects.Bullet(this.chooseBullet(this._turret2), this._turret2.x, this._turret2.y);
+                    this.counter++;
+                }
             }
             if(this.startGame) {
                 this.addZombies(this._zombies);
@@ -151,15 +183,41 @@ module Scenes {
         }
 
         // method to shoot 
-        public shoot(targetX:number, targetY:number):void {
+        public shoot1(targetX:number, targetY:number):void {
             if(createjs.Ticker.getTime() > this._bTime + 500) {
                 this.removeChild(this._bullet)
-                this._bullet = new objects.Bullet("settings", this._turret.x, this._turret.y )
+                this._bullet = new objects.Bullet(this.chooseBullet(this._turret), this._turret.x, this._turret.y )
                 this.addChild(this._bullet);
-                createjs.Tween.get(this._bullet).to({x:targetX, y:targetY}, 300, createjs.Ease.linear);
+                this._bullet.update();
+                createjs.Tween.get(this._bullet).to({x:targetX, y:targetY}, 500, createjs.Ease.linear);
                 this._bTime = createjs.Ticker.getTime();
             }
         }
-        
+
+        public shoot2(targetX:number, targetY:number):void {
+            if(createjs.Ticker.getTime() > this._bTime + 500) {
+                this.removeChild(this._bullet2)
+                this._bullet2 = new objects.Bullet(this.chooseBullet(this._turret2), this._turret2.x, this._turret2.y )
+                this.addChild(this._bullet2);
+                this._bullet2.update();
+                createjs.Tween.get(this._bullet2).to({x:targetX, y:targetY}, 500, createjs.Ease.linear);
+                this._bTime = createjs.Ticker.getTime();
+            }
+        }
+
+        public chooseBullet(turret:objects.Turret):string {
+            switch(turret.turretType) {
+                case "Electro":
+                    console.log("inside switch");
+                    
+                    return "electroBullet1"
+                case "Fire":
+                    return "electroBullet3"
+                case "Gun":
+                    return "gunBullet3"
+                case "Rocket":
+                    return "gunBullet1"
+            }
+        }
     }
 }

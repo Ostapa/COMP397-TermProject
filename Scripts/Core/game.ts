@@ -29,25 +29,43 @@ var turretSprite = {
     "images": [
         "../../Assets/Images/turretsSprite.png"
     ],
-
+    
     "frames": [
-        [1, 1, 80, 80, 0, 0, 0],
-        [83, 1, 24, 50, 0, 0, 0],
-        [1, 83, 80, 80, 0, 0, 0],
-        [1, 165, 50, 50, 0, 0, 0],
-        [53, 165, 50, 50, 0, 0, 0],
-        [1, 217, 50, 50, 0, 0, 0],
-        [53, 217, 50, 50, 0, 0, 0]
+        [1, 1, 60, 60, 0, 0, 0],
+        [1, 63, 60, 60, 0, 0, 0],
+        [1, 125, 50, 50, 0, 0, 0],
+        [53, 125, 8, 15, 0, 0, 0],
+        [53, 142, 8, 15, 0, 0, 0],
+        [53, 159, 6, 15, 0, 0, 0],
+        [1, 177, 50, 50, 0, 0, 0],
+        [1, 229, 50, 50, 0, 0, 0],
+        [1, 281, 50, 50, 0, 0, 0],
+        [1, 333, 25, 69, 0, 0, 0],
+        [28, 333, 34, 35, 0, 0, 0],
+        [28, 370, 15, 60, 0, 0, 0],
+        [1, 404, 24, 38, 0, 0, 0],
+        [45, 370, 12, 60, 0, 0, 0],
+        [27, 432, 25, 26, 0, 0, 0],
+        [1, 444, 15, 16, 0, 0, 0]
     ],
-
+    
     "animations": {
         "turretArea": { "frames": [0] },
-        "gun": { "frames": [1] },
-        "turretBase": { "frames": [2] },
-        "electro": { "frames": [3] },
-        "fire": { "frames": [4] },
-        "gunIcon": { "frames": [5] },
-        "rocket": { "frames": [6] }
+        "turretBase": { "frames": [1] },
+        "electro": { "frames": [2] },
+        "gunBullet1": { "frames": [3] },
+        "gunBullet2": { "frames": [4] },
+        "gunBullet3": { "frames": [5] },
+        "fire": { "frames": [6] },
+        "gunIcon": { "frames": [7] },
+        "rocket": { "frames": [8] },
+        "rocketGun": { "frames": [9] },
+        "electroBullet3": { "frames": [10] },
+        "fireGun": { "frames": [11] },
+        "gun": { "frames": [12] },
+        "electroGun": { "frames": [13] },
+        "electroBullet2": { "frames": [14] },
+        "electroBullet1": { "frames": [15] }
     }
 }
 

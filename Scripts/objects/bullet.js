@@ -15,7 +15,7 @@ var objects;
         __extends(Bullet, _super);
         // constructor
         function Bullet(path, x, y) {
-            var _this = _super.call(this, assets.getResult(path)) || this;
+            var _this = _super.call(this, turretTexture, path) || this;
             _this.x = x;
             _this.y = y;
             _this.regX = _this.getBounds().width / 2;
@@ -29,7 +29,7 @@ var objects;
             this.position = new objects.Vector(this.x, this.y);
         };
         return Bullet;
-    }(createjs.Bitmap));
+    }(createjs.Sprite));
     objects.Bullet = Bullet;
 })(objects || (objects = {}));
 //# sourceMappingURL=bullet.js.map

@@ -20,21 +20,37 @@ var objects;
     var Turret = (function (_super) {
         __extends(Turret, _super);
         // Constructor
-        function Turret(turretName, x, y) {
+        function Turret(turretName, turretType, x, y) {
             var _this = _super.call(this, turretTexture, turretName) || this;
+            _this.isBuild = false;
             _this._turretName = turretName;
             _this.x = x;
             _this.y = y;
             _this.regX = _this.getBounds().width / 2;
             _this.regY = _this.getBounds().height / 2;
+            _this.turretType = turretType;
             _this.start();
             _this._range.graphics.drawCircle(_this.x, _this.y, _this.getBounds().width + 30);
             _this.damage = 10;
             _this.position = new objects.Vector(_this.x, _this.y);
+            _this.isBuild = true;
             return _this;
         }
         Turret.prototype.start = function () {
-            this._gun = new objects.Gun("gun", this.x, this.y);
+            switch (this.turretType) {
+                case "Gun":
+                    this._gun = new objects.Gun("gun", this.x, this.y);
+                    break;
+                case "Fire":
+                    this._gun = new objects.Gun("fireGun", this.x, this.y);
+                    break;
+                case "Rocket":
+                    this._gun = new objects.Gun("rocketGun", this.x, this.y);
+                    break;
+                case "Electro":
+                    this._gun = new objects.Gun("electroGun", this.x, this.y);
+                    break;
+            }
             this._range = new createjs.Shape();
             this._range.graphics.beginFill("#98FB98");
             this._range.alpha = .4;
@@ -77,7 +93,7 @@ var objects;
         // Event handlers
         Turret.prototype._gun_Click = function (event) {
             this._range.visible = true;
-            gameScene.updateInfo("Fire" + " Turret", 9999, this.damage);
+            gameScene.updateInfo(this.turretType + " Turret", 9999, this.damage);
         };
         Turret.prototype._stage_Click = function (event) {
             if (event.target != this._gun) {

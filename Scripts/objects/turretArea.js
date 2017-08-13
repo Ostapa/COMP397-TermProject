@@ -57,25 +57,25 @@ var objects;
             this.showOptions();
         };
         TurretArea.prototype._electroTurret_Click = function (event) {
-            this._turret = new objects.Turret("turretBase", this.x, this.y);
+            this._turret = new objects.Turret("turretBase", "Electro", this.x, this.y);
             this._turret.update();
             this._reset();
             this.notNull = true;
         };
         TurretArea.prototype._fireTurret_Click = function (event) {
-            this._turret = new objects.Turret("turretBase", this.x, this.y);
+            this._turret = new objects.Turret("turretBase", "Fire", this.x, this.y);
             this._turret.update();
             this._reset();
             this.notNull = true;
         };
         TurretArea.prototype._gunTurret_Click = function (event) {
-            this._turret = new objects.Turret("turretBase", this.x, this.y);
+            this._turret = new objects.Turret("turretBase", "Gun", this.x, this.y);
             this._turret.update();
             this._reset();
             this.notNull = true;
         };
         TurretArea.prototype._rocketTurret_Click = function (event) {
-            this._turret = new objects.Turret("turretBase", this.x, this.y);
+            this._turret = new objects.Turret("turretBase", "Rocket", this.x, this.y);
             this._turret.update();
             this._reset();
             this.notNull = true;

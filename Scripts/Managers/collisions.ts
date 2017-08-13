@@ -17,7 +17,9 @@
         }
 
         public check(object1:objects.Zombie, object2:objects.Bullet):boolean {
-            if(objects.Vector.calcDistance(object1.position, object2.position) <= 10) {
+            console.log(objects.Vector.calcDistance(object1.position, object2.position));
+            
+            if(objects.Vector.calcDistance(object1.position, object2.position) <= 20) {
                 return true;
             }
         }

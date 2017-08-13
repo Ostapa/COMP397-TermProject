@@ -14,7 +14,8 @@ var Managers;
         Collision.prototype.start = function () {
         };
         Collision.prototype.check = function (object1, object2) {
-            if (objects.Vector.calcDistance(object1.position, object2.position) <= 10) {
+            console.log(objects.Vector.calcDistance(object1.position, object2.position));
+            if (objects.Vector.calcDistance(object1.position, object2.position) <= 20) {
                 return true;
             }
         };

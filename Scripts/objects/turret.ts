@@ -9,7 +9,7 @@ module objects {
     export class Turret extends createjs.Sprite {
         //private instance variables
         private _turretName:string;
-        protected turretType:string;
+        public turretType:string;
         protected _gun:objects.Gun;
         private _range:createjs.Shape;
         public shootingRange:number;
@@ -17,6 +17,7 @@ module objects {
         private _currentTime:number;
         public _bullet:objects.Bullet;
         private _collision:Managers.Collision;
+        public isBuild:boolean = false;
 
         // public instance variables
         public width:number;
@@ -25,22 +26,36 @@ module objects {
         public position:objects.Vector;
         
         // Constructor
-        constructor(turretName:string, x:number, y:number) {
+        constructor(turretName:string,turretType:string, x:number, y:number) {
             super(turretTexture, turretName);
             this._turretName = turretName;
             this.x = x;
             this.y = y;
             this.regX = this.getBounds().width / 2;
             this.regY = this.getBounds().height / 2;
+            this.turretType = turretType;
             this.start();
             this._range.graphics.drawCircle(this.x, this.y, this.getBounds().width + 30);
             this.damage = 10;
             this.position = new objects.Vector(this.x, this.y);
+            this.isBuild = true;
         }
 
         public start():void {
-            this._gun = new objects.Gun("gun", this.x, this.y)
-            
+            switch(this.turretType) {
+                case "Gun":
+                    this._gun = new objects.Gun("gun", this.x, this.y)
+                    break;
+                case "Fire":
+                    this._gun = new objects.Gun("fireGun", this.x, this.y)
+                    break;
+                case "Rocket":
+                    this._gun = new objects.Gun("rocketGun", this.x, this.y)
+                    break;
+                case "Electro":
+                    this._gun = new objects.Gun("electroGun", this.x, this.y)
+                    break;
+            }
             this._range = new createjs.Shape();
             this._range.graphics.beginFill("#98FB98");
             this._range.alpha = .4;
@@ -95,7 +110,7 @@ module objects {
         // Event handlers
         private _gun_Click(event:createjs.MouseEvent) {
             this._range.visible = true;
-            gameScene.updateInfo("Fire" + " Turret", 9999, this.damage);
+            gameScene.updateInfo(this.turretType + " Turret", 9999, this.damage);
 
         }
 
