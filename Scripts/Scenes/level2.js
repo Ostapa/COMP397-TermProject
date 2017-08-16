@@ -14,6 +14,8 @@ var Scenes;
         __extends(Level2, _super);
         function Level2() {
             var _this = _super.call(this, "mapTwo", "levelOne_s") || this;
+            _this._currentTime = createjs.Ticker.getTime();
+            _this._zombiesAdded = 0;
             if (!_this.onPause) {
                 _this.start();
             }
@@ -23,8 +25,46 @@ var Scenes;
             this._label = new objects.Label("LEVEL 2", "60px Arial", "#c6bf9c", 0, config.Screen.CENTER_Y);
             this.addChild(this._label);
             createjs.Tween.get(this._label).to({ x: config.Screen.WIDTH + this._label.getBounds().width }, 3000, createjs.Ease.linear);
+            this._zombies = new Array();
+            // creating an array of zombies for lvl 2
+            for (var i = 0; i < 10; i++) {
+                if (i < 5) {
+                    this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 115));
+                }
+                else {
+                    this._zombies.push(new objects.Zombie("mumblerRight", "mumbler", 0, 115));
+                }
+            }
+            this._closestZombie = this._zombies[0];
+            stage.addChild(this);
         };
         Level2.prototype.update = function () {
+            var _this = this;
+            if (this.startGame) {
+                this.addZombies(this._zombies);
+                this._zombies.forEach(function (zombie) {
+                    if (zombie.x > _this._closestZombie.x && zombie.y > _this._closestZombie.y) {
+                        _this._closestZombie = zombie;
+                    }
+                });
+            }
+        };
+        Level2.prototype.addZombies = function (arr) {
+            var _this = this;
+            arr.forEach(function (zombie) {
+                if (_this._zombiesAdded != arr.length && !zombie.added) {
+                    if (createjs.Ticker.getTime() > _this._currentTime + 1500) {
+                        _this.addChild(zombie);
+                        _this._currentTime = createjs.Ticker.getTime();
+                        zombie.added = true;
+                    }
+                }
+                if (zombie.added) {
+                    zombie.lvl2Map();
+                    zombie.update();
+                    _this.addChild(zombie._healthBar);
+                }
+            });
         };
         return Level2;
     }(Scenes.GameScene));

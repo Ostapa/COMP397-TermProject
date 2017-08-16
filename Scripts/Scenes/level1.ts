@@ -23,11 +23,6 @@ module Scenes {
         private _bTime:number = createjs.Ticker.getTime();
         private _shootingRange:number = 100;
         private _deadZombies:number = 0;
-        private _zombieIsNotAssigned:boolean = true;
-
-
-        public counter:number = 0;
-        public counter2:number = 0;
 
         // Constructor
         constructor() {
@@ -39,8 +34,6 @@ module Scenes {
 
         public start():void {
             this._zombies = new Array<objects.Zombie>();
-            this._collision = new Managers.Collision();
-
             
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 185, 140);
@@ -90,7 +83,7 @@ module Scenes {
                         this._turretArea._turret._bullet.update();
                         if(this._turretArea._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea._turret.zombieToFollow), 1);
-                            this.removeChild(this._turretArea._turret.zombieToFollow)
+                            this.removeChild(this._turretArea._turret.zombieToFollow, this._turretArea._turret.zombieToFollow._healthBar)
                             this._deadZombies++;
                         }
                         break;
@@ -107,7 +100,7 @@ module Scenes {
                         this._turretArea2._turret._bullet.update();
                         if(this._turretArea2._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea2._turret.zombieToFollow), 1);
-                            this.removeChild(this._turretArea2._turret.zombieToFollow)
+                            this.removeChild(this._turretArea2._turret.zombieToFollow, this._turretArea2._turret.zombieToFollow._healthBar)
                             this._deadZombies++;
                         }
                         break;
@@ -137,6 +130,7 @@ module Scenes {
                     } 
                 }
                 if(zombie.added) {
+                    zombie.lvl1Map();
                     zombie.update();
                     this.addChild(zombie._healthBar)
                 }

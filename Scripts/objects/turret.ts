@@ -75,8 +75,9 @@ module objects {
                     this._bullet = new objects.Bullet("gunBullet1", this.x, this.y)
                     break;
                 case "Electro":
-                    this._gun = new objects.Gun("electroBullet1", this.x, this.y)
+                    this._gun = new objects.Gun("electroGun", this.x, this.y)
                     this.damage = 7;
+                    this._bullet = new objects.Bullet("electroBullt1", this.x, this.y)
                     break;
             }
             this._range = new createjs.Shape();
@@ -113,23 +114,6 @@ module objects {
                 this.zombieToFollow.update();
             }
         }
-
-        //if(this._collision.check(this.closestZombie, this._bullet)) {
-            //             this.removeChild(this._bullet)
-            //             this.reduceHealth();
-            //             if(this.closestZombie.health <= 0) {
-            //                 this.removeChild(this.closestZombie);
-            //                 if(this._zombies.length !== 0) {
-            //                     this._zombies.shift()
-            //                     this.closestZombie = this._zombies[0];
-            //                     this._deadZombies++;
-            //                 } else {
-            //                     this.closestZombie.x = 0;
-            //                     this.closestZombie.y = 0;
-            //                 } 
-            //             }
-            //         }
-
 
         public calculateAngle():void {
             this._angle = Math.atan2(this.zombieToFollow.y - this._gun.y, this.zombieToFollow.x - this._gun.x)

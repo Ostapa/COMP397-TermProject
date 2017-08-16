@@ -80,36 +80,6 @@ module objects {
             
             //this._healthBar.y = this._healthBar.y - this.y;
             
-            if(this.x < 120 && this.y == 260) {
-                this.move(config.Direction.RIGHT, 120, 260);
-                if(this.x == 0) {
-                    this.changeDirection(this._zombieType,config.Direction.RIGHT)
-                } 
-            }
-            if(this.x == 120 && this.y > 60) {
-                if(this.y == 260) {
-                    this.changeDirection(this._zombieType, config.Direction.UP);
-                }
-                this.move(config.Direction.UP, 120, 60);
-            }
-            if(this.x < 505 && this.y == 60) {
-                if(this.x == 120) {
-                    this.changeDirection(this._zombieType, config.Direction.RIGHT)
-                }
-                this.move(config.Direction.RIGHT, 505, 60)
-            }
-            if(this.x == 505 && this.y < 130) {
-                if(this.y == 60) {
-                    this.changeDirection(this._zombieType, config.Direction.DOWN)
-                }
-                this.move(config.Direction.DOWN, 505, 130);
-            }
-            if(this.x < 640 && this.y == 130) {
-                if(this.x == 505) {
-                    this.changeDirection(this._zombieType, config.Direction.RIGHT)
-                }
-                this.move(config.Direction.RIGHT, 640, 130);
-            }
         }
 
         public changeDirection(zombieName:string, dir:number) {
@@ -146,8 +116,93 @@ module objects {
                             break;
                     }
             } 
-
-                
         }
+        public lvl1Map():void {
+            if(this.x < 120 && this.y == 260) {
+                this.move(config.Direction.RIGHT, 120, 260);
+                if(this.x == 0) {
+                    this.changeDirection(this._zombieType,config.Direction.RIGHT)
+                } 
+            }
+            if(this.x == 120 && this.y > 60) {
+                if(this.y == 260) {
+                    this.changeDirection(this._zombieType, config.Direction.UP);
+                }
+                this.move(config.Direction.UP, 120, 60);
+            }
+            if(this.x < 505 && this.y == 60) {
+                if(this.x == 120) {
+                    this.changeDirection(this._zombieType, config.Direction.RIGHT)
+                }
+                this.move(config.Direction.RIGHT, 505, 60)
+            }
+            if(this.x == 505 && this.y < 130) {
+                if(this.y == 60) {
+                    this.changeDirection(this._zombieType, config.Direction.DOWN)
+                }
+                this.move(config.Direction.DOWN, 505, 130);
+            }
+            if(this.x < 640 && this.y == 130) {
+                if(this.x == 505) {
+                    this.changeDirection(this._zombieType, config.Direction.RIGHT)
+                }
+                this.move(config.Direction.RIGHT, 640, 130);
+            }
+        }
+
+        public lvl2Map():void {
+            if(this.x < 123 && this.y == 115) {
+                this.move(config.Direction.RIGHT, 123, 115);
+                if(this.x == 0) {
+                    this.changeDirection(this._zombieType,config.Direction.RIGHT)
+                } 
+            }
+            if(this.x == 123 && this.y < 290) {
+                if(this.y == 115) {
+                    this.changeDirection(this._zombieType, config.Direction.DOWN);
+                }
+                this.move(config.Direction.DOWN, 123, 282);
+            }
+            if(this.x < 240 && this.y == 282) {
+                if(this.x == 123) {
+                    this.changeDirection(this._zombieType, config.Direction.RIGHT)
+                }
+                this.move(config.Direction.RIGHT, 240, 282)
+            }
+            if(this.x == 240 && this.y > 33) {
+                if(this.y == 282) {
+                    this.changeDirection(this._zombieType, config.Direction.UP)
+                }
+                this.move(config.Direction.UP, 240, 33);
+            }
+            if(this.x < 570 && this.y == 33) {
+                if(this.x == 240) {
+                    this.changeDirection(this._zombieType, config.Direction.RIGHT)
+                }
+                this.move(config.Direction.RIGHT, 570, 33);
+            }
+            
+            if(this.x == 570 && this.y < 158) {
+                if(this.y == 33) {
+                    this.changeDirection(this._zombieType, config.Direction.DOWN)
+                }
+                this.move(config.Direction.DOWN, 570, 158);
+            }
+
+            if(this.x > 415 && this.y == 158) {
+                if(this.x == 570) {
+                    this.changeDirection(this._zombieType, config.Direction.LEFT)
+                }
+                this.move(config.Direction.LEFT, 415, 158);
+            }
+
+            if(this.x == 415 && this.y < 362) {
+                if(this.y == 158) {
+                    this.changeDirection(this._zombieType, config.Direction.DOWN)
+                }
+                this.move(config.Direction.DOWN, 415, 362);
+            }
+        }
+                
     }
 } 

@@ -27,9 +27,6 @@ var Scenes;
             _this._bTime = createjs.Ticker.getTime();
             _this._shootingRange = 100;
             _this._deadZombies = 0;
-            _this._zombieIsNotAssigned = true;
-            _this.counter = 0;
-            _this.counter2 = 0;
             if (!_this.onPause) {
                 _this.start();
             }
@@ -37,7 +34,6 @@ var Scenes;
         }
         Level1.prototype.start = function () {
             this._zombies = new Array();
-            this._collision = new Managers.Collision();
             // testing turet area
             this._turretArea = new objects.TurretArea("turretArea", 185, 140);
             this._turretArea2 = new objects.TurretArea("turretArea", 465, 140);
@@ -79,7 +75,7 @@ var Scenes;
                         this._turretArea._turret._bullet.update();
                         if (this._turretArea._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea._turret.zombieToFollow), 1);
-                            this.removeChild(this._turretArea._turret.zombieToFollow);
+                            this.removeChild(this._turretArea._turret.zombieToFollow, this._turretArea._turret.zombieToFollow._healthBar);
                             this._deadZombies++;
                         }
                         break;
@@ -95,7 +91,7 @@ var Scenes;
                         this._turretArea2._turret._bullet.update();
                         if (this._turretArea2._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea2._turret.zombieToFollow), 1);
-                            this.removeChild(this._turretArea2._turret.zombieToFollow);
+                            this.removeChild(this._turretArea2._turret.zombieToFollow, this._turretArea2._turret.zombieToFollow._healthBar);
                             this._deadZombies++;
                         }
                         break;
@@ -123,6 +119,7 @@ var Scenes;
                     }
                 }
                 if (zombie.added) {
+                    zombie.lvl1Map();
                     zombie.update();
                     _this.addChild(zombie._healthBar);
                 }
