@@ -42,7 +42,7 @@ module Scenes {
         private _playBtn_Click(event:createjs.MouseEvent) {
             // ########### Play button click sound
             
-            scene = config.Scene.LEVEL_2;
+            scene = config.Scene.LEVEL_1;
 
             changeScene();
         }

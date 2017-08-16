@@ -37,7 +37,7 @@ var Scenes;
         };
         StartScene.prototype._playBtn_Click = function (event) {
             // ########### Play button click sound
-            scene = config.Scene.LEVEL_2;
+            scene = config.Scene.LEVEL_1;
             changeScene();
         };
         return StartScene;

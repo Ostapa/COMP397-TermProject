@@ -34,7 +34,7 @@ var Scenes;
         }
         Level1.prototype.start = function () {
             this._zombies = new Array();
-            // testing turet area
+            // adding turet areas to the map
             this._turretArea = new objects.TurretArea("turretArea", 185, 140);
             this._turretArea2 = new objects.TurretArea("turretArea", 465, 140);
             for (var i = 0; i < 10; i++) {
@@ -55,9 +55,11 @@ var Scenes;
                 scene = config.Scene.LEVEL_2;
                 changeScene();
             }
+            console.log("start");
             if (this.closestZombie.x >= 640) {
                 if (this._zombies.length != 0) {
-                    this.lifeCounterAmt = this.lifeCounterAmt - 1;
+                    this.lifeCounterAmt = this.lifeCounterAmt--;
+                    console.log(this.lifeCounterAmt);
                     this._zombies.shift();
                 }
                 else {
@@ -66,6 +68,7 @@ var Scenes;
                 }
                 gameScene.updateScore();
             }
+            console.log("finish");
             if (this._turretArea._turret != undefined && this.startGame) {
                 for (var i = 0; i < this._zombies.length; i++) {
                     if (this._turretArea._turret.inRange(this._zombies[i])) {

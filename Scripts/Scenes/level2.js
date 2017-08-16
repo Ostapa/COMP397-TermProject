@@ -16,6 +16,7 @@ var Scenes;
             var _this = _super.call(this, "mapTwo", "levelOne_s") || this;
             _this._currentTime = createjs.Ticker.getTime();
             _this._zombiesAdded = 0;
+            _this._deadZombies = 0;
             if (!_this.onPause) {
                 _this.start();
             }
@@ -23,8 +24,11 @@ var Scenes;
         }
         Level2.prototype.start = function () {
             this._label = new objects.Label("LEVEL 2", "60px Arial", "#c6bf9c", 0, config.Screen.CENTER_Y);
-            this.addChild(this._label);
-            createjs.Tween.get(this._label).to({ x: config.Screen.WIDTH + this._label.getBounds().width }, 3000, createjs.Ease.linear);
+            createjs.Tween.get(this._label).to({ x: config.Screen.WIDTH + this._label.getBounds().width }, 5000, createjs.Ease.linear);
+            // adding turet areas to the map
+            this._turretArea1 = new objects.TurretArea("turretArea", 190, 250);
+            this._turretArea2 = new objects.TurretArea("turretArea", 300, 105);
+            this._turretArea3 = new objects.TurretArea("turretArea", 510, 115);
             this._zombies = new Array();
             // creating an array of zombies for lvl 2
             for (var i = 0; i < 10; i++) {
@@ -35,6 +39,7 @@ var Scenes;
                     this._zombies.push(new objects.Zombie("mumblerRight", "mumbler", 0, 115));
                 }
             }
+            this.addChild(this._turretArea1, this._turretArea2, this._turretArea3, this._label);
             this._closestZombie = this._zombies[0];
             stage.addChild(this);
         };
@@ -47,6 +52,56 @@ var Scenes;
                         _this._closestZombie = zombie;
                     }
                 });
+            }
+            if (this._turretArea1._turret != undefined && this.startGame) {
+                for (var i = 0; i < this._zombies.length; i++) {
+                    if (this._turretArea1._turret.inRange(this._zombies[i])) {
+                        this._turretArea1._turret.zombieToFollow = this._zombies[i];
+                        this._turretArea1._turret.calculateAngle();
+                        this._turretArea1._turret.shoot(this._zombies[i].x, this._zombies[i].y);
+                        this._turretArea1._turret._bullet.update();
+                        if (this._turretArea1._turret.zombieToFollow.isDead) {
+                            this._zombies.splice(this._zombies.indexOf(this._turretArea1._turret.zombieToFollow), 1);
+                            this.removeChild(this._turretArea1._turret.zombieToFollow, this._turretArea1._turret.zombieToFollow._healthBar);
+                            this._deadZombies++;
+                        }
+                        break;
+                    }
+                }
+            }
+            // turret 2 rotation and shooting
+            if (this._turretArea2._turret != undefined && this.startGame) {
+                for (var i = 0; i < this._zombies.length; i++) {
+                    if (this._turretArea2._turret.inRange(this._zombies[i])) {
+                        this._turretArea2._turret.zombieToFollow = this._zombies[i];
+                        this._turretArea2._turret.calculateAngle();
+                        this._turretArea2._turret.shoot(this._zombies[i].x, this._zombies[i].y);
+                        this._turretArea2._turret._bullet.update();
+                        if (this._turretArea2._turret.zombieToFollow.isDead) {
+                            this._zombies.splice(this._zombies.indexOf(this._turretArea2._turret.zombieToFollow), 1);
+                            this.removeChild(this._turretArea2._turret.zombieToFollow, this._turretArea2._turret.zombieToFollow._healthBar);
+                            this._deadZombies++;
+                        }
+                        break;
+                    }
+                }
+            }
+            // turret 3 rotation and shooting
+            if (this._turretArea3._turret != undefined && this.startGame) {
+                for (var i = 0; i < this._zombies.length; i++) {
+                    if (this._turretArea3._turret.inRange(this._zombies[i])) {
+                        this._turretArea3._turret.zombieToFollow = this._zombies[i];
+                        this._turretArea3._turret.calculateAngle();
+                        this._turretArea3._turret.shoot(this._zombies[i].x, this._zombies[i].y);
+                        this._turretArea3._turret._bullet.update();
+                        if (this._turretArea3._turret.zombieToFollow.isDead) {
+                            this._zombies.splice(this._zombies.indexOf(this._turretArea3._turret.zombieToFollow), 1);
+                            this.removeChild(this._turretArea3._turret.zombieToFollow, this._turretArea3._turret.zombieToFollow._healthBar);
+                            this._deadZombies++;
+                        }
+                        break;
+                    }
+                }
             }
         };
         Level2.prototype.addZombies = function (arr) {
