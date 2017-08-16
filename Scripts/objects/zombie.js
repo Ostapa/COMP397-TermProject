@@ -21,12 +21,16 @@ var objects;
             _this.x = x;
             _this.y = y;
             _this.position = new objects.Vector(x, y);
-            // this is to randomize the path of each zombie
-            //this.y = y * (Math.round((Math.random() * (0.4-0.3) + 0.3)*100)/100);
+            _this.isDead = false;
+            _this._healthBar = new createjs.Shape();
+            _this._healthBar.graphics.beginStroke("#000");
+            _this._healthBar.graphics.beginFill("#b21616").rr(0, 0, _this.width, 5, 2);
             _this._zombieName = zombieName;
             _this._zombieType = zombieType;
             _this.start();
             return _this;
+            // this is to randomize the path of each zombie
+            //this.y = y * (Math.round((Math.random() * (0.4-0.3) + 0.3)*100)/100);
         }
         Zombie.prototype.start = function () {
             switch (this._zombieType) {
@@ -56,6 +60,14 @@ var objects;
         };
         Zombie.prototype.update = function () {
             this.position = new objects.Vector(this.x, this.y);
+            if (this.health <= 0) {
+                this.isDead = true;
+                console.log("Health: " + this.health);
+            }
+            this._healthBar.x = this.x;
+            this._healthBar.y = this.y - 10;
+            this._healthBar.graphics.beginFill("#2bce2b");
+            //this._healthBar.y = this._healthBar.y - this.y;
             if (this.x < 120 && this.y == 260) {
                 this.move(config.Direction.RIGHT, 120, 260);
                 if (this.x == 0) {

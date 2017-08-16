@@ -19,14 +19,25 @@ var objects;
 (function (objects) {
     var TurretIcon = (function (_super) {
         __extends(TurretIcon, _super);
-        function TurretIcon(imageUrl, x, y, regX, regY) {
+        function TurretIcon(imageUrl, x, y) {
             var _this = _super.call(this, turretTexture, imageUrl) || this;
             _this.x = x;
             _this.y = y;
-            _this.regX = (regX - (_this.getBounds().width / 2)) / 2;
-            _this.regY = regY;
+            _this.regX = _this.getBounds().width / 2;
+            _this.regY = _this.getBounds().height / 2;
+            _this.start();
             return _this;
         }
+        TurretIcon.prototype.start = function () {
+            this.on("mouseover", this._icon_MouseOver, this);
+            this.on("mouseout", this._icon_MouseOut, this);
+        };
+        TurretIcon.prototype._icon_MouseOver = function (event) {
+            this.alpha = .6;
+        };
+        TurretIcon.prototype._icon_MouseOut = function (event) {
+            this.alpha = 1;
+        };
         return TurretIcon;
     }(createjs.Sprite));
     objects.TurretIcon = TurretIcon;

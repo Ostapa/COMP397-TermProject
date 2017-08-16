@@ -38,6 +38,7 @@ var Scenes;
         };
         // Event handlers
         ControlsScene.prototype._backBtn_Click = function (event) {
+            // ########## Play button click sound
             scene = config.Scene.START_SCENE;
             changeScene();
         };

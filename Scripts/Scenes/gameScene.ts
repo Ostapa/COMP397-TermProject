@@ -82,19 +82,27 @@ module Scenes {
         }
 
         private _settingBtn_Click(event:createjs.MouseEvent) {
+            // ############ Pause game background and play start scene background sound
             createjs.Ticker.setPaused(true)
             this.addChild(new Scenes.SettingsScene());
             this.onPause = true;
+            
+
         }
 
         // event handlers for click events 
         private _mainMenuBtn_Click(event:MouseEvent) {
+            // ######## Play button click sound #######
             scene = config.Scene.START_SCENE;
             changeScene();
         }
 
         private _startBtn_Click(event:MouseEvent) {
             this.startGame = true;
+
+            // ######## Play button click sound #######
+            // ######## Play some sound here to start the wave ######
+            // after that play game 1st, 2nd or 3rd level background
         }
         public update():void {
             if(this.lifeCounterAmt <= 0) {
@@ -108,15 +116,13 @@ module Scenes {
             this._cashCounter.text = this.cashCounterAmt.toString();
         }
 
-        public updateInfo(type:string, hp:number, damage:number):void {
+        public updateInfo(type:string, hpOrLvl:number, damage:number):void {
             this.objectType.text = "Type: " + type;;
-            this.objectHP.text = "HP: " + hp.toString();
+            this.objectHP.text = "HP: " + hpOrLvl.toString();
             this.objectDamage.text = "Damage: " + damage.toString();
             this.objectType.visible = true;
             this.objectHP.visible = true;
             this.objectDamage.visible = true;
-            
-
         }
 
     }

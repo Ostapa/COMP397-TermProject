@@ -43,6 +43,7 @@ module Scenes {
 
         // Event handlers
         private _backBtn_Click(event:MouseEvent) {
+            // ########## Play button click sound
             scene = config.Scene.START_SCENE;
             changeScene();
         }

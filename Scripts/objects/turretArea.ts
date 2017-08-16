@@ -18,7 +18,7 @@
         private _electroTurret:objects.TurretIcon;
         private _rocketTurret:objects.TurretIcon;
         
-        private _turret:objects.Turret;
+        public _turret:objects.Turret;
         
 
         constructor(imageUrl:string, x:number, y:number) {
@@ -33,10 +33,10 @@
         public start():void {
             
 
-            this._gunTurret = new objects.TurretIcon("gunIcon", this.x, this.y, this.regX, this.regY);
-            this._fireTurret = new objects.TurretIcon("fire", this.x, this.y, this.regX, this.regY);
-            this._electroTurret = new objects.TurretIcon("electro", this.x, this.y, this.regX, this.regY);
-            this._rocketTurret = new objects.TurretIcon("rocket", this.x, this.y, this.regX, this.regY);
+            this._gunTurret = new objects.TurretIcon("gunIcon", this.x, this.y);
+            this._fireTurret = new objects.TurretIcon("fire", this.x, this.y);
+            this._electroTurret = new objects.TurretIcon("electro", this.x, this.y);
+            this._rocketTurret = new objects.TurretIcon("rocket", this.x, this.y);
 
             // Event listeners
             this.on("click", this._turretArea_Click, this);
@@ -44,11 +44,11 @@
             this._fireTurret.on("click", this._fireTurret_Click, this);
             this._gunTurret.on("click", this._gunTurret_Click, this)
             this._rocketTurret.on("click", this._rocketTurret_Click, this)
-            
+
 
         }
-        public update():objects.Turret {
-            return this._turret;
+        public update():void {
+
         }
 
         public showOptions():void {
@@ -66,27 +66,27 @@
 
         private _electroTurret_Click(event:createjs.MouseEvent) {
             this._turret = new Turret("turretBase", "Electro", this.x, this.y)
+            gameScene.addChild(this._turret);
             this._turret.update()
             this._reset();
-            this.notNull = true;
         }
         private _fireTurret_Click(event:createjs.MouseEvent) {
             this._turret = new Turret("turretBase", "Fire", this.x, this.y)
+            gameScene.addChild(this._turret);
             this._turret.update()
             this._reset();
-            this.notNull = true;
         }
         private _gunTurret_Click(event:createjs.MouseEvent) {
             this._turret = new Turret("turretBase", "Gun", this.x, this.y)
+            gameScene.addChild(this._turret);
             this._turret.update()
             this._reset();
-            this.notNull = true;
         }
         private _rocketTurret_Click(event:createjs.MouseEvent) {
             this._turret = new Turret("turretBase", "Rocket", this.x, this.y)
+            gameScene.addChild(this._turret);
             this._turret.update()
             this._reset();
-            this.notNull = true;
         }
         
 

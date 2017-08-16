@@ -10,6 +10,9 @@ module Scenes {
         }
 
         public start():void {
+            // ############# Stop the level sound and play some sound once to indicate that game is over and  
+            // then play game over background music infinetely
+            
             this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
             this._message = new objects.Label("GAME OVER", "60px Arial", "#c6bf9c", config.Screen.CENTER_X, config.Screen.CENTER_Y)
             this._playAgainBtn = new objects.Button("mainMenuBtn", 300, 300);
@@ -24,6 +27,7 @@ module Scenes {
 
         // event handlers
         private _playAgainBtn_Click(event:createjs.MouseEvent) {
+            // ########### Play button click sound
             scene = config.Scene.START_SCENE;
             changeScene();
         }

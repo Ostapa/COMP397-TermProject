@@ -32,10 +32,10 @@ var objects;
             return _this;
         }
         TurretArea.prototype.start = function () {
-            this._gunTurret = new objects.TurretIcon("gunIcon", this.x, this.y, this.regX, this.regY);
-            this._fireTurret = new objects.TurretIcon("fire", this.x, this.y, this.regX, this.regY);
-            this._electroTurret = new objects.TurretIcon("electro", this.x, this.y, this.regX, this.regY);
-            this._rocketTurret = new objects.TurretIcon("rocket", this.x, this.y, this.regX, this.regY);
+            this._gunTurret = new objects.TurretIcon("gunIcon", this.x, this.y);
+            this._fireTurret = new objects.TurretIcon("fire", this.x, this.y);
+            this._electroTurret = new objects.TurretIcon("electro", this.x, this.y);
+            this._rocketTurret = new objects.TurretIcon("rocket", this.x, this.y);
             // Event listeners
             this.on("click", this._turretArea_Click, this);
             this._electroTurret.on("click", this._electroTurret_Click, this);
@@ -44,7 +44,6 @@ var objects;
             this._rocketTurret.on("click", this._rocketTurret_Click, this);
         };
         TurretArea.prototype.update = function () {
-            return this._turret;
         };
         TurretArea.prototype.showOptions = function () {
             gameScene.addChild(this._rocketTurret, this._electroTurret, this._fireTurret, this._gunTurret);
@@ -58,27 +57,27 @@ var objects;
         };
         TurretArea.prototype._electroTurret_Click = function (event) {
             this._turret = new objects.Turret("turretBase", "Electro", this.x, this.y);
+            gameScene.addChild(this._turret);
             this._turret.update();
             this._reset();
-            this.notNull = true;
         };
         TurretArea.prototype._fireTurret_Click = function (event) {
             this._turret = new objects.Turret("turretBase", "Fire", this.x, this.y);
+            gameScene.addChild(this._turret);
             this._turret.update();
             this._reset();
-            this.notNull = true;
         };
         TurretArea.prototype._gunTurret_Click = function (event) {
             this._turret = new objects.Turret("turretBase", "Gun", this.x, this.y);
+            gameScene.addChild(this._turret);
             this._turret.update();
             this._reset();
-            this.notNull = true;
         };
         TurretArea.prototype._rocketTurret_Click = function (event) {
             this._turret = new objects.Turret("turretBase", "Rocket", this.x, this.y);
+            gameScene.addChild(this._turret);
             this._turret.update();
             this._reset();
-            this.notNull = true;
         };
         TurretArea.prototype._reset = function () {
             gameScene.removeChild(this);

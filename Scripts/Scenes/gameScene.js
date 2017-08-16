@@ -62,17 +62,22 @@ var Scenes;
         GameScene.prototype.start = function () {
         };
         GameScene.prototype._settingBtn_Click = function (event) {
+            // ############ Pause game background and play start scene background sound
             createjs.Ticker.setPaused(true);
             this.addChild(new Scenes.SettingsScene());
             this.onPause = true;
         };
         // event handlers for click events 
         GameScene.prototype._mainMenuBtn_Click = function (event) {
+            // ######## Play button click sound #######
             scene = config.Scene.START_SCENE;
             changeScene();
         };
         GameScene.prototype._startBtn_Click = function (event) {
             this.startGame = true;
+            // ######## Play button click sound #######
+            // ######## Play some sound here to start the wave ######
+            // after that play game 1st, 2nd or 3rd level background
         };
         GameScene.prototype.update = function () {
             if (this.lifeCounterAmt <= 0) {
@@ -84,10 +89,10 @@ var Scenes;
             this._lifeCounter.text = this.lifeCounterAmt.toString();
             this._cashCounter.text = this.cashCounterAmt.toString();
         };
-        GameScene.prototype.updateInfo = function (type, hp, damage) {
+        GameScene.prototype.updateInfo = function (type, hpOrLvl, damage) {
             this.objectType.text = "Type: " + type;
             ;
-            this.objectHP.text = "HP: " + hp.toString();
+            this.objectHP.text = "HP: " + hpOrLvl.toString();
             this.objectDamage.text = "Damage: " + damage.toString();
             this.objectType.visible = true;
             this.objectHP.visible = true;

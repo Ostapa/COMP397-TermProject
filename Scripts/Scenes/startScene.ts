@@ -31,6 +31,8 @@ module Scenes {
 
         // Event handlers
         private _instructionsBtn_Click(event:createjs.MouseEvent) {
+            // ########### Play button click sound
+           
             // change scene to controls scene
             scene = config.Scene.CONTROLS_SCENE;
             
@@ -38,6 +40,8 @@ module Scenes {
         }
 
         private _playBtn_Click(event:createjs.MouseEvent) {
+            // ########### Play button click sound
+            
             scene = config.Scene.LEVEL_1;
 
             changeScene();

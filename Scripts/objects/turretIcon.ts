@@ -13,13 +13,29 @@
         public turretType:string;
         private _name:string;
          
-        constructor(imageUrl:string, x:number, y:number, regX:number, regY:number) {
+        constructor(imageUrl:string, x:number, y:number) {
             super(turretTexture, imageUrl);
             this.x = x;
             this.y = y;
-            this.regX = (regX - (this.getBounds().width/2)) / 2;
-            this.regY = regY;
+            this.regX = this.getBounds().width / 2;
+            this.regY = this.getBounds().height / 2;
+            this.start();
         }   
+
+        public start():void {
+            this.on("mouseover", this._icon_MouseOver, this)
+            this.on("mouseout", this._icon_MouseOut, this)
+            
+        }
+
+
+        private _icon_MouseOver(event:createjs.MouseEvent) {
+            this.alpha = .6;
+        }
+
+        private _icon_MouseOut(event:createjs.MouseEvent) {
+            this.alpha = 1;
+        }
 
      }
  }
