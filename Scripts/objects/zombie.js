@@ -22,12 +22,14 @@ var objects;
             _this.y = y;
             _this.position = new objects.Vector(x, y);
             _this.isDead = false;
-            _this._healthBar = new createjs.Shape();
-            _this._healthBar.graphics.beginStroke("#000");
-            _this._healthBar.graphics.beginFill("#b21616").rr(0, 0, _this.width, 5, 2);
+            _this.actualHealth = new createjs.Shape();
+            _this.healthBar = new createjs.Shape();
+            _this.healthBar.graphics.beginFill("#b21616").rr(0, 0, _this.width, 5, 2);
             _this._zombieName = zombieName;
             _this._zombieType = zombieType;
             _this.start();
+            _this._originalHealth = _this.health;
+            _this.actualHealth.graphics.beginFill("#2bce2b").rr(0, 0, _this._calcWidth(), 5, 2);
             return _this;
             // this is to randomize the path of each zombie
             //this.y = y * (Math.round((Math.random() * (0.4-0.3) + 0.3)*100)/100);
@@ -36,11 +38,15 @@ var objects;
             switch (this._zombieType) {
                 case "walker":
                     this.health = 30;
+                    this.rewardPoints = 5;
                     break;
                 case "mumbler":
                     this.health = 50;
+                    this.rewardPoints = 10;
                     break;
             }
+            // Event listeners
+            this.on("click", this._zombie_Click, this);
         };
         Zombie.prototype.move = function (direction, destX, destY) {
             switch (direction) {
@@ -62,12 +68,14 @@ var objects;
             this.position = new objects.Vector(this.x, this.y);
             if (this.health <= 0) {
                 this.isDead = true;
-                console.log("Health: " + this.health);
             }
-            this._healthBar.x = this.x;
-            this._healthBar.y = this.y - 10;
-            this._healthBar.graphics.beginFill("#2bce2b");
-            //this._healthBar.y = this._healthBar.y - this.y;
+            this.actualHealth.graphics.clear();
+            this.actualHealth.graphics.beginFill("#2bce2b").rr(this.x, this.y - 10, this._calcWidth(), 5, 2);
+            this.healthBar.x = this.x;
+            this.healthBar.y = this.y - 10;
+        };
+        Zombie.prototype._calcWidth = function () {
+            return this.health / this._originalHealth * this.width;
         };
         Zombie.prototype.changeDirection = function (zombieName, dir) {
             switch (zombieName) {
@@ -133,7 +141,7 @@ var objects;
                 if (this.x == 505) {
                     this.changeDirection(this._zombieType, config.Direction.RIGHT);
                 }
-                this.move(config.Direction.RIGHT, 640, 130);
+                this.move(config.Direction.RIGHT, 650, 130);
             }
         };
         Zombie.prototype.lvl2Map = function () {
@@ -185,6 +193,10 @@ var objects;
                 }
                 this.move(config.Direction.DOWN, 415, 362);
             }
+        };
+        // Event Handlers
+        Zombie.prototype._zombie_Click = function (event) {
+            gameScene.updateInfo(this._zombieType, this.health, this.rewardPoints);
         };
         return Zombie;
     }(createjs.Sprite));

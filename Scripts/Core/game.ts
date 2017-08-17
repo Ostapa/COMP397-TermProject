@@ -14,6 +14,7 @@ var backgroundSound:createjs.AbstractSoundInstance;
 var textureSprite:createjs.SpriteSheet;
 var turretTexture:createjs.SpriteSheet;
 
+
 //Game Bullets
 
 // var bullet:createjs.Bitmap;
@@ -144,7 +145,8 @@ var assetData:objects.Asset[] = [
     {id:"bullet", src:"../../Assets/Images/oneBullet.png"},
     {id:"mapOne", src:"../../Assets/Maps/map_level_1.jpeg"},
     {id:"mapTwo", src:"../../Assets/Maps/2.jpg"},
-    {id:"backSound", src:"../../Assets/Sounds/background.ogg"}
+    {id:"backSound", src:"../../Assets/Sounds/background.ogg"},
+    {id:"upgradeBtn", src:"../../Assets/Images/upgrade.png"}
 ];
 // function to preload assets
 function init():void {

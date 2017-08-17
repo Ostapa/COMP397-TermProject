@@ -35,7 +35,7 @@ module Scenes {
             
             this._zombies = new Array<objects.Zombie>();
             // creating an array of zombies for lvl 2
-            for(var i:number = 0; i < 10; i++) {
+            for(var i:number = 0; i < 20; i++) {
                 if(i < 5) {
                     this._zombies.push(new objects.Zombie("walkerRight","walker", 0, 115));
                 } else {
@@ -70,8 +70,12 @@ module Scenes {
                         this._turretArea1._turret._bullet.update();
                         if(this._turretArea1._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea1._turret.zombieToFollow), 1);
-                            this.removeChild(this._turretArea1._turret.zombieToFollow, this._turretArea1._turret.zombieToFollow._healthBar)
+                            this.removeChild(this._turretArea1._turret.zombieToFollow, 
+                                this._turretArea1._turret.zombieToFollow.actualHealth,
+                                this._turretArea1._turret.zombieToFollow.healthBar)
                             this._deadZombies++;
+                            this.cashCounterAmt += this._turretArea1._turret.zombieToFollow.rewardPoints;
+                            this.updateScore();
                         }
                         break;
                     }
@@ -88,8 +92,12 @@ module Scenes {
                         this._turretArea2._turret._bullet.update();
                         if(this._turretArea2._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea2._turret.zombieToFollow), 1);
-                            this.removeChild(this._turretArea2._turret.zombieToFollow, this._turretArea2._turret.zombieToFollow._healthBar)
+                            this.removeChild(this._turretArea2._turret.zombieToFollow, 
+                                this._turretArea2._turret.zombieToFollow.actualHealth,
+                                this._turretArea2._turret.zombieToFollow.healthBar)
                             this._deadZombies++;
+                            this.cashCounterAmt += this._turretArea2._turret.zombieToFollow.rewardPoints;
+                            this.updateScore();
                         }
                         break;
                     }
@@ -106,8 +114,12 @@ module Scenes {
                         this._turretArea3._turret._bullet.update();
                         if(this._turretArea3._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea3._turret.zombieToFollow), 1);
-                            this.removeChild(this._turretArea3._turret.zombieToFollow, this._turretArea3._turret.zombieToFollow._healthBar)
+                            this.removeChild(this._turretArea3._turret.zombieToFollow, 
+                                this._turretArea3._turret.zombieToFollow.actualHealth,
+                                this._turretArea3._turret.zombieToFollow.healthBar)
                             this._deadZombies++;
+                            this.cashCounterAmt += this._turretArea3._turret.zombieToFollow.rewardPoints;
+                            this.updateScore();
                         }
                         break;
                     }
@@ -127,7 +139,7 @@ module Scenes {
                 if(zombie.added) {
                     zombie.lvl2Map();
                     zombie.update();
-                    this.addChild(zombie._healthBar)
+                    this.addChild(zombie.healthBar, zombie.actualHealth)
                 }
             });
         }

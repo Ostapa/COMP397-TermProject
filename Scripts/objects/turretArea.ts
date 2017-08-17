@@ -65,33 +65,67 @@
         }
 
         private _electroTurret_Click(event:createjs.MouseEvent) {
-            this._turret = new Turret("turretBase", "Electro", this.x, this.y)
-            gameScene.addChild(this._turret);
-            this._turret.update()
-            this._reset();
+            if(gameScene.cashCounterAmt >= 20) {
+                this._turret = new Turret("turretBase", "Electro", this.x, this.y)
+                gameScene.addChild(this._turret);
+                this._turret.update()
+                this._reset();
+                gameScene.cashCounterAmt -= 20;
+                gameScene.updateScore();
+            } else {
+                this._clean();
+                console.log("not enough cash");
+            }
+            
         }
         private _fireTurret_Click(event:createjs.MouseEvent) {
-            this._turret = new Turret("turretBase", "Fire", this.x, this.y)
-            gameScene.addChild(this._turret);
-            this._turret.update()
-            this._reset();
+            if(gameScene.cashCounterAmt >= 30) {
+                this._turret = new Turret("turretBase", "Fire", this.x, this.y)
+                gameScene.addChild(this._turret);
+                this._turret.update()
+                this._reset();
+                gameScene.cashCounterAmt -= 30;
+                gameScene.updateScore();
+            } else {
+                this._clean();
+                console.log("not enough cash");
+            }
+            
         }
         private _gunTurret_Click(event:createjs.MouseEvent) {
-            this._turret = new Turret("turretBase", "Gun", this.x, this.y)
-            gameScene.addChild(this._turret);
-            this._turret.update()
-            this._reset();
+            if(gameScene.cashCounterAmt >= 10) {
+                this._turret = new Turret("turretBase", "Gun", this.x, this.y)
+                gameScene.addChild(this._turret);
+                this._turret.update()
+                this._reset();
+                gameScene.cashCounterAmt -= 10;
+                gameScene.updateScore();
+            } else {
+                this._clean();
+                console.log("not enough cash");
+            }
+            
         }
         private _rocketTurret_Click(event:createjs.MouseEvent) {
-            this._turret = new Turret("turretBase", "Rocket", this.x, this.y)
-            gameScene.addChild(this._turret);
-            this._turret.update()
-            this._reset();
+            if(gameScene.cashCounterAmt >= 40) {
+                this._turret = new Turret("turretBase", "Rocket", this.x, this.y)
+                gameScene.addChild(this._turret);
+                this._turret.update()
+                this._reset();
+                gameScene.cashCounterAmt -= 40;
+                gameScene.updateScore();
+            } else {
+                this._clean();
+                console.log("not enough cash");
+            }
         }
-        
 
         private _reset():void {
             gameScene.removeChild(this)
+            this._clean();
+        }
+
+        private _clean():void {
             gameScene.removeChild(this._electroTurret, this._fireTurret, this._gunTurret, this._rocketTurret)
         }
 

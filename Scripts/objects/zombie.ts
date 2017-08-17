@@ -5,10 +5,12 @@ module objects {
         private _zombieName:string;
         private _zombieType:string;
         public health:number;
-        private rewardPoints:number;
+        public rewardPoints:number;
         public position:Vector;
         public isDead:boolean;
-        public _healthBar:createjs.Shape;
+        public healthBar:createjs.Shape;
+        public actualHealth:createjs.Shape; 
+        private _originalHealth;
 
         // public instance variables
         public width:number;
@@ -23,15 +25,15 @@ module objects {
             this.y = y;
             this.position = new Vector(x, y);
             this.isDead = false;
-            
-            this._healthBar = new createjs.Shape();
-            this._healthBar.graphics.beginStroke("#000")
-            this._healthBar.graphics.beginFill("#b21616").rr(0,0, this.width, 5, 2);
-            
-            
+           
+            this.actualHealth = new createjs.Shape();
+            this.healthBar = new createjs.Shape();
+            this.healthBar.graphics.beginFill("#b21616").rr(0,0, this.width, 5, 2);
             this._zombieName = zombieName;
             this._zombieType = zombieType;
             this.start();
+            this._originalHealth = this.health;
+            this.actualHealth.graphics.beginFill("#2bce2b").rr(0, 0, this._calcWidth(), 5, 2);     
 
             // this is to randomize the path of each zombie
             //this.y = y * (Math.round((Math.random() * (0.4-0.3) + 0.3)*100)/100);
@@ -42,11 +44,16 @@ module objects {
             switch(this._zombieType) {
                 case "walker": 
                     this.health = 30;
+                    this.rewardPoints = 5;
                     break;
                 case "mumbler":
                     this.health = 50;
+                    this.rewardPoints = 10;
                     break;
             }
+
+            // Event listeners
+            this.on("click", this._zombie_Click, this);
 
         }
 
@@ -71,17 +78,18 @@ module objects {
             this.position = new Vector(this.x, this.y)
             if(this.health <= 0) {
                 this.isDead = true;
-                console.log("Health: " + this.health);
+                
             }
-            this._healthBar.x = this.x;
-            this._healthBar.y = this.y - 10;
-            this._healthBar.graphics.beginFill("#2bce2b");
-            
-            
-            //this._healthBar.y = this._healthBar.y - this.y;
+            this.actualHealth.graphics.clear();
+            this.actualHealth.graphics.beginFill("#2bce2b").rr(this.x, this.y - 10, this._calcWidth(), 5, 2)
+            this.healthBar.x = this.x;
+            this.healthBar.y = this.y - 10;
             
         }
 
+        private _calcWidth():number {
+            return this.health/this._originalHealth * this.width;
+        }
         public changeDirection(zombieName:string, dir:number) {
             switch(zombieName) {
                 case "walker":
@@ -146,7 +154,7 @@ module objects {
                 if(this.x == 505) {
                     this.changeDirection(this._zombieType, config.Direction.RIGHT)
                 }
-                this.move(config.Direction.RIGHT, 640, 130);
+                this.move(config.Direction.RIGHT, 650, 130);
             }
         }
 
@@ -203,6 +211,10 @@ module objects {
                 this.move(config.Direction.DOWN, 415, 362);
             }
         }
-                
+
+        // Event Handlers
+        private _zombie_Click(event:MouseEvent) {
+            gameScene.updateInfo(this._zombieType, this.health, this.rewardPoints);
+        }
     }
 } 

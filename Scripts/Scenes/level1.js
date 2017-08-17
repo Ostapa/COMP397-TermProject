@@ -11,8 +11,8 @@ var __extends = (this && this.__extends) || (function () {
 /**
  * @file level1.ts
  * @author Ostap Hamarnyk
- * @date August 9 2017
- * @version 0.3
+ * @date August 16 2017
+ * @version 0.4
  * @description The first level of the game. Difficulty: easy.
  */
 var Scenes;
@@ -27,6 +27,7 @@ var Scenes;
             _this._bTime = createjs.Ticker.getTime();
             _this._shootingRange = 100;
             _this._deadZombies = 0;
+            _this._wave2 = false;
             if (!_this.onPause) {
                 _this.start();
             }
@@ -34,10 +35,19 @@ var Scenes;
         }
         Level1.prototype.start = function () {
             this._zombies = new Array();
+            this._zombies2 = new Array();
             // adding turet areas to the map
             this._turretArea = new objects.TurretArea("turretArea", 185, 140);
             this._turretArea2 = new objects.TurretArea("turretArea", 465, 140);
             for (var i = 0; i < 10; i++) {
+                if (i < 5) {
+                    this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
+                }
+                else {
+                    this._zombies.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
+                }
+            }
+            for (var i = 0; i < 15; i++) {
                 if (i < 5) {
                     this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
                 }
@@ -51,24 +61,21 @@ var Scenes;
         };
         Level1.prototype.update = function () {
             var _this = this;
-            if (this._deadZombies >= 10) {
+            if (this._deadZombies >= 10 || (this._zombies.length == 0 && this.lifeCounterAmt > 0)) {
                 scene = config.Scene.LEVEL_2;
                 changeScene();
             }
-            console.log("start");
-            if (this.closestZombie.x >= 640) {
-                if (this._zombies.length != 0) {
-                    this.lifeCounterAmt = this.lifeCounterAmt--;
-                    console.log(this.lifeCounterAmt);
-                    this._zombies.shift();
-                }
-                else {
-                    scene = config.Scene.OVER_SCENE;
-                    changeScene();
-                }
-                gameScene.updateScore();
+            if (this.closestZombie.x >= 640 && this._zombies.length != 0) {
+                this.lifeCounterAmt--;
+                console.log(this.lifeCounterAmt);
+                this._zombies.shift();
+                this.closestZombie = this._zombies[0];
             }
-            console.log("finish");
+            if (this.lifeCounterAmt == 0) {
+                scene = config.Scene.OVER_SCENE;
+                changeScene();
+            }
+            gameScene.updateScore();
             if (this._turretArea._turret != undefined && this.startGame) {
                 for (var i = 0; i < this._zombies.length; i++) {
                     if (this._turretArea._turret.inRange(this._zombies[i])) {
@@ -78,11 +85,20 @@ var Scenes;
                         this._turretArea._turret._bullet.update();
                         if (this._turretArea._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea._turret.zombieToFollow), 1);
-                            this.removeChild(this._turretArea._turret.zombieToFollow, this._turretArea._turret.zombieToFollow._healthBar);
+                            this.removeChild(this._turretArea._turret.zombieToFollow, this._turretArea._turret.zombieToFollow.actualHealth, this._turretArea._turret.zombieToFollow.healthBar);
                             this._deadZombies++;
+                            this.cashCounterAmt += this._turretArea._turret.zombieToFollow.rewardPoints;
+                            this.updateScore();
                         }
                         break;
                     }
+                }
+            }
+            if (this._turretArea._turret != undefined) {
+                if (this._turretArea._turret.sold) {
+                    this.removeChild(this._turretArea._turret);
+                    this._turretArea = new objects.TurretArea("turretArea", 185, 140);
+                    this.addChild(this._turretArea);
                 }
             }
             if (this._turretArea2._turret != undefined && this.startGame) {
@@ -94,16 +110,33 @@ var Scenes;
                         this._turretArea2._turret._bullet.update();
                         if (this._turretArea2._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea2._turret.zombieToFollow), 1);
-                            this.removeChild(this._turretArea2._turret.zombieToFollow, this._turretArea2._turret.zombieToFollow._healthBar);
+                            this.removeChild(this._turretArea2._turret.zombieToFollow, this._turretArea2._turret.zombieToFollow.actualHealth, this._turretArea2._turret.zombieToFollow.healthBar);
                             this._deadZombies++;
+                            this.cashCounterAmt += this._turretArea._turret.zombieToFollow.rewardPoints;
+                            this.updateScore();
                         }
                         break;
                     }
                 }
             }
+            if (this._turretArea2._turret != undefined) {
+                if (this._turretArea2._turret.sold) {
+                    this.removeChild(this._turretArea2._turret);
+                    this._turretArea2 = new objects.TurretArea("turretArea", 185, 140);
+                    this.addChild(this._turretArea2);
+                }
+            }
             if (this.startGame) {
                 this.addZombies(this._zombies);
                 this._zombies.forEach(function (zombie) {
+                    if (zombie.x > _this.closestZombie.x && zombie.y > _this.closestZombie.y) {
+                        _this.closestZombie = zombie;
+                    }
+                });
+            }
+            if (this._wave2) {
+                this.addZombies(this._zombies2);
+                this._zombies2.forEach(function (zombie) {
                     if (zombie.x > _this.closestZombie.x && zombie.y > _this.closestZombie.y) {
                         _this.closestZombie = zombie;
                     }
@@ -124,7 +157,7 @@ var Scenes;
                 if (zombie.added) {
                     zombie.lvl1Map();
                     zombie.update();
-                    _this.addChild(zombie._healthBar);
+                    _this.addChild(zombie.healthBar, zombie.actualHealth);
                 }
             });
         };

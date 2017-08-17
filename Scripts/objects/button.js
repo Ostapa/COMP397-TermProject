@@ -24,6 +24,7 @@ var objects;
             _this.regY = _this.height * .5;
             _this.on("mouseover", _this.overBtn, _this);
             _this.on("mouseout", _this.outBtn, _this);
+            _this.cursor = "pointer";
             return _this;
         }
         // private methods

@@ -18,7 +18,7 @@ module Scenes {
         public objectHP:objects.Label;
         public objectDamage:objects.Label;
         public lifeCounterAmt:number = 10;
-        public cashCounterAmt:number = 30;
+        public cashCounterAmt:number;
         public startGame:boolean = false;
         public onPause:boolean = false;
         
@@ -31,6 +31,8 @@ module Scenes {
             this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
             this._startBtn = new objects.Button("runWave", config.Screen.WIDTH - 545, config.Screen.HEIGHT - 30);
             this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
+            // TODO: change this every level
+            this.cashCounterAmt = this.cashCounterAmt == undefined ? 30 : this.cashCounterAmt;
             
             // event listeners
             this._mainMenuBtn.on("click", this._mainMenuBtn_Click, this);
@@ -104,6 +106,7 @@ module Scenes {
             // ######## Play some sound here to start the wave ######
             // after that play game 1st, 2nd or 3rd level background
         }
+
         public update():void {
             if(this.lifeCounterAmt <= 0) {
                 scene = config.Scene.OVER_SCENE;
@@ -123,6 +126,12 @@ module Scenes {
             this.objectType.visible = true;
             this.objectHP.visible = true;
             this.objectDamage.visible = true;
+        }
+
+        public clearInfo():void {
+            this.objectType.visible = false;
+            this.objectHP.visible = false;
+            this.objectDamage.visible = false;
         }
 
     }

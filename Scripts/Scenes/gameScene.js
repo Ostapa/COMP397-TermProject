@@ -15,7 +15,6 @@ var Scenes;
         function GameScene(backImg, backSound) {
             var _this = _super.call(this) || this;
             _this.lifeCounterAmt = 10;
-            _this.cashCounterAmt = 30;
             _this.startGame = false;
             _this.onPause = false;
             _this._backImg = backImg;
@@ -24,6 +23,8 @@ var Scenes;
             _this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
             _this._startBtn = new objects.Button("runWave", config.Screen.WIDTH - 545, config.Screen.HEIGHT - 30);
             _this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
+            // TODO: change this every level
+            _this.cashCounterAmt = _this.cashCounterAmt == undefined ? 30 : _this.cashCounterAmt;
             // event listeners
             _this._mainMenuBtn.on("click", _this._mainMenuBtn_Click, _this);
             _this._startBtn.on("click", _this._startBtn_Click, _this);
@@ -97,6 +98,11 @@ var Scenes;
             this.objectType.visible = true;
             this.objectHP.visible = true;
             this.objectDamage.visible = true;
+        };
+        GameScene.prototype.clearInfo = function () {
+            this.objectType.visible = false;
+            this.objectHP.visible = false;
+            this.objectDamage.visible = false;
         };
         return GameScene;
     }(objects.Scene));

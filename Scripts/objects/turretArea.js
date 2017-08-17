@@ -56,31 +56,66 @@ var objects;
             this.showOptions();
         };
         TurretArea.prototype._electroTurret_Click = function (event) {
-            this._turret = new objects.Turret("turretBase", "Electro", this.x, this.y);
-            gameScene.addChild(this._turret);
-            this._turret.update();
-            this._reset();
+            if (gameScene.cashCounterAmt >= 20) {
+                this._turret = new objects.Turret("turretBase", "Electro", this.x, this.y);
+                gameScene.addChild(this._turret);
+                this._turret.update();
+                this._reset();
+                gameScene.cashCounterAmt -= 20;
+                gameScene.updateScore();
+            }
+            else {
+                this._clean();
+                console.log("not enough cash");
+            }
         };
         TurretArea.prototype._fireTurret_Click = function (event) {
-            this._turret = new objects.Turret("turretBase", "Fire", this.x, this.y);
-            gameScene.addChild(this._turret);
-            this._turret.update();
-            this._reset();
+            if (gameScene.cashCounterAmt >= 30) {
+                this._turret = new objects.Turret("turretBase", "Fire", this.x, this.y);
+                gameScene.addChild(this._turret);
+                this._turret.update();
+                this._reset();
+                gameScene.cashCounterAmt -= 30;
+                gameScene.updateScore();
+            }
+            else {
+                this._clean();
+                console.log("not enough cash");
+            }
         };
         TurretArea.prototype._gunTurret_Click = function (event) {
-            this._turret = new objects.Turret("turretBase", "Gun", this.x, this.y);
-            gameScene.addChild(this._turret);
-            this._turret.update();
-            this._reset();
+            if (gameScene.cashCounterAmt >= 10) {
+                this._turret = new objects.Turret("turretBase", "Gun", this.x, this.y);
+                gameScene.addChild(this._turret);
+                this._turret.update();
+                this._reset();
+                gameScene.cashCounterAmt -= 10;
+                gameScene.updateScore();
+            }
+            else {
+                this._clean();
+                console.log("not enough cash");
+            }
         };
         TurretArea.prototype._rocketTurret_Click = function (event) {
-            this._turret = new objects.Turret("turretBase", "Rocket", this.x, this.y);
-            gameScene.addChild(this._turret);
-            this._turret.update();
-            this._reset();
+            if (gameScene.cashCounterAmt >= 40) {
+                this._turret = new objects.Turret("turretBase", "Rocket", this.x, this.y);
+                gameScene.addChild(this._turret);
+                this._turret.update();
+                this._reset();
+                gameScene.cashCounterAmt -= 40;
+                gameScene.updateScore();
+            }
+            else {
+                this._clean();
+                console.log("not enough cash");
+            }
         };
         TurretArea.prototype._reset = function () {
             gameScene.removeChild(this);
+            this._clean();
+        };
+        TurretArea.prototype._clean = function () {
             gameScene.removeChild(this._electroTurret, this._fireTurret, this._gunTurret, this._rocketTurret);
         };
         return TurretArea;

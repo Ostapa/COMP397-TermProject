@@ -29,47 +29,42 @@ var objects;
             _this.regX = _this.getBounds().width / 2;
             _this.regY = _this.getBounds().height / 2;
             _this.turretType = turretType;
+            _this._upgradeBtn = new objects.Button("upgradeBtn", _this.x + _this.getBounds().width, _this.y - 50);
+            _this._sellBtn = new objects.Button("upgradeBtn", _this.x + _this.getBounds().width, _this.y + 70);
             _this.start();
             _this._range.graphics.drawCircle(_this.x, _this.y, _this.getBounds().width + 30);
             _this.position = new objects.Vector(_this.x, _this.y);
             _this._turretLvl = 1; // TODO: change this dynamically
             _this._shootingRange = _this.getBounds().width + 40;
             _this._collision = new Managers.Collision();
+            _this.sold = false;
             return _this;
         }
         Turret.prototype.start = function () {
             switch (this.turretType) {
-                // public chooseBullet(turret:objects.Turret):string {
-                //     switch(turret.turretType) {
-                //         case "Electro":
-                //             return "electroBullet1"
-                //         case "Fire":
-                //             return "electroBullet3"
-                //         case "Gun":
-                //             return "gunBullet3"
-                //         case "Rocket":
-                //             return "gunBullet1"
-                //     }
-                // }
                 case "Gun":
                     this._gun = new objects.Gun("gun", this.x, this.y);
                     this.damage = 3;
                     this._bullet = new objects.Bullet("gunBullet3", this.x, this.y);
+                    this._price = 10;
                     break;
                 case "Fire":
                     this._gun = new objects.Gun("fireGun", this.x, this.y);
                     this.damage = 5;
                     this._bullet = new objects.Bullet("electroBullet3", this.x, this.y);
+                    this._price = 30;
                     break;
                 case "Rocket":
                     this._gun = new objects.Gun("rocketGun", this.x, this.y);
                     this.damage = 10;
                     this._bullet = new objects.Bullet("gunBullet1", this.x, this.y);
+                    this._price = 40;
                     break;
                 case "Electro":
                     this._gun = new objects.Gun("electroGun", this.x, this.y);
                     this.damage = 7;
                     this._bullet = new objects.Bullet("electroBullt1", this.x, this.y);
+                    this._price = 20;
                     break;
             }
             this._range = new createjs.Shape();
@@ -81,6 +76,8 @@ var objects;
             // event listeners
             stage.on("click", this._stage_Click, this);
             this._gun.on("click", this._gun_Click, this);
+            this._upgradeBtn.on("click", this._upgradeBtn_Click, this);
+            this._sellBtn.on("click", this._sellBtn_Click, this);
         };
         Turret.prototype.update = function () {
             gameScene.addChild(this._gun, this._range);
@@ -94,7 +91,6 @@ var objects;
                 createjs.Tween.get(this._bullet).to({ x: targetX, y: targetY }, 500, createjs.Ease.linear);
                 this._bTime = createjs.Ticker.getTime();
                 this.update();
-                console.log(this._bullet.position);
             }
             if (this._collision.check(this.zombieToFollow, this._bullet)) {
                 gameScene.removeChild(this._bullet);
@@ -123,11 +119,24 @@ var objects;
         Turret.prototype._gun_Click = function (event) {
             this._range.visible = true;
             gameScene.updateInfo(this.turretType + " Turret", this._turretLvl, this.damage);
+            gameScene.addChild(this._upgradeBtn, this._sellBtn);
         };
         Turret.prototype._stage_Click = function (event) {
             if (event.target != this._gun) {
                 this._range.visible = false;
+                gameScene.removeChild(this._upgradeBtn, this._sellBtn);
+                gameScene.clearInfo();
             }
+        };
+        Turret.prototype._upgradeBtn_Click = function (event) {
+            // TODO: Update this to show error message
+            console.log("upgrade turret if possible");
+        };
+        Turret.prototype._sellBtn_Click = function (event) {
+            gameScene.removeChild(this);
+            this.sold = true;
+            gameScene.cashCounterAmt += Math.ceil(this._price * 0.6);
+            gameScene.updateScore();
         };
         return Turret;
     }(createjs.Sprite));

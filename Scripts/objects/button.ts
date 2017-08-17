@@ -19,6 +19,7 @@ module objects {
 
             this.on("mouseover", this.overBtn, this);
             this.on("mouseout", this.outBtn, this);
+            this.cursor = "pointer";
         }
 
         // private methods
