@@ -146,6 +146,9 @@ var assetData:objects.Asset[] = [
     {id:"mapOne", src:"../../Assets/Maps/map_level_1.jpeg"},
     {id:"mapTwo", src:"../../Assets/Maps/2.jpg"},
     {id:"backSound", src:"../../Assets/Sounds/background.ogg"},
+    {id:"backSound1", src:"../../Assets/Sounds/background1.ogg"},
+    {id:"backSound2", src:"../../Assets/Sounds/background2.ogg"},
+    {id:"backSound3", src:"../../Assets/Sounds/background3.ogg"},
     {id:"upgradeBtn", src:"../../Assets/Images/upgrade.png"}
 ];
 // function to preload assets
