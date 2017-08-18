@@ -37,7 +37,7 @@ module Scenes {
         }
 
         private _playBtn_Click(event:createjs.MouseEvent) {
-            scene = config.Scene.LEVEL_3;
+            scene = config.Scene.LEVEL_1;
             changeScene();
         }
     }

@@ -15,7 +15,7 @@ var objects;
         __extends(Bullet, _super);
         // constructor
         function Bullet(path, x, y) {
-            var _this = _super.call(this, turretTexture, path) || this;
+            var _this = _super.call(this, gameTexture, path) || this;
             _this.x = x;
             _this.y = y;
             _this.regX = _this.getBounds().width / 2;

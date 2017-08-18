@@ -20,7 +20,7 @@ var objects;
     var TurretIcon = (function (_super) {
         __extends(TurretIcon, _super);
         function TurretIcon(imageUrl, x, y) {
-            var _this = _super.call(this, turretTexture, imageUrl) || this;
+            var _this = _super.call(this, gameTexture, imageUrl) || this;
             _this.x = x;
             _this.y = y;
             _this.regX = _this.getBounds().width / 2;

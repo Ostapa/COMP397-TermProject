@@ -12,7 +12,7 @@
         private _currentTime:number;
 
          constructor(imageUrl:string, x:number, y:number) {
-             super(turretTexture, imageUrl);
+             super(gameTexture, imageUrl);
              this.x = x;
              this.y = y;
              this.regX = this.getBounds().width / 2;

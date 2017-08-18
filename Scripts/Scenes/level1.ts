@@ -46,7 +46,7 @@ module Scenes {
             
             
             // adding turet areas to the map
-            this._turretArea = new objects.TurretArea("turretArea", 180, 135)
+            this._turretArea = new objects.TurretArea("turretArea", 185, 140)
             this._turretArea2 = new objects.TurretArea("turretArea", 465, 140)
             
 
@@ -89,6 +89,7 @@ module Scenes {
                 this.closestZombie = this._zombies[0];
             } 
             if(this.lifeCounterAmt == 0) {
+                createjs.Sound.stop();
                 scene = config.Scene.OVER_SCENE;
                 changeScene();
             }
@@ -117,7 +118,7 @@ module Scenes {
             if(this._turretArea._turret != undefined) {
                 if(this._turretArea._turret.sold) {
                     this.removeChild(this._turretArea._turret);
-                    this._turretArea = new objects.TurretArea("turretArea", 180, 135)
+                    this._turretArea = new objects.TurretArea("turretArea", 180, 140)
                     this.addChild(this._turretArea);
                 }
             }
@@ -153,7 +154,7 @@ module Scenes {
                     this.addChild(this._turretArea2);
                 }
             }
-            if(this.startGame && createjs.Ticker.getTime() > this.waveStart + 3000) {
+            if(this.startGame && createjs.Ticker.getTime() > this.waveStart + 7000) {
                 this.addZombies(this._zombies);
                 this._zombies.forEach(zombie => {
                     if(zombie.x > this.closestZombie.x && zombie.y > this.closestZombie.y) {

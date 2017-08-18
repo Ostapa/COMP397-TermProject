@@ -21,7 +21,7 @@ var objects;
         __extends(Turret, _super);
         // Constructor
         function Turret(turretName, turretType, x, y) {
-            var _this = _super.call(this, turretTexture, turretName) || this;
+            var _this = _super.call(this, gameTexture, turretName) || this;
             _this._bTime = createjs.Ticker.getTime();
             _this._turretName = turretName;
             _this.x = x;
@@ -44,21 +44,21 @@ var objects;
                 case "Gun":
                     this._gun = new objects.Gun("gun", this.x, this.y);
                     this.damage = 5;
-                    this._bullet = new objects.Bullet("gunBullet3", this.x, this.y);
+                    this._bullet = new objects.Bullet("gunBullet1", this.x, this.y);
                     this._price = 10;
                     this._upgradeCost = this._price * 1.4;
                     break;
                 case "Fire":
                     this._gun = new objects.Gun("fireGun", this.x, this.y);
                     this.damage = 10;
-                    this._bullet = new objects.Bullet("electroBullet3", this.x, this.y);
+                    this._bullet = new objects.Bullet("electroBullet2", this.x, this.y);
                     this._price = 30;
                     this._upgradeCost = this._price * 1.4;
                     break;
                 case "Rocket":
                     this._gun = new objects.Gun("rocketGun", this.x, this.y);
                     this.damage = 15;
-                    this._bullet = new objects.Bullet("gunBullet1", this.x, this.y);
+                    this._bullet = new objects.Bullet("gunBullet3", this.x, this.y);
                     this._price = 40;
                     this._upgradeCost = this._price * 1.4;
                     break;

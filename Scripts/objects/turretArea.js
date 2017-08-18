@@ -21,7 +21,7 @@ var objects;
     var TurretArea = (function (_super) {
         __extends(TurretArea, _super);
         function TurretArea(imageUrl, x, y) {
-            var _this = _super.call(this, turretTexture, imageUrl) || this;
+            var _this = _super.call(this, gameTexture, imageUrl) || this;
             // public instance variables
             _this.notNull = false;
             _this.x = x;

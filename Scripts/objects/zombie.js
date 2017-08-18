@@ -14,7 +14,7 @@ var objects;
         __extends(Zombie, _super);
         function Zombie(zombieName, zombieType, x, y, added) {
             if (added === void 0) { added = false; }
-            var _this = _super.call(this, textureSprite, zombieName) || this;
+            var _this = _super.call(this, gameTexture, zombieName) || this;
             _this.added = added;
             _this.width = _this.getBounds().width;
             _this.height = _this.getBounds().height;
@@ -82,7 +82,7 @@ var objects;
                 case "walker":
                     switch (dir) {
                         case 0:
-                            this.gotoAndPlay("walkerUp");
+                            this.gotoAndPlay("walkerTop");
                             break;
                         case 1:
                             this.gotoAndPlay("walkerRight");
@@ -98,7 +98,22 @@ var objects;
                 case "mumbler":
                     switch (dir) {
                         case 0:
-                            this.gotoAndPlay("mumblerUp");
+                            this.gotoAndPlay("mumblerTop");
+                            break;
+                        case 1:
+                            this.gotoAndPlay("mumblerRight");
+                            break;
+                        case 2:
+                            this.gotoAndPlay("mumblerDown");
+                            break;
+                        case 3:
+                            this.gotoAndPlay("mumblerLeft");
+                            break;
+                    }
+                case "gunter":
+                    switch (dir) {
+                        case 0:
+                            this.gotoAndPlay("mumblerTop");
                             break;
                         case 1:
                             this.gotoAndPlay("mumblerRight");

@@ -38,7 +38,7 @@ var Scenes;
             createjs.Sound.stop();
             this.level_bgSound = createjs.Sound.play("backSound3");
             this.level_bgSound.loop = -1;
-            this._label = new objects.Label("LEVEL 2", "60px Arial", "#c6bf9c", 0, config.Screen.CENTER_Y);
+            this._label = new objects.Label("LEVEL 3", "60px Arial", "#c6bf9c", 0, config.Screen.CENTER_Y);
             createjs.Tween.get(this._label).to({ x: config.Screen.WIDTH + this._label.getBounds().width }, 5000, createjs.Ease.linear);
             this._zombies = new Array();
             this._zombies2 = new Array();
@@ -73,7 +73,7 @@ var Scenes;
                 }
             }
             this.closestZombie = this._zombies[0];
-            this.addChild(this._turretArea, this._turretArea2, this._turretArea3, this._turretArea4);
+            this.addChild(this._turretArea, this._turretArea2, this._turretArea3, this._turretArea4, this._label);
             stage.addChild(this);
         };
         Level3.prototype.update = function () {

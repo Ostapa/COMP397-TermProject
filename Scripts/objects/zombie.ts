@@ -17,7 +17,7 @@ module objects {
         public height:number;
 
         constructor(zombieName:string, zombieType:string, x:number, y:number, public added:boolean=false) {
-            super(textureSprite, zombieName);
+            super(gameTexture, zombieName);
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 
@@ -95,7 +95,7 @@ module objects {
                 case "walker":
                     switch(dir) {
                         case 0:
-                            this.gotoAndPlay("walkerUp");
+                            this.gotoAndPlay("walkerTop");
                             break;
                         case 1:
                             this.gotoAndPlay("walkerRight");
@@ -111,7 +111,22 @@ module objects {
                 case "mumbler":
                     switch(dir) {
                         case 0:
-                            this.gotoAndPlay("mumblerUp");
+                            this.gotoAndPlay("mumblerTop");
+                            break;
+                        case 1:
+                            this.gotoAndPlay("mumblerRight");
+                            break;
+                        case 2:
+                            this.gotoAndPlay("mumblerDown");
+                            break;
+                        case 3:
+                            this.gotoAndPlay("mumblerLeft");
+                            break;
+                    }
+                case "gunter":
+                    switch(dir) {
+                        case 0:
+                            this.gotoAndPlay("mumblerTop");
                             break;
                         case 1:
                             this.gotoAndPlay("mumblerRight");

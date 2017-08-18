@@ -8,7 +8,7 @@ module objects {
         public type:string;
         // constructor
         constructor(path: string, x:number, y: number) {
-            super(turretTexture, path);
+            super(gameTexture, path);
             this.x = x;
             this.y = y;
             this.regX = this.getBounds().width / 2;

@@ -36,7 +36,7 @@ module objects {
         
         // Constructor
         constructor(turretName:string,turretType:string, x:number, y:number) {
-            super(turretTexture, turretName);
+            super(gameTexture, turretName);
             this._turretName = turretName;
             this.x = x;
             this.y = y;
@@ -59,21 +59,21 @@ module objects {
                 case "Gun":
                     this._gun = new objects.Gun("gun", this.x, this.y)
                     this.damage = 5
-                    this._bullet = new objects.Bullet("gunBullet3", this.x, this.y)
+                    this._bullet = new objects.Bullet("gunBullet1", this.x, this.y)
                     this._price = 10
                     this._upgradeCost = this._price * 1.4;
                     break;
                 case "Fire":
                     this._gun = new objects.Gun("fireGun", this.x, this.y)
                     this.damage = 10;
-                    this._bullet = new objects.Bullet("electroBullet3", this.x, this.y)
+                    this._bullet = new objects.Bullet("electroBullet2", this.x, this.y)
                     this._price = 30;
                     this._upgradeCost = this._price * 1.4;
                     break;
                 case "Rocket":
                     this._gun = new objects.Gun("rocketGun", this.x, this.y)
                     this.damage = 15;
-                    this._bullet = new objects.Bullet("gunBullet1", this.x, this.y)
+                    this._bullet = new objects.Bullet("gunBullet3", this.x, this.y)
                     this._price = 40;
                     this._upgradeCost = this._price * 1.4;
                     break;
