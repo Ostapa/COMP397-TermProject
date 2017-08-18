@@ -132,9 +132,18 @@ var assetData = [
     { id: "settingsBackground", src: "../../Assets/Images/settingsBackground.png" },
     { id: "bullet", src: "../../Assets/Images/oneBullet.png" },
     { id: "mapOne", src: "../../Assets/Maps/map_level_1.jpeg" },
-    { id: "mapTwo", src: "../../Assets/Maps/2.jpg" },
+    { id: "mapTwo", src: "../../Assets/Maps/map_level_2.jpg" },
     { id: "backSound", src: "../../Assets/Sounds/background.ogg" },
-    { id: "upgradeBtn", src: "../../Assets/Images/upgrade.png" }
+    { id: "backSound1", src: "../../Assets/Sounds/background1.ogg" },
+    { id: "backSound2", src: "../../Assets/Sounds/background2.ogg" },
+    { id: "backSound3", src: "../../Assets/Sounds/background3.ogg" },
+    { id: "upgradeBtn", src: "../../Assets/Images/upgrade.png" },
+    { id: "click", src: "../../Assets/Sounds/click.ogg" },
+    { id: "siren", src: "../../Assets/Sounds/siren.ogg" },
+    { id: "gunShot", src: "../../Assets/Sounds/gunShot.ogg" },
+    { id: "electroShot", src: "../../Assets/Sounds/electroShot.ogg" },
+    { id: "construction", src: "../../Assets/Sounds/construction.ogg" },
+    { id: "boss", src: "../../Assets/Images/Zombies/bossDown_1.png" }
 ];
 // function to preload assets
 function init() {

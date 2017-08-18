@@ -17,6 +17,7 @@
         private _gunTurret:objects.TurretIcon;
         private _electroTurret:objects.TurretIcon;
         private _rocketTurret:objects.TurretIcon;
+        private _buildSound:createjs.AbstractSoundInstance;
         
         public _turret:objects.Turret;
         
@@ -67,6 +68,7 @@
         private _electroTurret_Click(event:createjs.MouseEvent) {
             if(gameScene.cashCounterAmt >= 20) {
                 this._turret = new Turret("turretBase", "Electro", this.x, this.y)
+                this._buildSound = createjs.Sound.play("construction")
                 gameScene.addChild(this._turret);
                 this._turret.update()
                 this._reset();
@@ -81,6 +83,7 @@
         private _fireTurret_Click(event:createjs.MouseEvent) {
             if(gameScene.cashCounterAmt >= 30) {
                 this._turret = new Turret("turretBase", "Fire", this.x, this.y)
+                this._buildSound = createjs.Sound.play("construction")
                 gameScene.addChild(this._turret);
                 this._turret.update()
                 this._reset();
@@ -95,6 +98,7 @@
         private _gunTurret_Click(event:createjs.MouseEvent) {
             if(gameScene.cashCounterAmt >= 10) {
                 this._turret = new Turret("turretBase", "Gun", this.x, this.y)
+                this._buildSound = createjs.Sound.play("construction")
                 gameScene.addChild(this._turret);
                 this._turret.update()
                 this._reset();
@@ -109,6 +113,7 @@
         private _rocketTurret_Click(event:createjs.MouseEvent) {
             if(gameScene.cashCounterAmt >= 40) {
                 this._turret = new Turret("turretBase", "Rocket", this.x, this.y)
+                this._buildSound = createjs.Sound.play("construction")
                 gameScene.addChild(this._turret);
                 this._turret.update()
                 this._reset();

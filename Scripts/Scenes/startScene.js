@@ -30,13 +30,11 @@ var Scenes;
         };
         // Event handlers
         StartScene.prototype._instructionsBtn_Click = function (event) {
-            // ########### Play button click sound
             // change scene to controls scene
             scene = config.Scene.CONTROLS_SCENE;
             changeScene();
         };
         StartScene.prototype._playBtn_Click = function (event) {
-            // ########### Play button click sound
             scene = config.Scene.LEVEL_1;
             changeScene();
         };

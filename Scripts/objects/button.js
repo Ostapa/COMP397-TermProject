@@ -25,6 +25,7 @@ var objects;
             _this.on("mouseover", _this.overBtn, _this);
             _this.on("mouseout", _this.outBtn, _this);
             _this.cursor = "pointer";
+            _this.on("click", _this._button_Click, _this);
             return _this;
         }
         // private methods
@@ -33,6 +34,9 @@ var objects;
         };
         Button.prototype.outBtn = function (event) {
             event.currentTarget.alpha = 1;
+        };
+        Button.prototype._button_Click = function (event) {
+            this.clickSound = createjs.Sound.play("click");
         };
         return Button;
     }(createjs.Bitmap));

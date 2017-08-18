@@ -37,6 +37,7 @@ module Scenes {
             createjs.Ticker.setPaused(false);
             this.removeAllChildren();
             gameScene.onPause = false;
+            createjs.Sound.stop();
         }
 
         private _muteBtn_Click(event:createjs.MouseEvent) {
@@ -44,12 +45,14 @@ module Scenes {
         }
 
         private _restartBtn_Click(event:createjs.MouseEvent) {
+            stage.removeAllChildren();
             scene = config.Scene.LEVEL_1;
             changeScene();
             gameScene.onPause = false;
         }
 
         private _exitBtn_Click(event:createjs.MouseEvent) {
+            stage.removeAllChildren();
             scene = config.Scene.START_SCENE;
             changeScene();
             gameScene.onPause = false;

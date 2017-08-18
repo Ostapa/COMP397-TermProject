@@ -37,11 +37,11 @@ var objects;
         Zombie.prototype.start = function () {
             switch (this._zombieType) {
                 case "walker":
-                    this.health = 30;
+                    this.health = 50;
                     this.rewardPoints = 5;
                     break;
                 case "mumbler":
-                    this.health = 50;
+                    this.health = 100;
                     this.rewardPoints = 10;
                     break;
             }

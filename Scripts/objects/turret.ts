@@ -23,6 +23,8 @@ module objects {
         private _upgradeBtn:objects.Button;
         private _sellBtn:objects.Button;
         private _price:number;
+        private _gunShot_sound:createjs.AbstractSoundInstance;
+        private _previousPosition:objects.Vector;
 
         // public instance variables
         public width:number;
@@ -55,9 +57,9 @@ module objects {
             switch(this.turretType) {
                 case "Gun":
                     this._gun = new objects.Gun("gun", this.x, this.y)
-                    this.damage = 3;
+                    this.damage = 2
                     this._bullet = new objects.Bullet("gunBullet3", this.x, this.y)
-                    this._price = 10;
+                    this._price = 10
                     break;
                 case "Fire":
                     this._gun = new objects.Gun("fireGun", this.x, this.y)
@@ -67,13 +69,13 @@ module objects {
                     break;
                 case "Rocket":
                     this._gun = new objects.Gun("rocketGun", this.x, this.y)
-                    this.damage = 10;
+                    this.damage = 8;
                     this._bullet = new objects.Bullet("gunBullet1", this.x, this.y)
                     this._price = 40;
                     break;
                 case "Electro":
                     this._gun = new objects.Gun("electroGun", this.x, this.y)
-                    this.damage = 7;
+                    this.damage = 3;
                     this._bullet = new objects.Bullet("electroBullt1", this.x, this.y)
                     this._price = 20;
                     break;
@@ -99,18 +101,27 @@ module objects {
 
         // method shoot a bullet in the specified direction
         public shoot(targetX:number, targetY:number):void {
-            if(createjs.Ticker.getTime() > this._bTime + 500) {
+            if(createjs.Ticker.getTime() > this._bTime + 800) {
                 gameScene.removeChild(this._bullet)
                 this._bullet = new objects.Bullet("electroBullet1", this.x, this.y )
                 gameScene.addChild(this._bullet);
-                createjs.Tween.get(this._bullet).to({x:targetX, y:targetY}, 500, createjs.Ease.linear);
+                this._gunShot_sound = createjs.Sound.play("gunShot");
+                createjs.Tween.get(this._bullet).to({x:targetX, y:targetY}, 500);
                 this._bTime = createjs.Ticker.getTime();
                 this.update();
+                this._previousPosition = new Vector(this._bullet.x, this._bullet.y)
             }
-            if(this._collision.check(this.zombieToFollow, this._bullet)) {
-                gameScene.removeChild(this._bullet)
-                this.zombieToFollow.health -= this.damage;
-                this.zombieToFollow.update();
+        }
+        public checkCollision():void {
+            console.log(this._previousPosition);
+            console.log("Bullet: " + this._bullet.position);
+            if(this._previousPosition.x != this._bullet.position.x && this._previousPosition.y != this._bullet.position.y) {
+                if(this._collision.check(this.zombieToFollow, this._bullet)) {
+                    gameScene.removeChild(this._bullet)
+                    this.zombieToFollow.health -= this.damage;
+                    this.zombieToFollow.update();
+                    this._previousPosition = new Vector(this._bullet.x, this._bullet.y)
+                }
             }
         }
 

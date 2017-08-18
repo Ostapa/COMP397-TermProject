@@ -12,28 +12,30 @@ var Scenes;
 (function (Scenes) {
     var GameScene = (function (_super) {
         __extends(GameScene, _super);
-        function GameScene(backImg, backSound) {
+        function GameScene(backImg, backSoundSrc) {
             var _this = _super.call(this) || this;
             _this.lifeCounterAmt = 10;
             _this.startGame = false;
             _this.onPause = false;
             _this._backImg = backImg;
-            _this._backSound = backSound;
+            _this._backSoundSrc = backSoundSrc;
+            _this._lifeCounter = new createjs.Text(_this.lifeCounterAmt.toString(), "25px Arial", "#c6bf9c");
+            _this.cashCounterAmt = _this.cashCounterAmt == undefined ? 30 : _this.cashCounterAmt;
+            _this._cashCounter = new createjs.Text(_this.cashCounterAmt.toString(), "25px Arial", "#c6bf9c");
             _this._mapImg = new createjs.Bitmap(assets.getResult(_this._backImg));
             _this._mainMenuBtn = new objects.Button("mainMenuBtn", config.Screen.WIDTH - 135, config.Screen.HEIGHT - 30);
             _this._startBtn = new objects.Button("runWave", config.Screen.WIDTH - 545, config.Screen.HEIGHT - 30);
             _this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
-            // TODO: change this every level
-            _this.cashCounterAmt = _this.cashCounterAmt == undefined ? 30 : _this.cashCounterAmt;
+            _this._warning = new createjs.Shape();
+            _this._warning.graphics.beginFill("#ff0000").rr(0, 0, config.Screen.WIDTH, _this._mapImg.getBounds().width, 10);
+            _this._warning.alpha = 0;
             // event listeners
             _this._mainMenuBtn.on("click", _this._mainMenuBtn_Click, _this);
             _this._startBtn.on("click", _this._startBtn_Click, _this);
             //Counter for lives 
-            _this._lifeCounter = new createjs.Text(_this.lifeCounterAmt.toString(), "25px Arial", "#c6bf9c");
             _this._lifeCounter.x = 5;
             _this._lifeCounter.y = 0;
             //Counter for cash
-            _this._cashCounter = new createjs.Text(_this.cashCounterAmt.toString(), "25px Arial", "#c6bf9c");
             _this._cashCounter.x = 75;
             _this._cashCounter.y = 0;
             //Add the lives Icon
@@ -55,30 +57,42 @@ var Scenes;
             _this.objectType.visible = false;
             _this.objectHP.visible = false;
             _this.objectDamage.visible = false;
-            _this.addChild(_this._background, _this._mainMenuBtn, _this._mapImg, _this._heartLives, _this._cashAvail, _this._settingBtn, _this._lifeCounter, _this._cashCounter, _this._startBtn, _this.objectDamage, _this.objectHP, _this.objectType);
+            _this.addChild(_this._background, _this._mainMenuBtn, _this._mapImg, _this._heartLives, _this._cashAvail, _this._settingBtn, _this._lifeCounter, _this._cashCounter, _this._startBtn, _this.objectDamage, _this.objectHP, _this.objectType, _this._warning);
             stage.addChild(_this);
             _this._settingBtn.on("click", _this._settingBtn_Click, _this);
             return _this;
         }
-        GameScene.prototype.start = function () {
-        };
+        GameScene.prototype.start = function () { };
         GameScene.prototype._settingBtn_Click = function (event) {
             // ############ Pause game background and play start scene background sound
+            createjs.Sound.stop();
+            backgroundSound.play();
+            backgroundSound.loop = -1;
             createjs.Ticker.setPaused(true);
             this.addChild(new Scenes.SettingsScene());
             this.onPause = true;
         };
         // event handlers for click events 
         GameScene.prototype._mainMenuBtn_Click = function (event) {
-            // ######## Play button click sound #######
+            createjs.Sound.stop();
+            backgroundSound.play();
+            backgroundSound.loop = -1;
             scene = config.Scene.START_SCENE;
             changeScene();
         };
         GameScene.prototype._startBtn_Click = function (event) {
             this.startGame = true;
-            // ######## Play button click sound #######
+            this.waveStart = createjs.Ticker.getTime();
             // ######## Play some sound here to start the wave ######
-            // after that play game 1st, 2nd or 3rd level background
+            this.waveStartSound = createjs.Sound.play("siren");
+            createjs.Tween.get(this._warning)
+                .to({ alpha: .5 }, 1500)
+                .to({ alpha: .1 }, 1500)
+                .to({ alpha: .5 }, 1500)
+                .to({ alpha: 0 }, 1500)
+                .to({ alpha: .5 }, 1500)
+                .to({ alpha: 0 }, 1500);
+            this.removeChild(this._startBtn);
         };
         GameScene.prototype.update = function () {
             if (this.lifeCounterAmt <= 0) {

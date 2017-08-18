@@ -37,16 +37,19 @@ var Scenes;
             createjs.Ticker.setPaused(false);
             this.removeAllChildren();
             gameScene.onPause = false;
+            createjs.Sound.stop();
         };
         SettingsScene.prototype._muteBtn_Click = function (event) {
             createjs.Sound.muted = true;
         };
         SettingsScene.prototype._restartBtn_Click = function (event) {
+            stage.removeAllChildren();
             scene = config.Scene.LEVEL_1;
             changeScene();
             gameScene.onPause = false;
         };
         SettingsScene.prototype._exitBtn_Click = function (event) {
+            stage.removeAllChildren();
             scene = config.Scene.START_SCENE;
             changeScene();
             gameScene.onPause = false;

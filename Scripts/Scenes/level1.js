@@ -21,7 +21,7 @@ var Scenes;
         __extends(Level1, _super);
         // Constructor
         function Level1() {
-            var _this = _super.call(this, "mapOne", "levelOne_s") || this;
+            var _this = _super.call(this, "mapOne", "backSound1") || this;
             _this._currentTime = createjs.Ticker.getTime();
             _this._zombiesAdded = 0;
             _this._bTime = createjs.Ticker.getTime();
@@ -34,10 +34,14 @@ var Scenes;
             return _this;
         }
         Level1.prototype.start = function () {
+            backgroundSound.stop();
+            this.level_bgSound = createjs.Sound.play("backSound1");
+            this.level_bgSound.loop = -1;
+            this.level_bgSound.volume = .2;
             this._zombies = new Array();
             this._zombies2 = new Array();
             // adding turet areas to the map
-            this._turretArea = new objects.TurretArea("turretArea", 185, 140);
+            this._turretArea = new objects.TurretArea("turretArea", 180, 135);
             this._turretArea2 = new objects.TurretArea("turretArea", 465, 140);
             for (var i = 0; i < 10; i++) {
                 if (i < 5) {
@@ -56,12 +60,13 @@ var Scenes;
                 }
             }
             this.closestZombie = this._zombies[0];
-            this.addChild(this._turretArea, this._turretArea2, this._turret, this._turret2);
+            this.addChild(this._turretArea, this._turretArea2);
             stage.addChild(this);
         };
         Level1.prototype.update = function () {
             var _this = this;
             if (this._deadZombies >= 10 || (this._zombies.length == 0 && this.lifeCounterAmt > 0)) {
+                this.level_bgSound.stop();
                 scene = config.Scene.LEVEL_2;
                 changeScene();
             }
@@ -82,6 +87,7 @@ var Scenes;
                         this._turretArea._turret.zombieToFollow = this._zombies[i];
                         this._turretArea._turret.calculateAngle();
                         this._turretArea._turret.shoot(this._zombies[i].x, this._zombies[i].y);
+                        this._turretArea._turret.checkCollision();
                         this._turretArea._turret._bullet.update();
                         if (this._turretArea._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea._turret.zombieToFollow), 1);
@@ -107,6 +113,7 @@ var Scenes;
                         this._turretArea2._turret.zombieToFollow = this._zombies[i];
                         this._turretArea2._turret.calculateAngle();
                         this._turretArea2._turret.shoot(this._zombies[i].x, this._zombies[i].y);
+                        this._turretArea2._turret.checkCollision();
                         this._turretArea2._turret._bullet.update();
                         if (this._turretArea2._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea2._turret.zombieToFollow), 1);
@@ -126,7 +133,7 @@ var Scenes;
                     this.addChild(this._turretArea2);
                 }
             }
-            if (this.startGame) {
+            if (this.startGame && createjs.Ticker.getTime() > this.waveStart + 3000) {
                 this.addZombies(this._zombies);
                 this._zombies.forEach(function (zombie) {
                     if (zombie.x > _this.closestZombie.x && zombie.y > _this.closestZombie.y) {

@@ -58,6 +58,7 @@ var objects;
         TurretArea.prototype._electroTurret_Click = function (event) {
             if (gameScene.cashCounterAmt >= 20) {
                 this._turret = new objects.Turret("turretBase", "Electro", this.x, this.y);
+                this._buildSound = createjs.Sound.play("construction");
                 gameScene.addChild(this._turret);
                 this._turret.update();
                 this._reset();
@@ -72,6 +73,7 @@ var objects;
         TurretArea.prototype._fireTurret_Click = function (event) {
             if (gameScene.cashCounterAmt >= 30) {
                 this._turret = new objects.Turret("turretBase", "Fire", this.x, this.y);
+                this._buildSound = createjs.Sound.play("construction");
                 gameScene.addChild(this._turret);
                 this._turret.update();
                 this._reset();
@@ -86,6 +88,7 @@ var objects;
         TurretArea.prototype._gunTurret_Click = function (event) {
             if (gameScene.cashCounterAmt >= 10) {
                 this._turret = new objects.Turret("turretBase", "Gun", this.x, this.y);
+                this._buildSound = createjs.Sound.play("construction");
                 gameScene.addChild(this._turret);
                 this._turret.update();
                 this._reset();
@@ -100,6 +103,7 @@ var objects;
         TurretArea.prototype._rocketTurret_Click = function (event) {
             if (gameScene.cashCounterAmt >= 40) {
                 this._turret = new objects.Turret("turretBase", "Rocket", this.x, this.y);
+                this._buildSound = createjs.Sound.play("construction");
                 gameScene.addChild(this._turret);
                 this._turret.update();
                 this._reset();
