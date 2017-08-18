@@ -156,6 +156,7 @@ var objects;
             if (gameScene.cashCounterAmt >= this._upgradeCost) {
                 this.upgrade();
             }
+            gameScene.updateInfo(this.turretType + " Turret", this._turretLvl, this.damage);
         };
         Turret.prototype._sellBtn_Click = function (event) {
             gameScene.removeChild(this);
@@ -172,7 +173,6 @@ var objects;
             this._range.graphics.drawCircle(this.x, this.y, this.getBounds().width + 40);
             this._shootingRange += 10;
             gameScene.cashCounterAmt -= this._upgradeCost;
-            gameScene.updateInfo(this.turretType + " Turret", this._turretLvl, this.damage);
         };
         return Turret;
     }(createjs.Sprite));

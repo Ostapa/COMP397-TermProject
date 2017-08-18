@@ -180,7 +180,7 @@ module objects {
             if(gameScene.cashCounterAmt >= this._upgradeCost) {
                 this.upgrade();
             }
-            
+            gameScene.updateInfo(this.turretType + " Turret", this._turretLvl, this.damage);
         }
 
         private _sellBtn_Click(event:MouseEvent) {
@@ -199,7 +199,6 @@ module objects {
             this._range.graphics.drawCircle(this.x, this.y, this.getBounds().width + 40);
             this._shootingRange += 10;
             gameScene.cashCounterAmt -= this._upgradeCost;
-            gameScene.updateInfo(this.turretType + " Turret", this._turretLvl, this.damage);
         }
         
     }

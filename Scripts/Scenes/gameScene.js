@@ -107,7 +107,7 @@ var Scenes;
         GameScene.prototype.updateInfo = function (type, hpOrLvl, damage) {
             this.objectType.text = "Type: " + type;
             ;
-            this.objectHP.text = "HP: " + hpOrLvl.toString();
+            this.objectHP.text = "Level: " + hpOrLvl.toString();
             this.objectDamage.text = "Damage: " + damage.toString();
             this.objectType.visible = true;
             this.objectHP.visible = true;

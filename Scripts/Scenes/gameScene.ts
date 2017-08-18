@@ -138,7 +138,7 @@ module Scenes {
 
         public updateInfo(type:string, hpOrLvl:number, damage:number):void {
             this.objectType.text = "Type: " + type;;
-            this.objectHP.text = "HP: " + hpOrLvl.toString();
+            this.objectHP.text = "Level: " + hpOrLvl.toString();
             this.objectDamage.text = "Damage: " + damage.toString();
             this.objectType.visible = true;
             this.objectHP.visible = true;
