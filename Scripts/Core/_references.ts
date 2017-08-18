@@ -22,6 +22,8 @@
 /// <reference path = "../Scenes/overScene.ts"/>
 /// <reference path = "../Scenes/level1.ts"/>
 /// <reference path = "../Scenes/level2.ts"/>
+/// <reference path = "../Scenes/level3.ts"/>
+/// <reference path = "../Scenes/wonScene.ts"/>
 /// <reference path = "../Scenes/settingsScene.ts"/>
 
 /// <reference path = "../Managers/collisions.ts"/>

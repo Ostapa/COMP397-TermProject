@@ -23,6 +23,7 @@ var objects;
             _this.width = _this.getBounds().width;
             _this.height = _this.getBounds().height;
             _this.position = new objects.Vector(x, y);
+            _this.type = path;
             return _this;
         }
         Bullet.prototype.update = function () {

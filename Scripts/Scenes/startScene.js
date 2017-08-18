@@ -35,7 +35,7 @@ var Scenes;
             changeScene();
         };
         StartScene.prototype._playBtn_Click = function (event) {
-            scene = config.Scene.LEVEL_1;
+            scene = config.Scene.LEVEL_3;
             changeScene();
         };
         return StartScene;

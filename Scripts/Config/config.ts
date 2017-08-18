@@ -5,8 +5,10 @@ module config {
         public static CONTROLS_SCENE: number = 1;
         public static LEVEL_1: number = 2;
         public static LEVEL_2: number = 3;
-        public static OVER_SCENE: number = 4;
-        public static PAUSE_SCENE: number = 5;
+        public static LEVEL_3: number = 4;
+        public static OVER_SCENE: number = 5;
+        public static PAUSE_SCENE: number = 6;
+        public static WON: number = 7;
     }
 
     // Screen Constants

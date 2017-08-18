@@ -25,6 +25,7 @@ module Scenes {
         public waveStart:number;
         public onPause:boolean = false;
         public waveStartSound:createjs.AbstractSoundInstance;
+        public zombieDeath:createjs.AbstractSoundInstance;
 
 
         

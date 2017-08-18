@@ -21,16 +21,16 @@ module objects {
 
         public drawBar():void{
             this._outline = new createjs.Shape();
-            this._outline.graphics.beginFill(this._strokeColor);
+            this._outline.graphics.beginFill("#000");
             this._outline.graphics.drawRect(0,0, this.width, this.height);
             this._bar = new createjs.Shape();
             this._bar.graphics.beginFill(this._fillColor);
             this._bar.graphics.drawRect(0,0, this.width, this.height);
             this._bar.scaleX = 0;
             this._logo = new createjs.Bitmap("../../Assets/Images/logo.png");
-            this._logo.x =  150;
+            this._logo.x =  130;
             this._logo.y = -175;
-            this._percentage = new createjs.Text("0 %", "25px Arial", "#c6bf9c");
+            this._percentage = new createjs.Text("0 %", "25px Arial", "#000");
             this._percentage.y = 5;
             this._percentage.x = 175;
             this.addChild(this._outline, this._bar, this._logo, this._percentage);

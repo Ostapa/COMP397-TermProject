@@ -25,6 +25,7 @@ var startScene:Scenes.StartScene;
 var controlsScene:Scenes.ControlsScene;
 var gameScene:Scenes.GameScene;
 var overScene:Scenes.OverScene;
+var wonScene:Scenes.WonScene;
 
 var turretSprite = {
     "images": [
@@ -145,6 +146,7 @@ var assetData:objects.Asset[] = [
     {id:"bullet", src:"../../Assets/Images/oneBullet.png"},
     {id:"mapOne", src:"../../Assets/Maps/map_level_1.jpeg"},
     {id:"mapTwo", src:"../../Assets/Maps/map_level_2.jpg"},
+    {id:"mapThree", src:"../../Assets/Maps/map_level_3.jpg"},
     {id:"backSound", src:"../../Assets/Sounds/background.ogg"},
     {id:"backSound1", src:"../../Assets/Sounds/background1.ogg"},
     {id:"backSound2", src:"../../Assets/Sounds/background2.ogg"},
@@ -155,7 +157,10 @@ var assetData:objects.Asset[] = [
     {id:"gunShot", src:"../../Assets/Sounds/gunShot.ogg"},
     {id:"electroShot", src:"../../Assets/Sounds/electroShot.ogg"},
     {id:"construction", src:"../../Assets/Sounds/construction.ogg"},
-    {id:"boss", src:"../../Assets/Images/Zombies/bossDown_1.png"}
+    {id:"boss", src:"../../Assets/Images/Zombies/bossDown_1.png"},
+    {id:"sellBtn", src:"../../Assets/Images/sell.png"},
+    {id:"noUpgradeBtn", src:"../../Assets/Images/noUpgrade.png"},
+    {id:"zombieShort", src:"../../Assets/Sounds/zombieShort.ogg"}
 ];
 // function to preload assets
 function init():void {
@@ -175,7 +180,7 @@ function preload() {
     stage = new createjs.Stage(canvas); // passing canvas to stage
     assets = new createjs.LoadQueue();
     assets.installPlugin(createjs.Sound);
-    preloader = new objects.Preloader("#4c6051", "#000");
+    preloader = new objects.Preloader("#7c0505", "#000");
     preloader.x = (config.Screen.WIDTH / 2) - (preloader.width / 2);
     preloader.y = (config.Screen.HEIGHT / 2) - (preloader.height / 2);
     assets.on("progress", updatePreload, this);
@@ -222,10 +227,20 @@ function changeScene(): void {
             gameScene = new Scenes.Level2();
             currentScene = gameScene;
             break;
+        case config.Scene.LEVEL_3:
+            stage.removeAllChildren();
+            gameScene = new Scenes.Level3();
+            currentScene = gameScene;
+            break;
         case config.Scene.OVER_SCENE:
             stage.removeAllChildren();
             overScene = new Scenes.OverScene();
             currentScene = overScene;
+            break;
+        case config.Scene.WON:
+            stage.removeAllChildren();
+            wonScene = new Scenes.WonScene();
+            currentScene = wonScene;
             break;
     }
 }

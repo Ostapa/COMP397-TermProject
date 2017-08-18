@@ -13,7 +13,7 @@ var Scenes;
     var Level2 = (function (_super) {
         __extends(Level2, _super);
         function Level2() {
-            var _this = _super.call(this, "mapTwo", "levelOne_s") || this;
+            var _this = _super.call(this, "mapTwo", "backSound3") || this;
             _this._currentTime = createjs.Ticker.getTime();
             _this._zombiesAdded = 0;
             _this._deadZombies = 0;
@@ -59,6 +59,7 @@ var Scenes;
                         this._turretArea1._turret.zombieToFollow = this._zombies[i];
                         this._turretArea1._turret.calculateAngle();
                         this._turretArea1._turret.shoot(this._zombies[i].x, this._zombies[i].y);
+                        this._turretArea1._turret.checkCollision();
                         this._turretArea1._turret._bullet.update();
                         if (this._turretArea1._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea1._turret.zombieToFollow), 1);
@@ -78,6 +79,7 @@ var Scenes;
                         this._turretArea2._turret.zombieToFollow = this._zombies[i];
                         this._turretArea2._turret.calculateAngle();
                         this._turretArea2._turret.shoot(this._zombies[i].x, this._zombies[i].y);
+                        this._turretArea2._turret.checkCollision();
                         this._turretArea2._turret._bullet.update();
                         if (this._turretArea2._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea2._turret.zombieToFollow), 1);
@@ -97,6 +99,7 @@ var Scenes;
                         this._turretArea3._turret.zombieToFollow = this._zombies[i];
                         this._turretArea3._turret.calculateAngle();
                         this._turretArea3._turret.shoot(this._zombies[i].x, this._zombies[i].y);
+                        this._turretArea3._turret.checkCollision();
                         this._turretArea3._turret._bullet.update();
                         if (this._turretArea3._turret.zombieToFollow.isDead) {
                             this._zombies.splice(this._zombies.indexOf(this._turretArea3._turret.zombieToFollow), 1);

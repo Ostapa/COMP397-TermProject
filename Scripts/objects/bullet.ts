@@ -5,6 +5,7 @@ module objects {
         public position:Vector;
         public height:number;
         public width:number;
+        public type:string;
         // constructor
         constructor(path: string, x:number, y: number) {
             super(turretTexture, path);
@@ -15,6 +16,7 @@ module objects {
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.position = new Vector(x, y);
+            this.type = path;
         }
        public update():void{
             this.position = new Vector(this.x, this.y);

@@ -37,12 +37,12 @@ var objects;
         Zombie.prototype.start = function () {
             switch (this._zombieType) {
                 case "walker":
-                    this.health = 50;
-                    this.rewardPoints = 5;
+                    this.health = 60;
+                    this.rewardPoints = 1;
                     break;
                 case "mumbler":
-                    this.health = 100;
-                    this.rewardPoints = 10;
+                    this.health = 120;
+                    this.rewardPoints = 3;
                     break;
             }
             // Event listeners
