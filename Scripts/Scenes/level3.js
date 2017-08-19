@@ -44,32 +44,32 @@ var Scenes;
             this._zombies2 = new Array();
             this._zombies3 = new Array();
             // adding turet areas to the map
-            this._turretArea = new objects.TurretArea("turretArea", 180, 135);
-            this._turretArea2 = new objects.TurretArea("turretArea", 465, 140);
-            this._turretArea3 = new objects.TurretArea("turretArea", 465, 140);
-            this._turretArea4 = new objects.TurretArea("turretArea", 465, 140);
+            this._turretArea = new objects.TurretArea("turretArea", 140, 130);
+            this._turretArea2 = new objects.TurretArea("turretArea", 300, 125);
+            this._turretArea3 = new objects.TurretArea("turretArea", 490, 130);
+            this._turretArea4 = new objects.TurretArea("turretArea", 235, 280);
             for (var i = 0; i < 10; i++) {
                 if (i < 5) {
-                    this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
+                    this._zombies.push(new objects.Zombie("walkerLeft", "walker", 640, 260));
                 }
                 else {
-                    this._zombies.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
+                    this._zombies.push(new objects.Zombie("mumblerLeft", "mumbler", 640, 260));
                 }
             }
             for (var i = 0; i < 15; i++) {
                 if (i < 5) {
-                    this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
+                    this._zombies.push(new objects.Zombie("grunterLeft", "grunter", 640, 260));
                 }
                 else {
-                    this._zombies.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
+                    this._zombies.push(new objects.Zombie("hurlerLeft", "hurler", 640, 260));
                 }
             }
             for (var i = 0; i < 25; i++) {
                 if (i < 5) {
-                    this._zombies.push(new objects.Zombie("walkerRight", "walker", 0, 260));
+                    this._zombies.push(new objects.Zombie("yelperLeft", "yelper", 640, 260));
                 }
                 else {
-                    this._zombies.push(new objects.Zombie("mumblerRight", "mumbler", 0, 260));
+                    this._zombies.push(new objects.Zombie("chaserLeft", "chaser", 640, 260));
                 }
             }
             this.closestZombie = this._zombies[0];
@@ -83,7 +83,7 @@ var Scenes;
                 scene = config.Scene.WON;
                 changeScene();
             }
-            if (this.closestZombie.x >= 640 && this._zombies.length != 0) {
+            if (this.closestZombie.y >= 362 && this._zombies.length != 0) {
                 this.lifeCounterAmt--;
                 this._zombies.shift();
                 this.closestZombie = this._zombies[0];
@@ -238,7 +238,7 @@ var Scenes;
                     }
                 }
                 if (zombie.added) {
-                    zombie.lvl2Map();
+                    zombie.lvl3Map();
                     zombie.update();
                     _this.addChild(zombie.healthBar, zombie.actualHealth);
                 }

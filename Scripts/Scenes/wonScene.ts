@@ -14,7 +14,7 @@ module Scenes {
             // then play game over background music infinetely
             
             this._background = new createjs.Bitmap(assets.getResult("instructionsBackground"));
-            this._message = new objects.Label("GAME OVER", "60px Arial", "#c6bf9c", config.Screen.CENTER_X, config.Screen.CENTER_Y)
+            this._message = new objects.Label("YOU WON!", "60px Arial", "#c6bf9c", config.Screen.CENTER_X, config.Screen.CENTER_Y)
             this._playAgainBtn = new objects.Button("mainMenuBtn", 300, 300);
             
             // Event listeners

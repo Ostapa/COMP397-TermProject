@@ -49,9 +49,9 @@ module Scenes {
             // creating an array of zombies for lvl 2
             for(var i:number = 0; i < 20; i++) {
                 if(i < 5) {
-                    this._zombies2.push(new objects.Zombie("walkerRight","walker", 0, 115));
+                    this._zombies2.push(new objects.Zombie("grunterRight","grunter", 0, 115));
                 } else {
-                    this._zombies2.push(new objects.Zombie("mumblerRight", "mumbler", 0, 115));
+                    this._zombies2.push(new objects.Zombie("hurlerRight", "hurler", 0, 115));
                 }
             }
 

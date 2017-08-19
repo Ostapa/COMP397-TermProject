@@ -47,29 +47,45 @@ module objects {
                     this.rewardPoints = 1;
                     break;
                 case "mumbler":
-                    this.health = 120;
+                    this.health = 90;
                     this.rewardPoints = 3;
+                    break;
+                case "grunter":
+                    this.health = 120;
+                    this.rewardPoints = 5;
+                    break;
+                case "hurler":
+                    this.health = 150;
+                    this.rewardPoints = 7;
+                    break;
+                case "chaser":
+                    this.health = 150;
+                    this.rewardPoints = 7;
+                    break;
+                case "yelper":
+                    this.health = 175;
+                    this.rewardPoints = 10;
                     break;
             }
 
             // Event listeners
-            this.on("click", this._zombie_Click, this);
+            this.on("click", this._zombie_Click, this) 
 
         }
 
         public move(direction:number, destX:number, destY:number):void {
             switch(direction) {
                 case 0:
-                    createjs.Tween.get(this).to({y:destY}, Math.abs((this.y - destY) * 40));
+                    createjs.Tween.get(this).to({y:destY}, Math.abs((this.y - destY) * 30));
                     break;
                 case 2:
-                    createjs.Tween.get(this).to({y:destY}, Math.abs((this.y - destY) * 40));
+                    createjs.Tween.get(this).to({y:destY}, Math.abs((this.y - destY) * 30));
                     break;
                 case 1:
-                    createjs.Tween.get(this).to({x: destX}, Math.abs((this.x - destX) * 40));
+                    createjs.Tween.get(this).to({x: destX}, Math.abs((this.x - destX) * 30));
                     break;
                 case 3:
-                    createjs.Tween.get(this).to({x: destX}, Math.abs((this.x - destX) * 40));
+                    createjs.Tween.get(this).to({x: destX}, Math.abs((this.x - destX) * 30));
                     break;
             }
         }
@@ -123,19 +139,64 @@ module objects {
                             this.gotoAndPlay("mumblerLeft");
                             break;
                     }
-                case "gunter":
+                case "grunter":
                     switch(dir) {
                         case 0:
-                            this.gotoAndPlay("mumblerTop");
+                            this.gotoAndPlay("grunterTop");
                             break;
                         case 1:
-                            this.gotoAndPlay("mumblerRight");
+                            this.gotoAndPlay("grunterRight");
                             break;
                         case 2:
-                            this.gotoAndPlay("mumblerDown");
+                            this.gotoAndPlay("grunterDown");
                             break;
                         case 3:
-                            this.gotoAndPlay("mumblerLeft");
+                            this.gotoAndPlay("grunterLeft");
+                            break;
+                    }
+                case "hurler":
+                    switch(dir) {
+                        case 0:
+                            this.gotoAndPlay("hurlerTop");
+                            break;
+                        case 1:
+                            this.gotoAndPlay("hurlerRight");
+                            break;
+                        case 2:
+                            this.gotoAndPlay("hurlerDown");
+                            break;
+                        case 3:
+                            this.gotoAndPlay("hurlerLeft");
+                            break;
+                    }
+                case "chaser":
+                    switch(dir) {
+                        case 0:
+                            this.gotoAndPlay("chaserTop");
+                            break;
+                        case 1:
+                            this.gotoAndPlay("chaserRight");
+                            break;
+                        case 2:
+                            this.gotoAndPlay("chaserDown");
+                            break;
+                        case 3:
+                            this.gotoAndPlay("chaserLeft");
+                            break;
+                    }
+                case "yelper":
+                    switch(dir) {
+                        case 0:
+                            this.gotoAndPlay("yelperTop");
+                            break;
+                        case 1:
+                            this.gotoAndPlay("yelperRight");
+                            break;
+                        case 2:
+                            this.gotoAndPlay("yelperDown");
+                            break;
+                        case 3:
+                            this.gotoAndPlay("yelperLeft");
                             break;
                     }
             } 
@@ -224,6 +285,69 @@ module objects {
                     this.changeDirection(this._zombieType, config.Direction.DOWN)
                 }
                 this.move(config.Direction.DOWN, 415, 362);
+            }
+        }
+
+        public lvl3Map():void{
+            if(this.x > 395 && this.y == 260) {
+                this.move(config.Direction.LEFT, 395, 282);
+                if(this.x == 640) {
+                    this.changeDirection(this._zombieType,config.Direction.LEFT)
+                } 
+            }
+            if(this.x == 395 && this.y > 204) {
+                if(this.y == 260) {
+                    this.changeDirection(this._zombieType, config.Direction.UP);
+                }
+                this.move(config.Direction.UP, 395, 204);
+            }
+            if(this.x < 445 && this.y == 204) {
+                if(this.x == 395) {
+                    this.changeDirection(this._zombieType, config.Direction.RIGHT)
+                }
+                this.move(config.Direction.RIGHT, 445, 204)
+            }
+            if(this.x == 445 && this.y > 154) {
+                if(this.y == 204) {
+                    this.changeDirection(this._zombieType, config.Direction.UP)
+                }
+                this.move(config.Direction.UP, 445, 154)
+            }
+            if(this.x > 170 && this.y == 154) {
+                if(this.x == 445) {
+                    this.changeDirection(this._zombieType, config.Direction.LEFT)
+                }
+                this.move(config.Direction.LEFT, 170, 154)
+            }
+            if(this.x == 170 && this.y < 310) {
+                if(this.y == 154) {
+                    this.changeDirection(this._zombieType, config.Direction.DOWN)
+                }
+                this.move(config.Direction.DOWN, 170, 310)
+            }
+            if(this.x < 540 && this.y == 310) {
+                if(this.x == 170) {
+                    this.changeDirection(this._zombieType, config.Direction.RIGHT)
+                }
+                this.move(config.Direction.RIGHT, 540, 310)
+            }
+            if(this.x == 540 && this.y > 55) {
+                if(this.y == 310) {
+                    this.changeDirection(this._zombieType, config.Direction.UP)
+                }
+                this.move(config.Direction.UP, 540, 55)
+            }
+            if(this.x > 70 && this.y == 55) {
+                if(this.x == 540) {
+                    this.changeDirection(this._zombieType, config.Direction.LEFT)
+                }
+                this.move(config.Direction.LEFT, 70, 55)
+            }
+            if(this.x == 70 && this.y < 362) {
+                if(this.y == 55) {
+                    this.changeDirection(this._zombieType, config.Direction.DOWN)
+                }
+                this.move(config.Direction.DOWN, 70, 362)
             }
         }
 
